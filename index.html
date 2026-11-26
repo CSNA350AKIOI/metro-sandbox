@@ -398,31 +398,33 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    padding-bottom: 8px;
-    margin-bottom: 8px;
+    padding: 8px 10px;
+    margin-bottom: 0;
     border-bottom: 1px solid var(--border);
   }
   .detail-back-btn {
-    border: 1px solid var(--border-strong);
-    background: var(--bg-input);
+    border: none;
+    background: transparent;
     color: var(--text-main);
-    border-radius: 6px;
-    padding: 3px 7px;
-    font-size: 11.5px;
-    font-weight: 600;
+    border-radius: 4px;
+    padding: 2px 5px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 3px;
+    justify-content: center;
     flex-shrink: 0;
   }
-  .detail-back-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .detail-back-btn:hover { color: var(--accent); background: var(--accent-bg); }
   .detail-section {
-    background: var(--bg-input);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px;
-    margin-bottom: 8px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 9px 10px;
+    margin-bottom: 0;
   }
   .detail-sec-title {
     font-size: 11px;
@@ -458,42 +460,45 @@
   .chip.active { background: var(--accent-bg); color: var(--accent); }
 
   .input-sm, .select-sm {
-    background: var(--bg-input);
-    border: 1px solid var(--border-strong);
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid var(--border-strong);
     color: var(--text-main);
-    padding: 3px 6px;
-    border-radius: 5px;
+    padding: 3px 2px;
+    border-radius: 0;
     font-size: 11.5px;
     outline: none;
   }
 
-  .input-sm:focus, .select-sm:focus { border-color: var(--accent); }
+  .input-sm:focus, .select-sm:focus { border-bottom-color: var(--accent); }
 
-  /* Minimal Bottom-Left & Bottom-Right HUD */
-  .hud-bottom {
+  /* Docked Flat Bottom Bar (matches left rail style, never floats or overlaps) */
+  .hud-bottom-dock {
     position: absolute;
-    left: 10px;
-    bottom: 10px;
-    z-index: 12;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .hud-bottom-center {
-    position: absolute;
-    left: 50%;
-    bottom: 10px;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 36px;
     z-index: 14;
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 4px 8px;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0 10px;
     background: var(--bg-panel-solid);
-    border: 1px solid var(--border-strong);
-    border-radius: 8px;
-    box-shadow: var(--shadow);
+    border-top: 1px solid var(--border);
+  }
+  .hud-bottom {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .hud-bottom-center {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
   }
 
   .hud-bottom-right {
@@ -507,8 +512,9 @@
   }
 
   .line-settings {
-    padding: 6px 8px;
+    padding: 8px 10px;
     border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     background: var(--bg-panel);
     display: flex;
     flex-direction: column;
@@ -650,17 +656,19 @@
   .sim-metrics {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 7px;
-    padding: 4px 7px;
-    border-radius: 6px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
+    margin-top: 4px;
+    padding: 2px 0;
     font-size: 11px;
     color: var(--text-muted);
     font-variant-numeric: tabular-nums;
   }
-
+  .sim-metrics > span {
+    flex: 1;
+    text-align: center;
+  }
+  .sim-metrics > span + span {
+    border-left: 1px solid var(--border);
+  }
   .sim-metrics strong { color: var(--text-main); }
 
   .list-head { display: flex; align-items: center; justify-content: space-between; }
@@ -686,11 +694,11 @@
   .tree-wrap {
     flex: 1 1 0;
     min-height: 0;
-    overflow-y: scroll;
-    padding: 8px;
+    overflow-y: auto;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 0;
     scrollbar-width: thin;
     scrollbar-color: var(--scroll-thumb) var(--scroll-track);
   }
@@ -721,9 +729,10 @@
 
   .line-group {
     flex-shrink: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
   }
 
   .line-head {
@@ -731,9 +740,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 4px;
-    padding: 6px 7px;
+    padding: 8px 10px;
     border-bottom: 1px solid var(--border);
+    cursor: pointer;
   }
+  .line-head:hover { background: rgba(148, 163, 184, 0.06); }
 
   .line-group.collapsed .line-head { border-bottom: none; }
   .line-group.collapsed .line-routes { display: none; }
@@ -767,25 +778,25 @@
   .collapse-caret.collapsed { transform: rotate(-90deg); }
 
   .line-routes {
-    padding: 5px;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    max-height: 220px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+    gap: 0;
+    max-height: none;
+    overflow: visible;
   }
 
   .route-item {
     flex-shrink: 0;
-    background: var(--bg-subcard);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 6px 7px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 7px 10px 7px 22px;
   }
-
-  .route-item.selected { border-color: var(--accent); }
+  .route-item:last-child { border-bottom: none; }
+  .route-item:hover { background: rgba(148, 163, 184, 0.06); }
+  .route-item.selected { background: var(--accent-bg); }
   .route-item.collapsed .route-body { display: none; }
 
   .route-top { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
@@ -801,14 +812,13 @@
   .station-chain-wrap {
     margin-top: 6px;
     padding-top: 6px;
-    border-top: 1px dashed var(--border-strong);
+    border-top: 1px solid var(--border);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 4px;
-    max-height: 96px;
-    overflow-y: auto;
-    scrollbar-width: thin;
+    max-height: none;
+    overflow: visible;
   }
 
   .station-box {
@@ -828,10 +838,10 @@
 
   .draft-box {
     flex-shrink: 0;
-    background: var(--accent-bg);
-    border: 1px dashed var(--accent);
-    border-radius: 8px;
-    padding: 7px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 8px 10px;
   }
 
   .draft-nodes {
@@ -839,8 +849,8 @@
     flex-wrap: wrap;
     gap: 4px;
     margin: 6px 0;
-    max-height: 88px;
-    overflow-y: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .loop-chip {
@@ -1053,29 +1063,31 @@
   <div class="workspace">
     <div class="canvas-wrap" id="canvasWrap">
       <canvas id="metroCanvas"></canvas>
-      <div class="hud-bottom">
-        <div class="hud-flyout-wrap" id="colorModeFlyoutWrap">
-          <button class="hud-pill toggle-pill active" id="btnColorModeFlyout" title="切换线路色 / 交路观察 / 隐藏颜色">线路色 ▾</button>
-          <div class="hud-flyout-menu" id="colorModeMenu">
-            <button class="drop-item active" data-color-opt="line">默认模式（线路色）</button>
-            <button class="drop-item" data-color-opt="route">交路观察（交路色）</button>
-            <button class="drop-item" data-color-opt="off">隐藏线路颜色</button>
+      <div class="hud-bottom-dock" id="hudBottomDock">
+        <div class="hud-bottom" id="hudBottomLeft">
+          <div class="hud-flyout-wrap" id="colorModeFlyoutWrap">
+            <button class="hud-pill toggle-pill active" id="btnColorModeFlyout" title="切换线路色 / 交路观察 / 隐藏颜色">线路色 ▾</button>
+            <div class="hud-flyout-menu" id="colorModeMenu">
+              <button class="drop-item active" data-color-opt="line">默认模式（线路色）</button>
+              <button class="drop-item" data-color-opt="route">交路观察（交路色）</button>
+              <button class="drop-item" data-color-opt="off">隐藏线路颜色</button>
+            </div>
           </div>
+          <button class="hud-pill toggle-pill active" id="btnToggleBlocks" title="显示/隐藏移动闭塞分区">闭塞</button>
+          <button class="hud-pill alert-pill" id="btnDiagAlerts" style="display:none">0 告警</button>
+          <div class="hud-pill" id="hudZoom">100%</div>
         </div>
-        <button class="hud-pill toggle-pill active" id="btnToggleBlocks" title="显示/隐藏移动闭塞分区">闭塞</button>
-        <button class="hud-pill alert-pill" id="btnDiagAlerts" style="display:none">0 告警</button>
-        <div class="hud-pill" id="hudZoom">100%</div>
-      </div>
 
-      <div class="hud-bottom-center" id="simStatusBar">
-        <button class="btn btn-primary btn-xs" id="btnPlayPause" title="空格键切换暂停/运行">暂停</button>
-        <div style="display:flex;align-items:center;gap:6px;padding:0 4px;">
-          <span style="font-size:11px;color:var(--text-muted);white-space:nowrap;">倍速</span>
-          <input type="range" id="simSpeedSlider" min="0.5" max="10" step="0.5" value="1" title="调整仿真倍速 (0.5x - 10x)" style="width:150px;accent-color:var(--accent);cursor:pointer;">
-          <strong id="simSpeedVal" style="font-size:11px;color:var(--text-main);min-width:34px;text-align:right;font-variant-numeric:tabular-nums;">1.0x</strong>
+        <div class="hud-bottom-center" id="simStatusBar">
+          <button class="btn btn-primary btn-xs" id="btnPlayPause" title="空格键切换暂停/运行">暂停</button>
+          <div style="display:flex;align-items:center;gap:6px;padding:0 2px;">
+            <span style="font-size:11px;color:var(--text-muted);white-space:nowrap;">倍速</span>
+            <input type="range" id="simSpeedSlider" min="0.5" max="10" step="0.5" value="1" title="调整仿真倍速 (0.5x - 10x)" style="width:152px;accent-color:var(--accent);cursor:pointer;">
+            <strong id="simSpeedVal" style="font-size:11px;color:var(--text-main);min-width:34px;text-align:right;font-variant-numeric:tabular-nums;">1.0x</strong>
+          </div>
+          <button class="btn btn-xs" id="btnResetTrains" title="重置所有列车位置">重置</button>
+          <span style="font-size:11px;color:var(--text-muted);font-variant-numeric:tabular-nums;padding:0 2px;"><strong id="simClock" style="color:var(--text-main);">00:00</strong></span>
         </div>
-        <button class="btn btn-xs" id="btnResetTrains" title="重置所有列车位置">重置</button>
-        <span style="font-size:11px;color:var(--text-muted);font-variant-numeric:tabular-nums;padding:0 2px;"><strong id="simClock" style="color:var(--text-main);">00:00</strong></span>
       </div>
 
       <div class="diag-panel" id="diagPanel"></div>
@@ -2194,13 +2206,18 @@
     getSnapPoints(p) {
       const { nx, ny } = this.getBasis(p);
       const halfW = p.width / 2;
-      return [-1, 1].map(side => ({
-        platformId: p.id,
-        side,
-        x: p.cx + nx * halfW * side,
-        y: p.cy + ny * halfW * side,
-        occupied: p.sides[String(side)].type !== null
-      }));
+      return [-1, 1].map(side => {
+        const info = p.sides[String(side)];
+        return {
+          platformId: p.id,
+          side,
+          x: p.cx + nx * halfW * side,
+          y: p.cy + ny * halfW * side,
+          occupied: info.type !== null,
+          sideType: info.type,
+          refId: info.refId
+        };
+      });
     }
 
     findPlatformAt(wx, wy, preferredId = null) {
@@ -2253,6 +2270,15 @@
                 }
               });
             }
+            // Any other platform bound to this exact same track edge MUST move together!
+            for (const other of this.platforms.values()) {
+              if (visited.has(other.id)) continue;
+              if ((other.sides['-1'].type === 'track' && other.sides['-1'].refId === info.refId) ||
+                  (other.sides['1'].type === 'track' && other.sides['1'].refId === info.refId)) {
+                visited.add(other.id);
+                queue.push(other);
+              }
+            }
           }
         });
       }
@@ -2267,22 +2293,50 @@
           const sib = this.platforms.get(info.refId);
           if (sib) sib.sides[String(-side)] = { type: null, refId: null };
         } else if (info.type === 'track' && info.refId) {
-          const edge = this.graph.edges.get(info.refId);
-          if (edge) {
-            edge.isStationTrack = false;
-            edge.platformId = null;
-            edge.platformLength = 0;
-            [edge.from, edge.to].forEach(nid => {
-              const nd = this.graph.getNode(nid);
-              if (nd && !this.graph.getIncidentEdges(nid).some(ie => ie.isStationTrack)) {
-                nd.isStationEnd = false;
-                delete nd.platformId;
-              }
-            });
-          }
+          this._releaseTrackIfUnused(info.refId, platformId);
         }
       });
       this.platforms.delete(platformId);
+    }
+
+    _releaseTrackIfUnused(edgeId, excludingPlatId) {
+      const edge = this.graph.edges.get(edgeId);
+      if (!edge) return;
+      let surviving = null;
+      for (const other of this.platforms.values()) {
+        if (other.id === excludingPlatId) continue;
+        if ((other.sides['-1'].type === 'track' && other.sides['-1'].refId === edgeId) ||
+            (other.sides['1'].type === 'track' && other.sides['1'].refId === edgeId)) {
+          surviving = other;
+          break;
+        }
+      }
+      if (surviving) {
+        edge.platformId = surviving.id;
+        edge.platformLength = surviving.length;
+        return;
+      }
+      edge.isStationTrack = false;
+      edge.platformId = null;
+      edge.platformLength = 0;
+      [edge.from, edge.to].forEach(nid => {
+        const nd = this.graph.getNode(nid);
+        if (nd && !this.graph.getIncidentEdges(nid).some(ie => ie.isStationTrack)) {
+          nd.isStationEnd = false;
+          delete nd.platformId;
+        }
+      });
+    }
+
+    unbindPlatformTrack(platformId, side) {
+      const p = this.platforms.get(platformId);
+      if (!p) return null;
+      const info = p.sides[String(side)];
+      if (!info || info.type !== 'track' || !info.refId) return null;
+      const edgeId = info.refId;
+      p.sides[String(side)] = { type: null, refId: null };
+      this._releaseTrackIfUnused(edgeId, platformId);
+      return { platform: p, edgeId };
     }
 
     findSnapPointAt(wx, wy, radius = 13) {
@@ -2311,6 +2365,11 @@
         base.angleDeg,
         newName || (base.name + '·换乘侧')
       );
+      created.zLayer = base.zLayer || 0;
+      created.overEdgeIds = [...(base.overEdgeIds || [])];
+      created.underEdgeIds = [...(base.underEdgeIds || [])];
+      created.overPlatIds = [...(base.overPlatIds || [])];
+      created.underPlatIds = [...(base.underPlatIds || [])];
       base.sides[String(side)] = { type: 'platform', refId: created.id };
       created.sides[String(-side)] = { type: 'platform', refId: base.id };
       return created;
@@ -2351,7 +2410,7 @@
         platformLength: p.length
       });
       p.sides[String(side)] = { type: 'track', refId: edge.id };
-      return { edge, n1, n2 };
+      return { edge, n1, n2, platform: p };
     }
 
     getConnectedPlatformIds(platformId) {
@@ -2365,6 +2424,15 @@
           if (info.type === 'platform' && info.refId && !visited.has(info.refId)) {
             visited.add(info.refId);
             queue.push(info.refId);
+          } else if (info.type === 'track' && info.refId) {
+            for (const other of this.platforms.values()) {
+              if (visited.has(other.id)) continue;
+              if ((other.sides['-1'].type === 'track' && other.sides['-1'].refId === info.refId) ||
+                  (other.sides['1'].type === 'track' && other.sides['1'].refId === info.refId)) {
+                visited.add(other.id);
+                queue.push(other.id);
+              }
+            }
           }
         });
       }
@@ -2376,6 +2444,8 @@
       const nx = -ty, ny = tx;
       for (const other of this.platforms.values()) {
         if (ignoreIds.has(other.id)) continue;
+        // Only parallel / co-directional platforms can physically overlap; angled crossings are resolved via elevation
+        if (Math.abs(Math.sin(rad - other.rad)) >= 0.15) continue;
         // Project center delta onto candidate platform local frame
         const dx = other.cx - cx;
         const dy = other.cy - cy;
@@ -2388,55 +2458,233 @@
       return null;
     }
 
-    // Detect if platform `p` spatially overlaps any other non-sibling platform OR any non-bound track edge
+    // Exact segment-vs-OBB overlap test + station-group elevation sync
+    _segHitsBox(ax, ay, bx, by, cx, cy, rad, halfL, halfW) {
+      const tx = Math.cos(rad), ty = Math.sin(rad);
+      const nx = -ty, ny = tx;
+      const toLocal = (wx, wy) => {
+        const dx = wx - cx, dy = wy - cy;
+        return { x: dx * tx + dy * ty, y: dx * nx + dy * ny };
+      };
+      const p1 = toLocal(ax, ay);
+      const p2 = toLocal(bx, by);
+      let t0 = 0, t1 = 1;
+      const dx = p2.x - p1.x, dy = p2.y - p1.y;
+      const clip = (p, q) => {
+        if (Math.abs(p) < 1e-8) return q >= 0;
+        const r = q / p;
+        if (p < 0) { if (r > t1) return false; if (r > t0) t0 = r; }
+        else { if (r < t0) return false; if (r < t1) t1 = r; }
+        return true;
+      };
+      return clip(-dx, p1.x + halfL) && clip(dx, halfL - p1.x) && clip(-dy, p1.y + halfW) && clip(dy, halfW - p1.y) && t0 <= t1;
+    }
+
     findPlatformOverlaps(p) {
       if (!p) return { platforms: [], edges: [] };
       const ignoreIds = this.getConnectedPlatformIds(p.id);
       const hitPlatforms = [];
       const hitEdges = [];
-      const tx = Math.cos(p.rad), ty = Math.sin(p.rad);
-      const nx = -ty, ny = tx;
       const halfL = p.length / 2 - 2;
       const halfW = p.width / 2 - 1;
-      const ptInPlat = (wx, wy) => {
-        const dx = wx - p.cx, dy = wy - p.cy;
-        const lx = Math.abs(dx * tx + dy * ty);
-        const ly = Math.abs(dx * nx + dy * ny);
-        return lx < halfL && ly < halfW;
+
+      const boxCorners = (pl) => {
+        const tx = Math.cos(pl.rad), ty = Math.sin(pl.rad);
+        const nx = -ty, ny = tx;
+        const hl = pl.length / 2 - 2, hw = pl.width / 2 - 1;
+        return [
+          { x: pl.cx - tx * hl - nx * hw, y: pl.cy - ty * hl - ny * hw },
+          { x: pl.cx + tx * hl - nx * hw, y: pl.cy + ty * hl - ny * hw },
+          { x: pl.cx + tx * hl + nx * hw, y: pl.cy + ty * hl + ny * hw },
+          { x: pl.cx - tx * hl + nx * hw, y: pl.cy - ty * hl + ny * hw }
+        ];
       };
 
-      // 1. Platform vs Platform
+      // 1. Platform vs Platform (exact OBB edge intersection in both directions)
+      const pCorners = boxCorners(p);
       for (const other of this.platforms.values()) {
         if (ignoreIds.has(other.id)) continue;
-        const otx = Math.cos(other.rad), oty = Math.sin(other.rad);
-        const onx = -oty, ony = otx;
+        const oCorners = boxCorners(other);
         const ohl = other.length / 2 - 2, ohw = other.width / 2 - 1;
         let hit = false;
-        for (let k = -4; k <= 4 && !hit; k++) {
-          const sx = other.cx + otx * (ohl * k / 4);
-          const sy = other.cy + oty * (ohl * k / 4);
-          if (ptInPlat(sx, sy) || ptInPlat(sx + onx * ohw, sy + ony * ohw) || ptInPlat(sx - onx * ohw, sy - ony * ohw)) {
-            hit = true;
-          }
+        for (let i = 0; i < 4 && !hit; i++) {
+          const c1 = oCorners[i], c2 = oCorners[(i + 1) % 4];
+          if (this._segHitsBox(c1.x, c1.y, c2.x, c2.y, p.cx, p.cy, p.rad, halfL, halfW)) hit = true;
+          const q1 = pCorners[i], q2 = pCorners[(i + 1) % 4];
+          if (this._segHitsBox(q1.x, q1.y, q2.x, q2.y, other.cx, other.cy, other.rad, ohl, ohw)) hit = true;
         }
         if (hit) hitPlatforms.push(other);
       }
 
-      // 2. Platform vs Track edges (excluding tracks bound to this platform)
+      // 2. Platform vs Track edges (excluding tracks bound to this platform group)
       for (const ed of this.graph.edges.values()) {
-        if (ed.platformId === p.id) continue;
+        if (ed.platformId && ignoreIds.has(ed.platformId)) continue;
         const a = this.graph.getNode(ed.from), b = this.graph.getNode(ed.to);
         if (!a || !b) continue;
-        const steps = Math.max(4, Math.ceil((ed.length || 1) / 14));
-        for (let i = 0; i <= steps; i++) {
-          const t = i / steps;
-          if (ptInPlat(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t)) {
-            hitEdges.push(ed);
-            break;
-          }
+        if (this._segHitsBox(a.x, a.y, b.x, b.y, p.cx, p.cy, p.rad, halfL, halfW)) {
+          hitEdges.push(ed);
         }
       }
       return { platforms: hitPlatforms, edges: hitEdges };
+    }
+
+    getEdgeOwnerPlatform(ed) {
+      if (!ed) return null;
+      if (ed.platformId) {
+        const pl = this.platforms.get(ed.platformId);
+        if (pl) return pl;
+      }
+      for (const pl of this.platforms.values()) {
+        if ((pl.sides['-1'].type === 'track' && pl.sides['-1'].refId === ed.id) ||
+            (pl.sides['1'].type === 'track' && pl.sides['1'].refId === ed.id)) {
+          return pl;
+        }
+      }
+      return null;
+    }
+
+    getEdgeZLayer(ed) {
+      const pl = this.getEdgeOwnerPlatform(ed);
+      return pl ? (pl.zLayer || 0) : 0;
+    }
+
+    getGroupBoundEdgeIds(platformId) {
+      const ids = this.getConnectedPlatformIds(platformId);
+      const edgeIds = new Set();
+      for (const pid of ids) {
+        const pl = this.platforms.get(pid);
+        if (!pl) continue;
+        [-1, 1].forEach(sd => {
+          const info = pl.sides[String(sd)];
+          if (info.type === 'track' && info.refId) edgeIds.add(info.refId);
+        });
+      }
+      return edgeIds;
+    }
+
+    getGroupRootId(platformId) {
+      return Array.from(this.getConnectedPlatformIds(platformId)).sort()[0] || platformId;
+    }
+
+    // Pairwise Group-vs-Group elevation: keep existing zLayers intact when already valid,
+    // otherwise lift abovePlatId above belowPlatId (never dragging belowPlatId below 0 unnecessarily).
+    setGroupPlatRelation(platAId, platBId, mode) {
+      const gA = Array.from(this.getConnectedPlatformIds(platAId));
+      const gB = Array.from(this.getConnectedPlatformIds(platBId));
+      const setA = new Set(gA), setB = new Set(gB);
+      for (const idA of gA) {
+        const pA = this.platforms.get(idA);
+        if (!pA) continue;
+        pA.overPlatIds = (pA.overPlatIds || []).filter(id => !setB.has(id));
+        pA.underPlatIds = (pA.underPlatIds || []).filter(id => !setB.has(id));
+        if (mode === 'over') pA.overPlatIds.push(...gB);
+        else if (mode === 'under') pA.underPlatIds.push(...gB);
+      }
+      for (const idB of gB) {
+        const pB = this.platforms.get(idB);
+        if (!pB) continue;
+        pB.overPlatIds = (pB.overPlatIds || []).filter(id => !setA.has(id));
+        pB.underPlatIds = (pB.underPlatIds || []).filter(id => !setA.has(id));
+        if (mode === 'over') pB.underPlatIds.push(...gA);
+        else if (mode === 'under') pB.overPlatIds.push(...gA);
+      }
+      // Sync bound station tracks of group A and group B with each other's platforms too!
+      const eA = this.getGroupBoundEdgeIds(platAId);
+      const eB = this.getGroupBoundEdgeIds(platBId);
+      const setEA = new Set(eA), setEB = new Set(eB);
+      for (const idA of gA) {
+        const pA = this.platforms.get(idA);
+        if (!pA) continue;
+        pA.overEdgeIds = (pA.overEdgeIds || []).filter(id => !setEB.has(id));
+        pA.underEdgeIds = (pA.underEdgeIds || []).filter(id => !setEB.has(id));
+        if (mode === 'over') pA.overEdgeIds.push(...eB);
+        else if (mode === 'under') pA.underEdgeIds.push(...eB);
+      }
+      for (const idB of gB) {
+        const pB = this.platforms.get(idB);
+        if (!pB) continue;
+        pB.overEdgeIds = (pB.overEdgeIds || []).filter(id => !setEA.has(id));
+        pB.underEdgeIds = (pB.underEdgeIds || []).filter(id => !setEA.has(id));
+        if (mode === 'over') pB.underEdgeIds.push(...eA);
+        else if (mode === 'under') pB.overEdgeIds.push(...eA);
+      }
+      for (const cr of this.graph.crossings.values()) {
+        const aInA = eA.has(cr.edgeA) && eB.has(cr.edgeB);
+        const bInA = eA.has(cr.edgeB) && eB.has(cr.edgeA);
+        if (!aInA && !bInA) continue;
+        const eidA = aInA ? cr.edgeA : cr.edgeB;
+        const eidB = aInA ? cr.edgeB : cr.edgeA;
+        if (mode === 'over') { cr.type = 'overpass'; cr.overEdgeId = eidA; cr.underEdgeId = eidB; }
+        else if (mode === 'under') { cr.type = 'underpass'; cr.overEdgeId = eidB; cr.underEdgeId = eidA; }
+      }
+      this.graph.rebuildCrossingIndex();
+    }
+
+    ensureGroupAbove(abovePlatId, belowPlatId) {
+      const pA = this.platforms.get(abovePlatId);
+      const pB = this.platforms.get(belowPlatId);
+      if (!pA || !pB) return;
+      const rA = this.getGroupRootId(pA.id);
+      const rB = this.getGroupRootId(pB.id);
+      if (rA === rB) return;
+      const zA = pA.zLayer || 0;
+      const zB = pB.zLayer || 0;
+      if (zA > zB + 1e-4) return;
+      // Lift pA above pB; if pB was at 0 and nothing else constrains pA below, pA becomes zB + 1
+      this.syncGroupElevation(pA.id, zB + 1);
+    }
+
+    setGroupEdgeRelation(platformId, edgeId, mode) {
+      for (const pid of this.getConnectedPlatformIds(platformId)) {
+        const pl = this.platforms.get(pid);
+        if (!pl) continue;
+        pl.overEdgeIds = (pl.overEdgeIds || []).filter(id => id !== edgeId);
+        pl.underEdgeIds = (pl.underEdgeIds || []).filter(id => id !== edgeId);
+        if (mode === 'over') pl.overEdgeIds.push(edgeId);
+        else if (mode === 'under') pl.underEdgeIds.push(edgeId);
+      }
+      // Also sync any existing crossing between this group's bound station tracks and edgeId
+      const gEdges = this.getGroupBoundEdgeIds(platformId);
+      for (const cr of this.graph.crossings.values()) {
+        const inA = gEdges.has(cr.edgeA), inB = gEdges.has(cr.edgeB);
+        if (inA === inB) continue;
+        const otherId = inA ? cr.edgeB : cr.edgeA;
+        if (otherId !== edgeId) continue;
+        const myEid = inA ? cr.edgeA : cr.edgeB;
+        if (mode === 'over') { cr.type = 'overpass'; cr.overEdgeId = myEid; cr.underEdgeId = edgeId; }
+        else if (mode === 'under') { cr.type = 'underpass'; cr.overEdgeId = edgeId; cr.underEdgeId = myEid; }
+      }
+      this.graph.rebuildCrossingIndex();
+    }
+
+    // Sync zLayer across the entire transfer station group AND align all crossings on its bound station tracks!
+    syncGroupElevation(platformId, newZ) {
+      const groupIds = this.getConnectedPlatformIds(platformId);
+      for (const pid of groupIds) {
+        const pl = this.platforms.get(pid);
+        if (pl) pl.zLayer = newZ;
+      }
+      const groupEdgeIds = this.getGroupBoundEdgeIds(platformId);
+      for (const cr of this.graph.crossings.values()) {
+        const aIn = groupEdgeIds.has(cr.edgeA);
+        const bIn = groupEdgeIds.has(cr.edgeB);
+        if (aIn === bIn) continue; // both inside same group or neither inside
+        const myEdgeId = aIn ? cr.edgeA : cr.edgeB;
+        const otherEdgeId = aIn ? cr.edgeB : cr.edgeA;
+        const otherEdge = this.graph.edges.get(otherEdgeId);
+        const otherPlat = (otherEdge && otherEdge.platformId) ? this.platforms.get(otherEdge.platformId) : null;
+        const otherZ = otherPlat ? (otherPlat.zLayer || 0) : 0;
+        if (newZ > otherZ) {
+          cr.type = 'overpass';
+          cr.overEdgeId = myEdgeId;
+          cr.underEdgeId = otherEdgeId;
+        } else if (newZ < otherZ) {
+          cr.type = 'underpass';
+          cr.overEdgeId = otherEdgeId;
+          cr.underEdgeId = myEdgeId;
+        }
+      }
+      this.graph.rebuildCrossingIndex();
     }
 
     hasBoundTrackInGroup(platformId) {
@@ -2579,11 +2827,28 @@
         });
       }
 
-      // Bind exact station-length edge to platform
+      // Bind exact station-length edge to platform and sync elevation across connected group
+      const existingOwner = targetEdge.platformId ? this.platforms.get(targetEdge.platformId) : null;
+      const groupZ = existingOwner ? (existingOwner.zLayer || 0) : (p.zLayer || 0);
       p.sides[String(side)] = { type: 'track', refId: targetEdge.id };
       targetEdge.isStationTrack = true;
       targetEdge.platformId = p.id;
       targetEdge.platformLength = p.length;
+      this.syncGroupElevation(p.id, groupZ);
+      const overSet = new Set(p.overEdgeIds || []);
+      const underSet = new Set(p.underEdgeIds || []);
+      for (const cr of this.graph.crossings.values()) {
+        if (cr.edgeA !== targetEdge.id && cr.edgeB !== targetEdge.id) continue;
+        const otherId = cr.edgeA === targetEdge.id ? cr.edgeB : cr.edgeA;
+        if (cr.type === 'overpass' || cr.type === 'underpass') {
+          if (cr.overEdgeId === targetEdge.id) { overSet.add(otherId); underSet.delete(otherId); }
+          else if (cr.underEdgeId === targetEdge.id) { underSet.add(otherId); overSet.delete(otherId); }
+        }
+      }
+      for (const pid of this.getConnectedPlatformIds(p.id)) {
+        const gp = this.platforms.get(pid);
+        if (gp) { gp.overEdgeIds = Array.from(overSet); gp.underEdgeIds = Array.from(underSet); }
+      }
       const n1 = this.graph.getNode(targetEdge.from);
       const n2 = this.graph.getNode(targetEdge.to);
       if (n1) { n1.isStationEnd = true; n1.platformId = p.id; }
@@ -3057,8 +3322,7 @@
     }
 
     isRouteVisible(route) {
-      const line = this.lines.get(route.lineId);
-      return route.visible && (!line || line.visible);
+      return !!route;
     }
 
     getEdgeCoRunningMap() {
@@ -3825,11 +4089,18 @@
       this.width = 800;
       this.height = 600;
 
-      // Theme
-      let savedTheme = 'dark';
-      try { savedTheme = localStorage.getItem('metro_sandbox_theme') || 'dark'; } catch (_) {}
-      this.theme = savedTheme === 'light' ? 'light' : 'dark';
-      this.applyTheme(this.theme, false);
+      // Theme (system / light / dark)
+      let savedThemeMode = 'system';
+      try { savedThemeMode = localStorage.getItem('metro_sandbox_theme') || 'system'; } catch (_) {}
+      if (!['system', 'light', 'dark'].includes(savedThemeMode)) savedThemeMode = 'system';
+      this.themeMode = savedThemeMode;
+      this.systemThemeMQ = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+      if (this.systemThemeMQ && this.systemThemeMQ.addEventListener) {
+        this.systemThemeMQ.addEventListener('change', () => {
+          if (this.themeMode === 'system') this.applyTheme('system', false);
+        });
+      }
+      this.applyTheme(this.themeMode, false);
 
       this.mode = 'simulate';
       this.showRoutes = true;
@@ -3847,7 +4118,7 @@
       this.trackContinuousMode = false; // 单段绘制 vs 连续绘制
       this.activeInlinePrompt = null; // { x, y, title, stepText, options }
       this.pendingPlacement = null;   // { pts, hits, switchCandidates, crossingChoices, switchChoices, stepIndex }
-      this.collapsedLines = new Set();
+      this.expandedLines = new Set();
       this.collapsedRoutes = new Set();
       this.expandedLineSettings = new Set();
       this.colorViewMode = 'line'; // 'line' = 默认模式 (线路标识色) | 'route' = 交路观察模式 (交路标识色)
@@ -3897,13 +4168,17 @@
       return THEME_PALETTES[this.theme] || THEME_PALETTES.dark;
     }
 
-    applyTheme(theme, persist = true) {
-      this.theme = theme;
-      document.documentElement.dataset.theme = theme;
+    applyTheme(mode, persist = true) {
+      this.themeMode = ['system', 'light', 'dark'].includes(mode) ? mode : 'system';
+      const resolved = this.themeMode === 'system'
+        ? ((this.systemThemeMQ && this.systemThemeMQ.matches) ? 'dark' : 'light')
+        : this.themeMode;
+      this.theme = resolved;
+      document.documentElement.dataset.theme = resolved;
       const lbl = document.getElementById('themeLbl');
-      if (lbl) lbl.textContent = theme === 'dark' ? '深色' : '浅色';
+      if (lbl) lbl.textContent = this.themeMode === 'system' ? '系统' : (this.themeMode === 'light' ? '浅色' : '深色');
       if (persist) {
-        try { localStorage.setItem('metro_sandbox_theme', theme); } catch (_) {}
+        try { localStorage.setItem('metro_sandbox_theme', this.themeMode); } catch (_) {}
       }
     }
 
@@ -3932,6 +4207,10 @@
             id: p.id, name: p.name, cx: p.cx, cy: p.cy,
             length: p.length, width: p.width, angleDeg: p.angleDeg, rad: p.rad,
             ...(p.zLayer ? { zLayer: p.zLayer } : {}),
+            ...(p.overEdgeIds && p.overEdgeIds.length ? { overEdgeIds: [...p.overEdgeIds] } : {}),
+            ...(p.underEdgeIds && p.underEdgeIds.length ? { underEdgeIds: [...p.underEdgeIds] } : {}),
+            ...(p.overPlatIds && p.overPlatIds.length ? { overPlatIds: [...p.overPlatIds] } : {}),
+            ...(p.underPlatIds && p.underPlatIds.length ? { underPlatIds: [...p.underPlatIds] } : {}),
             sides: {
               '-1': { ...p.sides['-1'] },
               '1': { ...p.sides['1'] }
@@ -4030,8 +4309,13 @@
     updateHistoryButtons() {
       const u = document.getElementById('btnUndo');
       const r = document.getElementById('btnRedo');
-      if (u) u.disabled = this.undoStack.length === 0;
-      if (r) r.disabled = this.redoStack.length === 0;
+      if (this.mode === 'route' && this.routeDraft) {
+        if (u) u.disabled = !(this.routeDraft.undoStack && this.routeDraft.undoStack.length > 0);
+        if (r) r.disabled = !(this.routeDraft.redoStack && this.routeDraft.redoStack.length > 0);
+      } else {
+        if (u) u.disabled = this.undoStack.length === 0;
+        if (r) r.disabled = this.redoStack.length === 0;
+      }
     }
 
     pushHistory(label = '') {
@@ -4136,6 +4420,20 @@
       this.canvas.height = Math.round(this.height * this.dpr);
       this.canvas.style.width = this.width + 'px';
       this.canvas.style.height = this.height + 'px';
+      this.updateSimSliderLayout();
+    }
+
+    updateSimSliderLayout() {
+      const dock = document.getElementById('hudBottomDock');
+      const left = document.getElementById('hudBottomLeft');
+      const slider = document.getElementById('simSpeedSlider');
+      if (!dock || !left || !slider) return;
+      const dockW = dock.clientWidth || this.width;
+      const leftW = left.getBoundingClientRect().width || 180;
+      const otherSimW = 190; // play/pause + "倍速" + value + reset + clock + gaps
+      const avail = Math.max(76, dockW - leftW - otherSimW - 28);
+      const stepPx = Math.max(4, Math.min(18, Math.floor(avail / 19)));
+      slider.style.width = (stepPx * 19) + 'px';
     }
 
     fitToView() {
@@ -4350,6 +4648,21 @@
       return next1 || null;
     }
 
+    deleteSelectedDraftNode() {
+      const d = this.routeDraft;
+      if (!d || d.selectedNodeIdx === null || d.selectedNodeIdx === undefined) return;
+      const idx = d.selectedNodeIdx;
+      if (idx < 0 || idx >= d.nodeIds.length || d.nodeIds[idx] === '__GAP__') return;
+      this.pushDraftHistory();
+      d.nodeIds.splice(idx, 1);
+      this.normalizeDraftGaps(d.nodeIds);
+      d.selectedNodeIdx = null;
+      d.selectedSegIdx = null;
+      d.insertAfterIdx = null;
+      this.renderSubbar();
+      this.renderLineTree();
+    }
+
     deleteSelectedDraftSegment() {
       const GAP = '__GAP__';
       const draft = this.routeDraft;
@@ -4360,6 +4673,7 @@
       if (idx < 0 || idx >= n || ids[idx] === GAP) return;
       const nextIdx = (idx + 1) % n;
       if (ids[nextIdx] === GAP) return;
+      this.pushDraftHistory();
 
       // Cut ONLY this exact segment by inserting a GAP marker between ids[idx] and ids[nextIdx]
       const leftNodeId = ids[idx];
@@ -4432,7 +4746,7 @@
         bar.style.display = 'flex';
         bar.innerHTML = `
           <div class="mode-panel-row">
-            <span class="subbar-lbl" style="color:var(--accent)">请点击高亮的同向轨道（≥${this.pendingTrackSnap.targetLength}m），将「${p ? p.name : '站台'}」吸附至其旁</span>
+            <span class="subbar-lbl" style="color:var(--accent)">点击高亮同向轨道（≥${this.pendingTrackSnap.targetLength}m）吸附「${p ? p.name : '站台'}」</span>
             <button class="btn btn-xs" id="btnCancelTrackSnap">取消 (Esc)</button>
           </div>
         `;
@@ -4449,7 +4763,7 @@
         bar.style.display = 'flex';
         bar.innerHTML = `
           <div class="mode-panel-row">
-            <span class="subbar-lbl" style="color:var(--accent)">在「${r ? r.name : ''}」的 ${fromId} → ${toId} 之间插入：请点击画布节点</span>
+            <span class="subbar-lbl" style="color:var(--accent)">点击节点插入 ${fromId} → ${toId}</span>
             <button class="btn btn-xs" id="btnCancelRouteInsert">取消 (Esc)</button>
           </div>
         `;
@@ -4464,13 +4778,13 @@
         bar.style.display = 'flex';
         if (this.selectedEntity) {
           let desc = '';
-          if (this.selectedEntity.type === 'node') desc = `已选中节点 ${this.selectedEntity.id}（拖拽可移动）`;
+          if (this.selectedEntity.type === 'node') desc = `节点 ${this.selectedEntity.id}`;
           else if (this.selectedEntity.type === 'platform') {
             const p = this.platforms.getPlatform(this.selectedEntity.id);
             desc = `站台 (${p ? p.length : 0}m)`;
           } else if (this.selectedEntity.type === 'edge') {
             const e = this.graph.edges.get(this.selectedEntity.id);
-            desc = `已选中轨道 ${this.selectedEntity.id}${e ? ` (${Math.round(e.length)}m)` : ''}`;
+            desc = `轨道 ${this.selectedEntity.id}${e ? ` (${Math.round(e.length)}m)` : ''}`;
           }
           const selPlat = this.selectedEntity.type === 'platform' ? this.platforms.getPlatform(this.selectedEntity.id) : null;
           const selNode = this.selectedEntity.type === 'node' ? this.graph.getNode(this.selectedEntity.id) : null;
@@ -4623,7 +4937,18 @@
           const insIdx = this.routeDraft.insertAfterIdx;
           const insA = (insIdx !== null && insIdx !== undefined && this.routeDraft.nodeIds[insIdx] && this.routeDraft.nodeIds[insIdx] !== '__GAP__') ? this.routeDraft.nodeIds[insIdx] : '';
           const insB = (insIdx !== null && insIdx !== undefined) ? (this.getDraftTargetAfter(this.routeDraft.nodeIds, insIdx) || '') : '';
-          if (!hasSelSeg && (insIdx === null || insIdx === undefined)) {
+          const hasSelNode = !!(this.routeDraft.selectedNodeIdx !== null && this.routeDraft.selectedNodeIdx !== undefined && this.routeDraft.nodeIds[this.routeDraft.selectedNodeIdx] && this.routeDraft.nodeIds[this.routeDraft.selectedNodeIdx] !== '__GAP__');
+          if (hasSelNode) {
+            const selNid = this.routeDraft.nodeIds[this.routeDraft.selectedNodeIdx];
+            bar.style.display = 'flex';
+            bar.innerHTML = `
+              <div class="mode-panel-row" style="justify-content:space-between;">
+                <span class="subbar-lbl" style="color:#d97706;">已选中节点 ${selNid}（按 Delete 删除）</span>
+                <button class="btn btn-danger btn-xs" id="btnDelDraftNodeSub">删除节点</button>
+              </div>
+            `;
+            document.getElementById('btnDelDraftNodeSub').addEventListener('click', () => this.deleteSelectedDraftNode());
+          } else if (!hasSelSeg && (insIdx === null || insIdx === undefined)) {
             bar.style.display = 'none';
             bar.innerHTML = '';
           } else {
@@ -4651,6 +4976,72 @@
       }
     }
 
+    captureDraftState(d) {
+      if (!d) return null;
+      return {
+        name: d.name,
+        color: d.color,
+        customTrainLength: d.customTrainLength,
+        nodeIds: [...(d.nodeIds || [])],
+        turnbackIndices: Array.from(d.turnbackIndices || []),
+        skipStopKeys: Array.from(d.skipStopKeys || []),
+        selectedSegIdx: d.selectedSegIdx ?? null,
+        selectedNodeIdx: d.selectedNodeIdx ?? null,
+        insertAfterIdx: d.insertAfterIdx ?? null,
+        lastCutSlotIdx: d.lastCutSlotIdx ?? null
+      };
+    }
+
+    restoreDraftState(state) {
+      const d = this.routeDraft;
+      if (!d || !state) return;
+      d.name = state.name;
+      d.color = state.color;
+      d.customTrainLength = state.customTrainLength;
+      d.nodeIds = [...state.nodeIds];
+      d.turnbackIndices = new Set(state.turnbackIndices || []);
+      d.skipStopKeys = new Set(state.skipStopKeys || []);
+      d.selectedSegIdx = state.selectedSegIdx ?? null;
+      d.selectedNodeIdx = state.selectedNodeIdx ?? null;
+      d.insertAfterIdx = state.insertAfterIdx ?? null;
+      d.lastCutSlotIdx = state.lastCutSlotIdx ?? null;
+    }
+
+    pushDraftHistory() {
+      const d = this.routeDraft;
+      if (!d) return;
+      if (!d.undoStack) d.undoStack = [];
+      if (!d.redoStack) d.redoStack = [];
+      d.undoStack.push(this.captureDraftState(d));
+      if (d.undoStack.length > 80) d.undoStack.shift();
+      d.redoStack = [];
+      this.updateHistoryButtons();
+    }
+
+    undoDraft() {
+      const d = this.routeDraft;
+      if (!d || !d.undoStack || d.undoStack.length === 0) return;
+      if (!d.redoStack) d.redoStack = [];
+      d.redoStack.push(this.captureDraftState(d));
+      const prev = d.undoStack.pop();
+      this.restoreDraftState(prev);
+      this.updateHistoryButtons();
+      this.renderSubbar();
+      this.renderLineTree();
+    }
+
+    redoDraft() {
+      const d = this.routeDraft;
+      if (!d || !d.redoStack || d.redoStack.length === 0) return;
+      if (!d.undoStack) d.undoStack = [];
+      d.undoStack.push(this.captureDraftState(d));
+      const nxt = d.redoStack.pop();
+      this.restoreDraftState(nxt);
+      this.updateHistoryButtons();
+      this.renderSubbar();
+      this.renderLineTree();
+    }
+
     startRouteDraft(lineId) {
       const line = this.routes.getLine(lineId);
       if (!line) {
@@ -4671,10 +5062,13 @@
         nodeIds: [],
         turnbackIndices: new Set(),
         skipStopKeys: new Set(),
-        insertAfterIdx: null
+        insertAfterIdx: null,
+        undoStack: [],
+        redoStack: []
       };
       this.markTurnbackMode = false;
       this.setMode('route');
+      this.updateHistoryButtons();
       this.showToast(`正在为「${line.name}」绘制下属交路，编辑完成后点击「闭合保存」`);
     }
 
@@ -4710,9 +5104,12 @@
         turnbackIndices: new Set(route.turnbackIndices),
         skipStopKeys: new Set(route.skipStopKeys || []),
         insertAfterIdx: null,
-        selectedSegIdx: null
+        selectedSegIdx: null,
+        undoStack: [],
+        redoStack: []
       };
       this.setMode('route');
+      this.updateHistoryButtons();
       this.showToast(`已进入「${route.name}」编辑模式：可自由增删节点，完成后点击「保存交路」`);
     }
 
@@ -4744,6 +5141,24 @@
       }
 
       const draft = this.routeDraft;
+      if (draft.editingRouteId && (draft.insertAfterIdx === null || draft.insertAfterIdx === undefined)) {
+        const matches = [];
+        for (let i = 0; i < draft.nodeIds.length; i++) {
+          if (draft.nodeIds[i] === node.id) matches.push(i);
+        }
+        if (matches.length > 0) {
+          const curPos = matches.indexOf(draft.selectedNodeIdx);
+          draft.selectedNodeIdx = matches[(curPos + 1) % matches.length];
+          draft.selectedSegIdx = null;
+          this.renderSubbar();
+          this.renderLineTree();
+        } else {
+          this.showToast('请先点击右侧「+」再插入新节点');
+        }
+        return;
+      }
+      const _beforeDraftSnap = this.captureDraftState(draft);
+      (() => {
       if (this.markTurnbackMode) {
         const idx = draft.nodeIds.lastIndexOf(node.id);
         if (idx !== -1) {
@@ -4864,6 +5279,17 @@
       }
       this.renderSubbar();
       this.renderLineTree();
+      })();
+      if (this.routeDraft && _beforeDraftSnap && (
+        JSON.stringify(_beforeDraftSnap.nodeIds) !== JSON.stringify(this.routeDraft.nodeIds) ||
+        JSON.stringify(_beforeDraftSnap.turnbackIndices) !== JSON.stringify(Array.from(this.routeDraft.turnbackIndices || []))
+      )) {
+        if (!this.routeDraft.undoStack) this.routeDraft.undoStack = [];
+        this.routeDraft.undoStack.push(_beforeDraftSnap);
+        if (this.routeDraft.undoStack.length > 80) this.routeDraft.undoStack.shift();
+        this.routeDraft.redoStack = [];
+        this.updateHistoryButtons();
+      }
     }
 
     finishRouteDraft() {
@@ -4987,7 +5413,7 @@
           platChip = `<button class="plat-stop-chip ${isSkip ? 'skip' : ''}" data-draft-stop-key="${dirKey}" title="点击切换停站或不停通过">${p ? p.name : '站台'}·${isSkip ? '过' : '停'}</button>`;
         }
         return `
-          <span class="loop-chip ${broken ? 'bad' : ''} ${isSegEnd ? 'seg-selected' : ''}" data-draft-node-idx="${idx}">
+          <span class="loop-chip ${broken ? 'bad' : ''} ${(isSegEnd || d.selectedNodeIdx === idx) ? 'seg-selected' : ''}" data-draft-node-idx="${idx}">
             <span data-focus-node="${nid}" style="cursor:pointer;font-weight:600;" title="定位节点 ${nid}">${nid}</span>
             <button class="loop-chip-del" data-draft-del="${idx}" title="移除节点">×</button>
           </span>
@@ -5036,10 +5462,12 @@
         nameInp.addEventListener('input', e => { this.routeDraft.name = e.target.value; });
       }
       wrap.querySelectorAll('[data-draft-len]').forEach(btn => btn.addEventListener('click', () => {
+        this.pushDraftHistory();
         this.routeDraft.customTrainLength = Number(btn.dataset.draftLen);
         this.renderLineTree();
       }));
       wrap.querySelectorAll('[data-draft-stop-key]').forEach(btn => btn.addEventListener('click', () => {
+        this.pushDraftHistory();
         const k = btn.dataset.draftStopKey;
         if (!this.routeDraft.skipStopKeys) this.routeDraft.skipStopKeys = new Set();
         if (this.routeDraft.skipStopKeys.has(k)) this.routeDraft.skipStopKeys.delete(k);
@@ -5047,6 +5475,7 @@
         this.renderLineTree();
       }));
       wrap.querySelectorAll('[data-draft-del]').forEach(btn => btn.addEventListener('click', () => {
+        this.pushDraftHistory();
         const idx = Number(btn.dataset.draftDel);
         this.routeDraft.nodeIds.splice(idx, 1);
         this.normalizeDraftGaps(this.routeDraft.nodeIds);
@@ -5058,6 +5487,7 @@
       wrap.querySelectorAll('[data-draft-slot]').forEach(btn => btn.addEventListener('click', () => {
         const idx = Number(btn.dataset.draftSlot);
         this.routeDraft.selectedSegIdx = null;
+        this.routeDraft.selectedNodeIdx = null;
         this.routeDraft.lastCutSlotIdx = null;
         this.routeDraft.insertAfterIdx = (this.routeDraft.insertAfterIdx === idx) ? null : idx;
         if (this.routeDraft.insertAfterIdx !== null) {
@@ -5074,7 +5504,12 @@
       if (saveBtn) saveBtn.addEventListener('click', () => this.finishRouteDraft());
       const undoBtn = document.getElementById('draftUndoBtn');
       if (undoBtn) undoBtn.addEventListener('click', () => {
+        if (this.routeDraft.undoStack && this.routeDraft.undoStack.length > 0) {
+          this.undoDraft();
+          return;
+        }
         if (this.routeDraft.nodeIds.length > 0) {
+          this.pushDraftHistory();
           this.routeDraft.nodeIds.pop();
           this.routeDraft.insertAfterIdx = null;
           this.renderSubbar();
@@ -5090,6 +5525,7 @@
     }
 
     renderLineTree() {
+      this.updateHistoryButtons();
       const wrap = document.getElementById('treeWrap');
       const isSimMode = this.mode === 'simulate';
       const showRoutesSidebar = (this.mode === 'route' || this.mode === 'simulate');
@@ -5123,7 +5559,7 @@
         const curLen = Number(r.customTrainLength || r.trainLength) || 120;
         let detailHtml = `
           <div class="detail-head">
-            <button class="detail-back-btn" id="btnDetailBack" title="返回线路与交路主界面">← 返回</button>
+            <button class="detail-back-btn" id="btnDetailBack" title="返回">←</button>
             <span class="color-dot" id="detailColorDot" style="background:${r.color};${isSimMode ? 'cursor:default;' : 'cursor:pointer;'}" title="${isSimMode ? '' : '点击切换交路颜色'}"></span>
             <span id="detailRouteName" style="font-weight:700;font-size:12.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;${isSimMode ? '' : 'cursor:text;'}" title="${isSimMode ? (parentLine ? parentLine.name + ' / ' : '') + r.name : '点击编辑交路名称'}">${r.name}</span>
             <span style="font-size:10.5px;color:${r.runnable ? 'var(--text-muted)' : 'var(--danger)'};font-weight:${r.runnable ? '600' : '700'};">${r.runnable ? `${r.trainLength}m` : '停运'}</span>
@@ -5274,12 +5710,37 @@
         return;
       }
 
+      if (this.routeDraft && !this.routeDraft.editingRouteId && !isSimMode) {
+        if (lineHeadBlock) lineHeadBlock.style.display = 'none';
+        const d = this.routeDraft;
+        const parentLine = this.routes.lines.get(d.lineId);
+        wrap.innerHTML = `
+          <div class="detail-head">
+            <button class="detail-back-btn" id="btnNewDraftBack" title="返回">←</button>
+            <span class="color-dot" id="newDraftColorDot" style="background:${d.color};cursor:pointer;" title="切换交路颜色"></span>
+            <span style="font-weight:700;font-size:12.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">新建交路${parentLine ? ` · ${parentLine.name}` : ''}</span>
+          </div>
+          ${this.buildDraftBoxHtml(d)}
+        `;
+        document.getElementById('btnNewDraftBack').addEventListener('click', () => {
+          this.routeDraft = null;
+          this.pendingRouteInsert = null;
+          this.renderSubbar();
+          this.renderLineTree();
+        });
+        document.getElementById('newDraftColorDot').addEventListener('click', e => {
+          e.stopPropagation();
+          this.openColorPicker(e.currentTarget, '交路颜色', d.color, c => {
+            d.color = c;
+            this.renderLineTree();
+          });
+        });
+        this.bindDraftBoxEvents(wrap);
+        return;
+      }
+
       if (lineHeadBlock) lineHeadBlock.style.display = '';
       let html = '';
-
-      if (this.routeDraft) {
-        html += this.buildDraftBoxHtml(this.routeDraft);
-      }
 
       if (this.routes.lines.size === 0) {
         html += `<div style="color:var(--text-dim);text-align:center;padding:24px 10px;line-height:1.6;">
@@ -5288,7 +5749,7 @@
       } else {
         for (const line of this.routes.lines.values()) {
           const subRoutes = this.routes.getRoutesByLine(line.id);
-          const isLineCollapsed = this.collapsedLines.has(line.id);
+          const isLineCollapsed = !this.expandedLines.has(line.id);
           html += `
             <div class="line-group ${isLineCollapsed ? 'collapsed' : ''}" data-line-id="${line.id}">
               <div class="line-head">
@@ -5298,9 +5759,8 @@
                   <span class="line-name" data-action="rename-line" title="${isSimMode ? line.name : '双击重命名线路'}" style="${isSimMode ? '' : 'cursor:text;'}">${line.name}</span>
                 </div>
                 <div style="display:flex;gap:3px;">
-                  ${!isSimMode ? `<button class="btn btn-xs" data-action="add-sub-route" title="新增交路">+ 交路</button>` : ''}
+                  ${!isSimMode ? `<button class="btn btn-xs" data-action="add-sub-route" title="新建交路">+</button>` : ''}
                   ${!isSimMode ? `<button class="icon-btn ${this.expandedLineSettings.has(line.id) ? 'active' : ''}" data-action="toggle-line-settings" title="线路列车参数"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="11" cy="18" r="2"/></svg></button>` : ''}
-                  <button class="icon-btn" data-action="toggle-line-vis" title="显示/隐藏">${line.visible ? '<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'}</button>
                   ${!isSimMode ? `<button class="icon-btn danger" data-action="delete-line" title="删除线路"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : ''}
                 </div>
               </div>
@@ -5331,7 +5791,7 @@
                 </div>
               ` : ''}
               <div class="line-routes">
-                ${subRoutes.length === 0 ? `<div style="font-size:11px;color:var(--text-dim);padding:4px 2px;">暂无下属交路，点击右上「+ 交路」绘制</div>` : subRoutes.map(r => {
+                ${subRoutes.length === 0 ? `<div style="font-size:11px;color:var(--text-dim);padding:4px 2px;">暂无交路，点击右上「+」新建</div>` : subRoutes.map(r => {
                   const cars = Math.max(2, Math.round(r.trainLength / 30));
                   const isRouteCollapsed = this.collapsedRoutes.has(r.id);
                   const stopChain = [];
@@ -5358,7 +5818,6 @@
                         <div style="display:flex;gap:3px;align-items:center;">
                           <span style="font-size:10px;color:${r.runnable ? 'var(--text-muted)' : 'var(--danger)'};font-weight:${r.runnable ? '400' : '700'}">${r.runnable ? `${r.trainLength}m` : '停运'}</span>
                           ${!isSimMode ? `<button class="icon-btn" data-action="edit-route" title="编辑"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>` : ''}
-                          <button class="icon-btn" data-action="toggle-route-vis" title="显隐">${r.visible ? '<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'}</button>
                           ${!isSimMode ? `<button class="icon-btn danger" data-action="delete-route" title="删除"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : ''}
                         </div>
                       </div>
@@ -5401,9 +5860,16 @@
         const line = this.routes.getLine(lid);
         if (!line) return;
 
-        group.querySelector('[data-action="toggle-line-collapse"]').addEventListener('click', () => {
-          if (this.collapsedLines.has(lid)) this.collapsedLines.delete(lid);
-          else this.collapsedLines.add(lid);
+        group.querySelector('.line-head').addEventListener('click', ev => {
+          if (ev.target.closest('button, input, .line-bar')) return;
+          if (this.expandedLines.has(lid)) this.expandedLines.delete(lid);
+          else this.expandedLines.add(lid);
+          this.renderLineTree();
+        });
+        group.querySelector('[data-action="toggle-line-collapse"]').addEventListener('click', ev => {
+          ev.stopPropagation();
+          if (this.expandedLines.has(lid)) this.expandedLines.delete(lid);
+          else this.expandedLines.add(lid);
           this.renderLineTree();
         });
         const lineNameEl = group.querySelector('[data-action="rename-line"]');
@@ -5479,10 +5945,6 @@
             this.startRouteDraft(lid);
           });
         }
-        group.querySelector('[data-action="toggle-line-vis"]').addEventListener('click', () => {
-          line.visible = !line.visible;
-          this.renderLineTree();
-        });
         const delLineBtn = group.querySelector('[data-action="delete-line"]');
         if (delLineBtn) delLineBtn.addEventListener('click', () => {
           this.pushHistory('删除线路');
@@ -5550,10 +6012,6 @@
         const editBtn = item.querySelector('[data-action="edit-route"]');
         if (editBtn) editBtn.addEventListener('click', () => {
           this.startEditRoute(rid);
-        });
-        item.querySelector('[data-action="toggle-route-vis"]').addEventListener('click', () => {
-          route.visible = !route.visible;
-          this.renderLineTree();
         });
         const delBtn = item.querySelector('[data-action="delete-route"]');
         if (delBtn) delBtn.addEventListener('click', () => {
@@ -6234,7 +6692,7 @@
       ctx.stroke();
     }
 
-    drawSinglePlatform(ctx, pal, p, forceTop = false) {
+    drawSinglePlatform(ctx, pal, p, forceTop = false, skipShadow = false) {
       const zl = p.zLayer || 0;
       const isPlatSel = this.selectedEntity && this.selectedEntity.type === 'platform' && this.selectedEntity.id === p.id;
       ctx.save();
@@ -6246,7 +6704,7 @@
       if (forceTop) {
         ctx.shadowColor = 'rgba(245, 158, 11, 0.36)';
         ctx.shadowBlur = 10;
-      } else if (zl > 0) {
+      } else if (zl > 0 && !skipShadow) {
         ctx.shadowColor = 'rgba(15, 23, 42, 0.28)';
         ctx.shadowBlur = 8;
         ctx.shadowOffsetY = 3;
@@ -6294,33 +6752,84 @@
       const showSnapPts = this.mode === 'platform' || (this.mode === 'select' && isPlatSel);
       if (showSnapPts) {
         for (const sp of this.platforms.getSnapPoints(p)) {
-          if (sp.occupied) continue;
+          const isBoundTrack = (this.mode === 'select' && isPlatSel && sp.sideType === 'track');
+          if (sp.occupied && !isBoundTrack) continue;
           const isHover = this.hoveredSnapPoint &&
             this.hoveredSnapPoint.platformId === sp.platformId &&
             this.hoveredSnapPoint.side === sp.side;
           ctx.beginPath();
           ctx.arc(sp.x, sp.y, isHover ? 7 : 5, 0, Math.PI * 2);
-          ctx.fillStyle = isHover ? '#0ea5e9' : 'rgba(14, 165, 233, 0.28)';
-          ctx.fill();
-          ctx.strokeStyle = '#0ea5e9';
-          ctx.lineWidth = 1.6;
-          ctx.stroke();
+          if (isBoundTrack) {
+            ctx.fillStyle = isHover ? '#ef4444' : '#0ea5e9';
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+          } else {
+            ctx.fillStyle = isHover ? '#0ea5e9' : 'rgba(14, 165, 233, 0.28)';
+            ctx.fill();
+            ctx.strokeStyle = '#0ea5e9';
+            ctx.lineWidth = 1.6;
+            ctx.stroke();
+          }
         }
       }
     }
 
-    drawPlatforms(ctx, pal, layerFilter = null) {
+    drawPlatforms(ctx, pal, layerMode = null) {
       const selPlatId = (this.selectedEntity && this.selectedEntity.type === 'platform') ? this.selectedEntity.id : null;
-      for (const p of this.platforms.platforms.values()) {
-        if (selPlatId && p.id === selPlatId) continue; // Drawn on very top by drawSelectedOverlay()
-        const zl = p.zLayer || 0;
-        if (layerFilter !== null && zl !== layerFilter) continue;
-        this.drawSinglePlatform(ctx, pal, p, false);
+      const list = Array.from(this.platforms.platforms.values())
+        .filter(p => {
+          if (selPlatId && p.id === selPlatId) return false;
+          const zl = p.zLayer || 0;
+          if (typeof layerMode === 'number') return Math.abs(zl - layerMode) < 1e-4;
+          if (layerMode === 'under') return zl < 0;
+          if (layerMode === 'ground') return zl === 0;
+          if (layerMode === 'over') return zl > 0;
+          return true;
+        })
+        .sort((a, b) => (a.zLayer || 0) - (b.zLayer || 0));
+      // Pass 1: draw outer elevation shadows first so adjacent platforms in the same group never cast shadows onto each other
+      for (const p of list) {
+        if ((p.zLayer || 0) > 0) {
+          ctx.save();
+          ctx.translate(p.cx, p.cy);
+          ctx.rotate(p.rad);
+          ctx.shadowColor = 'rgba(15, 23, 42, 0.28)';
+          ctx.shadowBlur = 8;
+          ctx.shadowOffsetY = 3;
+          ctx.fillStyle = pal.platformFill;
+          ctx.beginPath();
+          ctx.roundRect(-p.length / 2, -p.width / 2, p.length, p.width, 4);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+      // Pass 2: draw platform bodies & labels cleanly without internal seam shadows
+      for (const p of list) {
+        this.drawSinglePlatform(ctx, pal, p, false, true);
       }
     }
 
     // Temporarily render the currently selected entity (platform / edge / node) on the very top layer for easy interaction
     drawSelectedOverlay(ctx, pal) {
+      if (this.promptHoverEdgeId) {
+        const he = this.graph.edges.get(this.promptHoverEdgeId);
+        if (he) {
+          const a = this.graph.getNode(he.from), b = this.graph.getNode(he.to);
+          if (a && b) {
+            ctx.save();
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = 'rgba(14, 165, 233, 0.72)';
+            ctx.lineWidth = 11;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
+      }
       if (!this.selectedEntity) return;
       const { type, id } = this.selectedEntity;
       if (type === 'platform') {
@@ -6361,6 +6870,84 @@
       }
     }
 
+    drawTrackLayer(ctx, pal, targetZ) {
+      const layerEdges = new Set();
+      for (const e of this.graph.edges.values()) {
+        if (Math.abs(this.platforms.getEdgeZLayer(e) - targetZ) < 1e-4) layerEdges.add(e.id);
+      }
+      if (layerEdges.size === 0) return layerEdges;
+      const { trims, curves } = this.graph.computeTrackFilletData();
+      ctx.save();
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      const strokeSub = (color, width, extraFn = null) => {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.beginPath();
+        for (const e of this.graph.edges.values()) {
+          if (!layerEdges.has(e.id)) continue;
+          if (extraFn && !extraFn(e)) continue;
+          const a = this.graph.getNode(e.from);
+          const b = this.graph.getNode(e.to);
+          if (!a || !b) continue;
+          const t = trims.get(e.id) || { startTrim: 0, endTrim: 0 };
+          const vx = (b.x - a.x) / e.length;
+          const vy = (b.y - a.y) / e.length;
+          ctx.moveTo(a.x + vx * t.startTrim, a.y + vy * t.startTrim);
+          ctx.lineTo(b.x - vx * t.endTrim, b.y - vy * t.endTrim);
+        }
+        for (const c of curves) {
+          if (!layerEdges.has(c.edgeA.id) && !layerEdges.has(c.edgeB.id)) continue;
+          if (extraFn && !extraFn(c.edgeA) && !extraFn(c.edgeB)) continue;
+          ctx.moveTo(c.p0.x, c.p0.y);
+          ctx.quadraticCurveTo(c.ctrl.x, c.ctrl.y, c.p1.x, c.p1.y);
+        }
+        ctx.stroke();
+      };
+      strokeSub(pal.trackBed, 9);
+      strokeSub(pal.trackRail, 3.2);
+      strokeSub(pal.stationRail, 2.2, e => e.isStationTrack);
+      if (this.selectedEntity && this.selectedEntity.type === 'edge' && layerEdges.has(this.selectedEntity.id)) {
+        strokeSub('#f59e0b', 7, e => e.id === this.selectedEntity.id);
+      }
+      const soloRouteId = (this.inspectedRouteId && (this.mode === 'route' || this.mode === 'simulate') && this.routes.routes.has(this.inspectedRouteId)) ? this.inspectedRouteId : null;
+      if ((this.showRoutes || soloRouteId) && !this.routeDraft) {
+        const coMap = this._frameCoMap || this.routes.getEdgeCoRunningMap();
+        for (const route of this.routes.routes.values()) {
+          if (soloRouteId && route.id !== soloRouteId) continue;
+          if (!soloRouteId && !this.routes.isRouteVisible(route)) continue;
+          const effColor = soloRouteId ? route.color : this.getEffectiveRouteColor(route);
+          ctx.strokeStyle = effColor;
+          ctx.lineWidth = soloRouteId ? 4.2 : 3.0;
+          for (const seg of route.segments) {
+            if (!layerEdges.has(seg.edgeId)) continue;
+            ctx.beginPath();
+            ctx.moveTo(seg.ax, seg.ay);
+            ctx.lineTo(seg.bx, seg.by);
+            ctx.stroke();
+          }
+        }
+      }
+      // Draw station-end nodes on this elevated/underground layer
+      for (const eId of layerEdges) {
+        const e = this.graph.edges.get(eId);
+        if (!e) continue;
+        for (const nid of [e.from, e.to]) {
+          const n = this.graph.getNode(nid);
+          if (!n) continue;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff';
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = '#d97706';
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+      return layerEdges;
+    }
+
     drawTracks(ctx, pal) {
       const { trims, curves } = this.graph.computeTrackFilletData();
       ctx.lineCap = 'round';
@@ -6389,9 +6976,10 @@
         ctx.stroke();
       };
 
-      strokeNet(pal.trackBed, 9);
-      strokeNet(pal.trackRail, 3.2);
-      strokeNet(pal.stationRail, 2.2, e => e.isStationTrack);
+      const isGroundEdge = e => Math.abs(this.platforms.getEdgeZLayer(e)) < 1e-4;
+      strokeNet(pal.trackBed, 9, isGroundEdge);
+      strokeNet(pal.trackRail, 3.2, isGroundEdge);
+      strokeNet(pal.stationRail, 2.2, e => e.isStationTrack && isGroundEdge(e));
 
       if (this.showBlocks && !this.routeDraft) {
         // Draw live Moving-Block Safety Envelope ahead of every train (stretches/shrinks directly with blockDistance!)
@@ -6460,10 +7048,11 @@
           ctx.strokeStyle = effColor;
           ctx.lineWidth = isSel ? 4.2 : 3.0;
           for (const seg of route.segments) {
+            const edge = this.graph.edges.get(seg.edgeId);
+            if (edge && !isGroundEdge(edge)) continue;
             const slots = getSlotsForEdge(seg.edgeId, route);
             const k = slots.length;
             const idx = Math.max(0, slots.indexOf(effKey));
-            const edge = this.graph.edges.get(seg.edgeId);
             let nx = -seg.ty, ny = seg.tx;
             if (edge) {
               const a = this.graph.getNode(edge.from);
@@ -6634,10 +7223,13 @@
         if (cr.bendNodeId && (cr.type === 'overpass' || cr.type === 'underpass')) bridgeBendNodeIds.add(cr.bendNodeId);
       }
       for (const n of this.graph.nodes.values()) {
+        const incForZ = this.graph.getIncidentEdges(n.id);
+        if (incForZ.length > 0 && incForZ.every(ed => !isGroundEdge(ed))) continue;
         if (n.isImplicit || bridgeBendNodeIds.has(n.id)) continue;
         const isHover = this.hoveredNodeId === n.id;
         const isNodeSel = this.selectedEntity && this.selectedEntity.type === 'node' && this.selectedEntity.id === n.id;
-        const isFocused = this.focusedNodeId === n.id;
+        const isDraftSelNode = this.routeDraft && this.routeDraft.selectedNodeIdx !== null && this.routeDraft.selectedNodeIdx !== undefined && this.routeDraft.nodeIds[this.routeDraft.selectedNodeIdx] === n.id;
+        const isFocused = this.focusedNodeId === n.id || isDraftSelNode;
         const isDraftStart = this.routeDraft && this.routeDraft.nodeIds[0] === n.id;
         const isChainStart = this.trackChainStartNode && this.trackChainStartNode.id === n.id;
         const isValidNext = validNextIds.has(n.id);
@@ -6796,6 +7388,144 @@
           if (filterEdgeIds && !filterEdgeIds.has(sample.edgeId)) continue;
           this.drawTrainCar(ctx, pal, train, route, sample, c, numCars, carLen, carWidth, isSel);
         }
+      }
+    }
+
+    drawPlatformEdgePairwiseOverrides(ctx, pal) {
+      const soloRouteId = (this.inspectedRouteId && (this.mode === 'route' || this.mode === 'simulate') && this.routes.routes.has(this.inspectedRouteId)) ? this.inspectedRouteId : null;
+      const coMapForBridge = ((this.showRoutes || soloRouteId) && !this.routeDraft) ? (this._frameCoMap || this.routes.getEdgeCoRunningMap()) : new Map();
+
+      // Pass 1: Platform-over-Track and Platform-over-Platform local clipped patches
+      for (const p of this.platforms.platforms.values()) {
+        const { tx, ty } = this.platforms.getBasis(p);
+        const p1x = p.cx - tx * (p.length / 2), p1y = p.cy - ty * (p.length / 2);
+        const p2x = p.cx + tx * (p.length / 2), p2y = p.cy + ty * (p.length / 2);
+        for (const eid of (p.overEdgeIds || [])) {
+          const ed = this.graph.edges.get(eid);
+          if (!ed) continue;
+          const a = this.graph.getNode(ed.from), b = this.graph.getNode(ed.to);
+          if (!a || !b) continue;
+          let hit = segmentInteriorIntersection(a.x, a.y, b.x, b.y, p1x, p1y, p2x, p2y);
+          if (!hit && this.platforms._segHitsBox(a.x, a.y, b.x, b.y, p.cx, p.cy, p.rad, p.length / 2, p.width / 2)) {
+            hit = { x: p.cx, y: p.cy };
+          }
+          if (!hit) continue;
+          const s = (hit.x - p.cx) * tx + (hit.y - p.cy) * ty;
+          const eRad = Math.atan2(b.y - a.y, b.x - a.x);
+          const halfClip = Math.min(p.length / 2 + 4, 14 / Math.max(0.35, Math.abs(Math.sin(p.rad - eRad))) + 10);
+          ctx.save();
+          ctx.translate(p.cx, p.cy);
+          ctx.rotate(p.rad);
+          ctx.beginPath();
+          ctx.rect(s - halfClip, -p.width / 2 - 4, halfClip * 2, p.width + 8);
+          ctx.clip();
+          ctx.rotate(-p.rad);
+          ctx.translate(-p.cx, -p.cy);
+          this.drawSinglePlatform(ctx, pal, p, false, true);
+          ctx.restore();
+        }
+        for (const opId of (p.overPlatIds || [])) {
+          const op = this.platforms.getPlatform(opId);
+          if (!op) continue;
+          const { tx: otx, ty: oty } = this.platforms.getBasis(op);
+          const o1x = op.cx - otx * (op.length / 2), o1y = op.cy - oty * (op.length / 2);
+          const o2x = op.cx + otx * (op.length / 2), o2y = op.cy + oty * (op.length / 2);
+          const hit = segmentInteriorIntersection(p1x, p1y, p2x, p2y, o1x, o1y, o2x, o2y);
+          if (!hit) continue;
+          const s = (hit.x - p.cx) * tx + (hit.y - p.cy) * ty;
+          const halfClip = Math.min(p.length / 2 + 4, (op.width / 2) / Math.max(0.35, Math.abs(Math.sin(p.rad - op.rad))) + 8);
+          ctx.save();
+          ctx.translate(p.cx, p.cy);
+          ctx.rotate(p.rad);
+          ctx.beginPath();
+          ctx.rect(s - halfClip, -p.width / 2 - 4, halfClip * 2, p.width + 8);
+          ctx.clip();
+          ctx.rotate(-p.rad);
+          ctx.translate(-p.cx, -p.cy);
+          this.drawSinglePlatform(ctx, pal, p, false, true);
+          ctx.restore();
+        }
+      }
+
+      // Pass 2: Track-over-Platform local bridge decks + trains ON TOP
+      const overBridgeEdges = new Set();
+      for (const p of this.platforms.platforms.values()) {
+        const { tx, ty } = this.platforms.getBasis(p);
+        const p1x = p.cx - tx * (p.length / 2), p1y = p.cy - ty * (p.length / 2);
+        const p2x = p.cx + tx * (p.length / 2), p2y = p.cy + ty * (p.length / 2);
+        for (const eid of (p.underEdgeIds || [])) {
+          const ed = this.graph.edges.get(eid);
+          if (!ed) continue;
+          const a = this.graph.getNode(ed.from), b = this.graph.getNode(ed.to);
+          if (!a || !b) continue;
+          let hit = segmentInteriorIntersection(a.x, a.y, b.x, b.y, p1x, p1y, p2x, p2y);
+          if (!hit && this.platforms._segHitsBox(a.x, a.y, b.x, b.y, p.cx, p.cy, p.rad, p.length / 2, p.width / 2)) {
+            hit = { x: p.cx, y: p.cy };
+          }
+          if (!hit) continue;
+          overBridgeEdges.add(ed.id);
+          ctx.save();
+          let dx = b.x - a.x, dy = b.y - a.y;
+          if (dx < -1e-3 || (Math.abs(dx) <= 1e-3 && dy < 0)) { dx = -dx; dy = -dy; }
+          const len = Math.hypot(dx, dy) || 1;
+          const ux = dx / len, uy = dy / len;
+          const nx = -uy, ny = ux;
+          const rawRoutes = (coMapForBridge.get(ed.id) || []).filter(rt => !soloRouteId || rt.id === soloRouteId);
+          const routesOnOver = [];
+          const seenC = new Set();
+          for (const rt of rawRoutes) {
+            const ck = (soloRouteId ? rt.color : this.getEffectiveRouteColor(rt)).toLowerCase();
+            if (!seenC.has(ck)) { seenC.add(ck); routesOnOver.push(rt); }
+          }
+          const bridgeHalfW = Math.max(11, routesOnOver.length * 5.2 + 7);
+          const span = 18;
+          ctx.strokeStyle = pal.canvasBg;
+          ctx.lineWidth = bridgeHalfW + 4;
+          ctx.lineCap = 'butt';
+          ctx.beginPath();
+          ctx.moveTo(hit.x - ux * span, hit.y - uy * span);
+          ctx.lineTo(hit.x + ux * span, hit.y + uy * span);
+          ctx.stroke();
+
+          ctx.strokeStyle = pal.platformStroke;
+          ctx.lineWidth = 1.2;
+          for (const side of [-1, 1]) {
+            const off = side * (bridgeHalfW / 2);
+            ctx.beginPath();
+            ctx.moveTo(hit.x - ux * span + nx * off, hit.y - uy * span + ny * off);
+            ctx.lineTo(hit.x + ux * span + nx * off, hit.y + uy * span + ny * off);
+            ctx.stroke();
+          }
+
+          ctx.lineCap = 'round';
+          ctx.strokeStyle = pal.trackBed;
+          ctx.lineWidth = 9;
+          ctx.beginPath();
+          ctx.moveTo(hit.x - ux * (span + 2), hit.y - uy * (span + 2));
+          ctx.lineTo(hit.x + ux * (span + 2), hit.y + uy * (span + 2));
+          ctx.stroke();
+
+          ctx.strokeStyle = pal.trackRail;
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(hit.x - ux * (span + 2), hit.y - uy * (span + 2));
+          ctx.lineTo(hit.x + ux * (span + 2), hit.y + uy * (span + 2));
+          ctx.stroke();
+
+          routesOnOver.forEach((rt, idx) => {
+            const offset = (!soloRouteId && routesOnOver.length > 1) ? (idx - (routesOnOver.length - 1) / 2) * 5.2 : 0;
+            ctx.strokeStyle = soloRouteId ? rt.color : this.getEffectiveRouteColor(rt);
+            ctx.lineWidth = soloRouteId ? 4.2 : 3.0;
+            ctx.beginPath();
+            ctx.moveTo(hit.x - ux * (span + 2) + nx * offset, hit.y - uy * (span + 2) + ny * offset);
+            ctx.lineTo(hit.x + ux * (span + 2) + nx * offset, hit.y + uy * (span + 2) + ny * offset);
+            ctx.stroke();
+          });
+          ctx.restore();
+        }
+      }
+      if (overBridgeEdges.size > 0) {
+        this.drawTrains(ctx, pal, overBridgeEdges);
       }
     }
 
@@ -6981,9 +7711,15 @@
         ctx.restore();
       }
 
-      // 2. Draw train cars running on upper bridge edges ON TOP of the bridge decks
-      if (overEdgeIds.size > 0) {
-        this.drawTrains(ctx, pal, overEdgeIds);
+      // 2. Draw train cars running on ground-level upper bridge edges ON TOP of the bridge decks
+      // (Elevated zLayer > 0 station tracks already draw their trains in the overLayers pass)
+      const groundOverEdgeIds = new Set();
+      for (const eid of overEdgeIds) {
+        const ed = this.graph.edges.get(eid);
+        if (ed && Math.abs(this.platforms.getEdgeZLayer(ed)) < 1e-4) groundOverEdgeIds.add(eid);
+      }
+      if (groundOverEdgeIds.size > 0) {
+        this.drawTrains(ctx, pal, groundOverEdgeIds);
       }
 
       // 3. Draw train status badges on top for readability
@@ -7237,12 +7973,32 @@
 
       this._frameCoMap = (this.showRoutes || this.inspectedRouteId) && !this.routeDraft ? this.routes.getEdgeCoRunningMap() : null;
       this.drawGrid(ctx, pal);
-      this.drawPlatforms(ctx, pal, -1);
-      this.drawPlatforms(ctx, pal, 0);
+      const zLevels = new Set();
+      for (const p of this.platforms.platforms.values()) {
+        const zl = p.zLayer || 0;
+        if (Math.abs(zl) >= 1e-4) zLevels.add(zl);
+      }
+      const underLayers = Array.from(zLevels).filter(z => z < 0).sort((a, b) => a - b);
+      const overLayers = Array.from(zLevels).filter(z => z > 0).sort((a, b) => a - b);
+      for (const z of underLayers) {
+        this.drawPlatforms(ctx, pal, z);
+        const lEdges = this.drawTrackLayer(ctx, pal, z);
+        if (lEdges.size > 0) this.drawTrains(ctx, pal, lEdges);
+      }
+      this.drawPlatforms(ctx, pal, 'ground');
       this.drawTracks(ctx, pal);
-      this.drawTrains(ctx, pal);
+      const groundEdgeIds = new Set();
+      for (const e of this.graph.edges.values()) {
+        if (Math.abs(this.platforms.getEdgeZLayer(e)) < 1e-4) groundEdgeIds.add(e.id);
+      }
+      this.drawTrains(ctx, pal, groundEdgeIds);
       this.drawOverpassesAndUpperTrains(ctx, pal);
-      this.drawPlatforms(ctx, pal, 1);
+      for (const z of overLayers) {
+        const lEdges = this.drawTrackLayer(ctx, pal, z);
+        if (lEdges.size > 0) this.drawTrains(ctx, pal, lEdges);
+        this.drawPlatforms(ctx, pal, z);
+      }
+      this.drawPlatformEdgePairwiseOverrides(ctx, pal);
       this.drawSelectedOverlay(ctx, pal);
       this.drawToolPreview(ctx, pal);
       ctx.restore();
@@ -7257,56 +8013,228 @@
       requestAnimationFrame(t => this.loop(t));
     }
 
-    // Prompt strictly Overpass / Underpass (NEVER level crossing!) whenever a platform overlaps a track or another platform
-    promptPlatformOverlap(p, beforeSnap, cancelLabel = '取消', onDone = null) {
+    // Prompt strictly Overpass / Underpass in order:
+    //   1) Overlapped platform groups (re-checking same-layer conflicts dynamically if zLayer changes!)
+    //   2) Remaining same-layer overlapped non-bound tracks
+    // Maintains valid [lowerBoundZ, upperBoundZ] bounds so inserting between two existing layers (e.g. 0 and 1 -> 0.5) works seamlessly!
+    promptPlatformOverlap(p, beforeSnap, cancelLabel = '取消', onDone = null, preResolvedRoots = null, preResolvedEdgeIds = null) {
       if (!p) { if (onDone) onDone(); return; }
-      const ov = this.platforms.findPlatformOverlaps(p);
-      if (ov.platforms.length === 0 && ov.edges.length === 0) {
-        if (onDone) onDone();
-        return;
-      }
-      const targetDesc = ov.platforms.length > 0 && ov.edges.length > 0
-        ? '轨道与其他站台'
-        : (ov.platforms.length > 0 ? `站台「${ov.platforms[0].name}」` : '既有轨道');
-      this.showInlinePromptAt(p.cx, p.cy, `站台与${targetDesc}穿插`, '仅支持立体上下穿', [
-        {
-          label: '站台上跨（高架层）',
-          cls: 'btn-primary',
-          onClick: () => {
-            p.zLayer = 1;
-            this.hideInlinePrompt();
-            this.showToast(`「${p.name}」已设为上跨高架层`);
-            if (onDone) onDone();
-          }
-        },
-        {
-          label: '站台下穿（地下层）',
-          onClick: () => {
-            p.zLayer = -1;
-            this.hideInlinePrompt();
-            this.showToast(`「${p.name}」已设为下穿地下层`);
-            if (onDone) onDone();
-          }
-        },
-        {
-          label: cancelLabel,
-          cls: 'btn-danger',
-          onClick: () => {
-            this.hideInlinePrompt();
-            if (beforeSnap) {
-              if (this.undoStack.length > 0) this.undoStack.pop();
-              this.restoreSnapshot(beforeSnap, false);
-              this.updateHistoryButtons();
-              this.refreshDiagnostics();
-            }
+      const myGroupIds = this.platforms.getConnectedPlatformIds(p.id);
+      const myGroupPlats = Array.from(myGroupIds).map(id => this.platforms.getPlatform(id)).filter(Boolean);
+
+      const otherGroupsMap = new Map();
+      const crossedEdgesMap = new Map();
+      for (const mp of myGroupPlats) {
+        const ov = this.platforms.findPlatformOverlaps(mp);
+        for (const op of ov.platforms) {
+          const oGroup = this.platforms.getConnectedPlatformIds(op.id);
+          const rootId = Array.from(oGroup).sort()[0];
+          if (!otherGroupsMap.has(rootId)) {
+            otherGroupsMap.set(rootId, { rootId, plat: op });
           }
         }
-      ]);
+        for (const ed of ov.edges) {
+          if (ed.platformId) {
+            const oGroup = this.platforms.getConnectedPlatformIds(ed.platformId);
+            const rootId = Array.from(oGroup).sort()[0];
+            const op = this.platforms.getPlatform(ed.platformId);
+            if (op && !otherGroupsMap.has(rootId)) {
+              otherGroupsMap.set(rootId, { rootId, plat: op });
+            }
+          } else {
+            crossedEdgesMap.set(ed.id, ed);
+          }
+        }
+      }
+
+      const platTasks = Array.from(otherGroupsMap.values());
+      const resolvedRoots = new Set(preResolvedRoots || []);
+      const myKey = 'G:' + this.platforms.getGroupRootId(p.id);
+
+      const rollback = () => {
+        this.hideInlinePrompt();
+        if (beforeSnap) {
+          if (this.undoStack.length > 0) this.undoStack.pop();
+          this.restoreSnapshot(beforeSnap, false);
+          this.updateHistoryButtons();
+          this.refreshDiagnostics();
+        }
+      };
+
+      const resolvedEdgeIds = new Set(preResolvedEdgeIds || []);
+      const runNextTrackConflict = () => {
+        const nextEd = Array.from(crossedEdgesMap.values()).find(ed => !resolvedEdgeIds.has(ed.id));
+        if (!nextEd) {
+          if (onDone) onDone();
+          return;
+        }
+        const remEdCount = Array.from(crossedEdgesMap.values()).filter(ed => !resolvedEdgeIds.has(ed.id)).length;
+        const a = this.graph.getNode(nextEd.from), b = this.graph.getNode(nextEd.to);
+        const hx = a && b ? (a.x + b.x) / 2 : p.cx;
+        const hy = a && b ? (a.y + b.y) / 2 : p.cy;
+        this.showInlinePromptAt(hx, hy, `${this.formatGroupName(p.id)} 与 ${this.describeEdgeHuman(nextEd.id)}`, remEdCount > 1 ? `剩 ${remEdCount} 处` : '', [
+          {
+            label: '上跨',
+            hoverEdgeId: nextEd.id,
+            cls: 'btn-primary',
+            onClick: () => {
+              resolvedEdgeIds.add(nextEd.id);
+              this.platforms.setGroupEdgeRelation(p.id, nextEd.id, 'over');
+              this.hideInlinePrompt();
+              runNextPlatConflict();
+            }
+          },
+          {
+            label: '下穿',
+            hoverEdgeId: nextEd.id,
+            onClick: () => {
+              resolvedEdgeIds.add(nextEd.id);
+              this.platforms.setGroupEdgeRelation(p.id, nextEd.id, 'under');
+              this.hideInlinePrompt();
+              runNextPlatConflict();
+            }
+          },
+          { label: cancelLabel, cls: 'btn-danger', onClick: rollback }
+        ]);
+      };
+
+      const runNextPlatConflict = () => {
+        const nextTask = platTasks.find(t => !resolvedRoots.has(t.rootId));
+        if (!nextTask) {
+          runNextTrackConflict();
+          return;
+        }
+        const op = nextTask.plat;
+        const opKey = 'G:' + nextTask.rootId;
+        const pendingCount = platTasks.filter(t => !resolvedRoots.has(t.rootId)).length;
+        const stepTxt = pendingCount > 1 ? `剩 ${pendingCount} 处` : '';
+        this.showInlinePromptAt((p.cx + op.cx) / 2, (p.cy + op.cy) / 2, `${this.formatGroupName(p.id)} 与 ${this.formatGroupName(op.id)}`, stepTxt, [
+          {
+            label: `${this.formatGroupName(p.id)}上跨`,
+            cls: 'btn-primary',
+            onClick: () => {
+              resolvedRoots.add(nextTask.rootId);
+              this.platforms.setGroupPlatRelation(p.id, op.id, 'over');
+              this.hideInlinePrompt();
+              runNextPlatConflict();
+            }
+          },
+          {
+            label: `${this.formatGroupName(p.id)}下穿`,
+            onClick: () => {
+              resolvedRoots.add(nextTask.rootId);
+              this.platforms.setGroupPlatRelation(p.id, op.id, 'under');
+              this.hideInlinePrompt();
+              runNextPlatConflict();
+            }
+          },
+          { label: cancelLabel, cls: 'btn-danger', onClick: rollback }
+        ]);
+      };
+
+      runNextPlatConflict(1);
+    }
+
+    formatGroupName(platformId) {
+      const p = this.platforms.getPlatform(platformId);
+      if (!p) return '站组';
+      const gIds = this.platforms.getConnectedPlatformIds(platformId);
+      const hasTrack = this.platforms.hasBoundTrackInGroup(platformId);
+      return (gIds.size > 1 || hasTrack) ? `「${p.name}」站组` : `「${p.name}」`;
+    }
+
+    describeEdgeHuman(edgeId, movedEdgeIds = null) {
+      const ed = this.graph.edges.get(edgeId);
+      if (!ed) return '轨道';
+      if (ed.platformId) {
+        const pl = this.platforms.getPlatform(ed.platformId);
+        if (pl) return `「${pl.name}」站线`;
+      }
+      const lineNames = [];
+      const seenLine = new Set();
+      for (const rt of this.routes.routes.values()) {
+        if (rt.segments && rt.segments.some(s => s.edgeId === edgeId)) {
+          const line = this.routes.lines.get(rt.lineId);
+          const nm = line ? line.name : rt.name;
+          if (nm && !seenLine.has(nm)) {
+            seenLine.add(nm);
+            lineNames.push(nm);
+          }
+        }
+      }
+      if (lineNames.length > 0) {
+        const base = lineNames.slice(0, 2).join('/');
+        return (movedEdgeIds && movedEdgeIds.has(edgeId)) ? `${base}（拖动）` : base;
+      }
+      if (movedEdgeIds && movedEdgeIds.has(edgeId)) return '拖动线';
+      const a = this.graph.getNode(ed.from), b = this.graph.getNode(ed.to);
+      if (a && b) {
+        const dx = b.x - a.x, dy = b.y - a.y;
+        if (Math.abs(dy) < 1e-3) return '水平轨道';
+        if (Math.abs(dx) < 1e-3) return '竖直轨道';
+        return (dx * dy > 0) ? '↘斜向轨道' : '↗斜向轨道';
+      }
+      return '轨道';
+    }
+
+    getCrossingEdgeLabels(edgeAId, edgeBId, movedEdgeIds = null) {
+      const aMoved = !!(movedEdgeIds && movedEdgeIds.has(edgeAId));
+      const bMoved = !!(movedEdgeIds && movedEdgeIds.has(edgeBId));
+      let labelA = this.describeEdgeHuman(edgeAId, aMoved && !bMoved ? movedEdgeIds : null);
+      let labelB = this.describeEdgeHuman(edgeBId, bMoved && !aMoved ? movedEdgeIds : null);
+      if (labelA === labelB) {
+        const dirTag = (eid) => {
+          const ed = this.graph.edges.get(eid);
+          const a = ed && this.graph.getNode(ed.from), b = ed && this.graph.getNode(ed.to);
+          if (!a || !b) return '';
+          const dx = b.x - a.x, dy = b.y - a.y;
+          if (Math.abs(dy) < 1e-3) return '水平';
+          if (Math.abs(dx) < 1e-3) return '竖直';
+          return (dx * dy > 0) ? '↘' : '↗';
+        };
+        const dA = dirTag(edgeAId), dB = dirTag(edgeBId);
+        if (dA && dB && dA !== dB) {
+          labelA = `${labelA} (${dA})`;
+          labelB = `${labelB} (${dB})`;
+        } else {
+          labelA = `${labelA} (1)`;
+          labelB = `${labelB} (2)`;
+        }
+      }
+      return { labelA, labelB };
+    }
+
+    syncPlatformsForCrossing(cr) {
+      if (!cr) return;
+      const eA = this.graph.edges.get(cr.edgeA);
+      const eB = this.graph.edges.get(cr.edgeB);
+      const pA = (eA && eA.platformId) ? this.platforms.getPlatform(eA.platformId) : null;
+      const pB = (eB && eB.platformId) ? this.platforms.getPlatform(eB.platformId) : null;
+      if (!pA && !pB) return;
+      if (cr.type === 'level') {
+        if (pA && (pA.zLayer || 0) !== 0) this.platforms.syncGroupElevation(pA.id, 0);
+        if (pB && (pB.zLayer || 0) !== 0) this.platforms.syncGroupElevation(pB.id, 0);
+        return;
+      }
+      const overEdge = this.graph.edges.get(cr.overEdgeId);
+      const underEdge = this.graph.edges.get(cr.underEdgeId);
+      const overPlat = (overEdge && overEdge.platformId) ? this.platforms.getPlatform(overEdge.platformId) : null;
+      const underPlat = (underEdge && underEdge.platformId) ? this.platforms.getPlatform(underEdge.platformId) : null;
+      const overZ = overPlat ? (overPlat.zLayer || 0) : 0;
+      const underZ = underPlat ? (underPlat.zLayer || 0) : 0;
+      if (overPlat && underPlat) {
+        this.platforms.setGroupPlatRelation(overPlat.id, underPlat.id, 'over');
+      } else if (overPlat && !underPlat && underEdge) {
+        this.platforms.setGroupEdgeRelation(overPlat.id, underEdge.id, 'over');
+      } else if (underPlat && !overPlat && overEdge) {
+        this.platforms.setGroupEdgeRelation(underPlat.id, overEdge.id, 'under');
+      }
     }
 
     hideInlinePrompt() {
       this.activeInlinePrompt = null;
       this.pendingPlacement = null;
+      this.promptHoverEdgeId = null;
       const box = document.getElementById('sideChoicePrompt');
       if (box) box.classList.remove('visible');
     }
@@ -7328,9 +8256,14 @@
         `<button class="btn btn-xs ${o.cls || ''}" data-inline-opt="${idx}" ${o.title ? `title="${o.title}"` : ''} style="justify-content:center;">${o.label}</button>`
       ).join('');
       optsEl.querySelectorAll('[data-inline-opt]').forEach(btn => {
+        const opt = options[Number(btn.dataset.inlineOpt)];
+        if (opt && opt.hoverEdgeId) {
+          btn.addEventListener('mouseenter', () => { this.promptHoverEdgeId = opt.hoverEdgeId; });
+          btn.addEventListener('mouseleave', () => { if (this.promptHoverEdgeId === opt.hoverEdgeId) this.promptHoverEdgeId = null; });
+        }
         btn.addEventListener('click', e => {
           e.stopPropagation();
-          const opt = options[Number(btn.dataset.inlineOpt)];
+          this.promptHoverEdgeId = null;
           if (opt && opt.onClick) opt.onClick();
         });
       });
@@ -7354,25 +8287,62 @@
     advancePendingPlacement() {
       const p = this.pendingPlacement;
       if (!p) return;
-      const totalSteps = p.hits.length + p.switchCandidates.length;
+      if (!p.resolvedGroupChoices) p.resolvedGroupChoices = new Map();
+      const getHitRoot = (hit) => {
+        if (!hit || !hit.edge || !hit.edge.platformId) return null;
+        const gIds = this.platforms.getConnectedPlatformIds(hit.edge.platformId);
+        return Array.from(gIds).sort()[0] || null;
+      };
+      while (p.stepIndex < p.hits.length) {
+        const h = p.hits[p.stepIndex];
+        const rootId = getHitRoot(h);
+        if (rootId && p.resolvedGroupChoices.has(rootId)) {
+          p.crossingChoices.push(p.resolvedGroupChoices.get(rootId));
+          p.stepIndex++;
+          continue;
+        }
+        break;
+      }
+      // Count remaining distinct prompt steps (deduplicating station groups)
+      let remPrompts = p.switchCandidates.length;
+      const seenRemRoots = new Set(p.resolvedGroupChoices.keys());
+      for (let i = p.stepIndex; i < p.hits.length; i++) {
+        const rId = getHitRoot(p.hits[i]);
+        if (rId) {
+          if (seenRemRoots.has(rId)) continue;
+          seenRemRoots.add(rId);
+        }
+        remPrompts++;
+      }
       if (p.stepIndex < p.hits.length) {
         const h = p.hits[p.stepIndex];
-        this.showInlinePromptAt(h.x, h.y, '轨道交叉', `${p.stepIndex + 1}/${totalSteps}`, [
-          { label: '平面相交', cls: 'btn-primary', title: '共用闭塞区段', onClick: () => { p.crossingChoices.push('level'); p.stepIndex++; this.advancePendingPlacement(); } },
-          { label: '新线上跨', title: '立体交叉，新线位于上方', onClick: () => { p.crossingChoices.push('overpass'); p.stepIndex++; this.advancePendingPlacement(); } },
-          { label: '新线下跨', title: '立体交叉，新线位于下方', onClick: () => { p.crossingChoices.push('underpass'); p.stepIndex++; this.advancePendingPlacement(); } },
+        const rootId = getHitRoot(h);
+        const pick = (mode) => {
+          if (rootId && mode !== 'level') p.resolvedGroupChoices.set(rootId, mode);
+          p.crossingChoices.push(mode);
+          p.stepIndex++;
+          this.advancePendingPlacement();
+        };
+        const title = rootId ? `交叉「${this.platforms.getPlatform(h.edge.platformId).name}」站组` : '轨道交叉';
+        const stepTxt = remPrompts > 1 ? `剩 ${remPrompts} 处` : '';
+        this.showInlinePromptAt(h.x, h.y, title, stepTxt, [
+          ...(!rootId ? [{ label: '平面相交', cls: 'btn-primary', onClick: () => pick('level') }] : []),
+          { label: '新线上跨', cls: rootId ? 'btn-primary' : '', onClick: () => pick('overpass') },
+          { label: '新线下跨', onClick: () => pick('underpass') },
           { label: '取消', cls: 'btn-danger', onClick: () => { this.hideInlinePrompt(); this.trackChainStartNode = null; this.renderSubbar(); } }
         ]);
-      } else if (p.stepIndex < totalSteps) {
+      } else if (p.stepIndex < p.hits.length + p.switchCandidates.length) {
         const swIdx = p.stepIndex - p.hits.length;
         const n = p.switchCandidates[swIdx];
-        this.showInlinePromptAt(n.x, n.y, n.id ? `节点 ${n.id}` : '道岔设置', `${p.stepIndex + 1}/${totalSteps}`, [
+        const stepTxt = remPrompts > 1 ? `剩 ${remPrompts} 处` : '';
+        this.showInlinePromptAt(n.x, n.y, n.id ? `节点 ${n.id}` : '道岔设置', stepTxt, [
           { label: '开启道岔', cls: 'btn-primary', title: '允许列车经此分岔运行', onClick: () => { p.switchChoices.push({ x: n.x, y: n.y, isSwitch: true }); p.stepIndex++; this.advancePendingPlacement(); } },
           { label: '关闭道岔', title: '作为断头路，仅允许直行或折返', onClick: () => { p.switchChoices.push({ x: n.x, y: n.y, isSwitch: false }); p.stepIndex++; this.advancePendingPlacement(); } },
           { label: '取消', cls: 'btn-danger', onClick: () => { this.hideInlinePrompt(); this.trackChainStartNode = null; this.renderSubbar(); } }
         ]);
       } else {
         const finalP = p;
+        if (finalP.plan) finalP.plan.resolvedGroupChoices = finalP.resolvedGroupChoices;
         this.hideInlinePrompt();
         this.commitOctilinearTrack(finalP.plan, finalP.crossingChoices, finalP.switchChoices);
       }
@@ -7784,6 +8754,7 @@
             cr = this.graph.addCrossing(newEdge.id, oldEdge.id, h.x, h.y, 'level', null, null);
           }
           if (cr && bendNode) cr.bendNodeId = bendNode.id;
+          if (cr) this.syncPlatformsForCrossing(cr);
         }
       }
 
@@ -7805,32 +8776,49 @@
       this.renderLineTree();
       this.refreshDiagnostics();
 
-      // Check if any newly drawn track edge crosses through an existing platform (strictly over/under, no level crossing!)
-      const crossedPlats = [];
+      // Check ALL platforms crossed by newly drawn track edges that were NOT already resolved via station-track crossings
+      const resolvedTrackGroupRoots = new Set(plan.resolvedGroupChoices ? plan.resolvedGroupChoices.keys() : []);
+      const crossedPlatGroups = [];
+      const seenCrossedRoots = new Set();
       for (const pl of this.platforms.platforms.values()) {
+        const gIds = this.platforms.getConnectedPlatformIds(pl.id);
+        const root = Array.from(gIds).sort()[0];
+        if (resolvedTrackGroupRoots.has(root)) continue;
         const ov = this.platforms.findPlatformOverlaps(pl);
         if (ov.edges.some(ed => createdEdges.some(ce => ce && ce.id === ed.id))) {
-          crossedPlats.push(pl);
+          if (!seenCrossedRoots.has(root)) {
+            seenCrossedRoots.add(root);
+            crossedPlatGroups.push(pl);
+          }
         }
       }
-      if (crossedPlats.length > 0) {
+      if (crossedPlatGroups.length > 0) {
         const promptCrossedPlats = (idx) => {
-          if (idx >= crossedPlats.length) return;
-          const pl = crossedPlats[idx];
-          this.showInlinePromptAt(pl.cx, pl.cy, `轨道穿过「${pl.name}」`, '仅支持立体上下穿', [
+          if (idx >= crossedPlatGroups.length) return;
+          const pl = crossedPlatGroups[idx];
+          const stepTxt = crossedPlatGroups.length > 1 ? `${idx + 1}/${crossedPlatGroups.length}` : '';
+          this.showInlinePromptAt(pl.cx, pl.cy, `轨道穿过${this.formatGroupName(pl.id)}`, stepTxt, [
             {
-              label: '轨道上跨（站台下穿）',
+              label: '轨道上跨',
               cls: 'btn-primary',
               onClick: () => {
-                pl.zLayer = -1;
+                for (const ce of createdEdges) {
+                  if (ce && this.platforms.findPlatformOverlaps(pl).edges.some(ed => ed.id === ce.id)) {
+                    this.platforms.setGroupEdgeRelation(pl.id, ce.id, 'under');
+                  }
+                }
                 this.hideInlinePrompt();
                 promptCrossedPlats(idx + 1);
               }
             },
             {
-              label: '轨道下穿（站台上跨）',
+              label: '轨道下穿',
               onClick: () => {
-                pl.zLayer = 1;
+                for (const ce of createdEdges) {
+                  if (ce && this.platforms.findPlatformOverlaps(pl).edges.some(ed => ed.id === ce.id)) {
+                    this.platforms.setGroupEdgeRelation(pl.id, ce.id, 'over');
+                  }
+                }
                 this.hideInlinePrompt();
                 promptCrossedPlats(idx + 1);
               }
@@ -7864,8 +8852,14 @@
 
       // Inline on-map prompt buttons are bound dynamically in showInlinePromptAt()
 
-      document.getElementById('btnUndo').addEventListener('click', () => this.undo());
-      document.getElementById('btnRedo').addEventListener('click', () => this.redo());
+      document.getElementById('btnUndo').addEventListener('click', () => {
+        if (this.mode === 'route' && this.routeDraft) this.undoDraft();
+        else this.undo();
+      });
+      document.getElementById('btnRedo').addEventListener('click', () => {
+        if (this.mode === 'route' && this.routeDraft) this.redoDraft();
+        else this.redo();
+      });
       document.getElementById('btnLoadDemo').addEventListener('click', () => {
         this.pushHistory('载入演示');
         this.loadClassicDemo();
@@ -7896,7 +8890,9 @@
         if (f) this.importSaveFile(f);
       });
       document.getElementById('btnThemeToggle').addEventListener('click', () => {
-        this.applyTheme(this.theme === 'dark' ? 'light' : 'dark');
+        const order = ['system', 'light', 'dark'];
+        const next = order[(order.indexOf(this.themeMode) + 1) % order.length];
+        this.applyTheme(next);
       });
       document.getElementById('btnFitView').addEventListener('click', () => this.fitToView());
       document.getElementById('btnClearAll').addEventListener('click', () => {
@@ -8042,8 +9038,49 @@
           const created = this.platforms.snapPlatform(this.activeSnapPopover.platformId, this.activeSnapPopover.side, len);
           this.hideSnapPopover();
           if (created) {
+            const preRoots = new Set();
+            const preEdges = new Set();
+            for (const eid of [...(created.overEdgeIds || []), ...(created.underEdgeIds || [])]) preEdges.add(eid);
+            for (const pid2 of [...(created.overPlatIds || []), ...(created.underPlatIds || [])]) {
+              const r = this.platforms.getGroupRootId(pid2);
+              if (r) preRoots.add(r);
+            }
+            const gIds = this.platforms.getConnectedPlatformIds(created.id);
+            for (const pid of gIds) {
+              if (pid === created.id) continue;
+              const gp = this.platforms.getPlatform(pid);
+              if (!gp) continue;
+              const ov = this.platforms.findPlatformOverlaps(gp);
+              for (const op of ov.platforms) {
+                const r = Array.from(this.platforms.getConnectedPlatformIds(op.id)).sort()[0];
+                if (r) preRoots.add(r);
+              }
+              for (const ed of ov.edges) {
+                const owner = this.platforms.getEdgeOwnerPlatform(ed);
+                if (owner) {
+                  const r = Array.from(this.platforms.getConnectedPlatformIds(owner.id)).sort()[0];
+                  if (r) preRoots.add(r);
+                } else {
+                  preEdges.add(ed.id);
+                }
+              }
+            }
+            const gEdges = this.platforms.getGroupBoundEdgeIds(created.id);
+            for (const cr of this.graph.crossings.values()) {
+              const inA = gEdges.has(cr.edgeA), inB = gEdges.has(cr.edgeB);
+              if (inA === inB) continue;
+              const otherEid = inA ? cr.edgeB : cr.edgeA;
+              const otherEd = this.graph.edges.get(otherEid);
+              const owner = otherEd ? this.platforms.getEdgeOwnerPlatform(otherEd) : null;
+              if (owner) {
+                const r = Array.from(this.platforms.getConnectedPlatformIds(owner.id)).sort()[0];
+                if (r) preRoots.add(r);
+              } else {
+                preEdges.add(otherEid);
+              }
+            }
             this.showToast(`已拼接换乘站台「${created.name}」(${len}m)`);
-            this.promptPlatformOverlap(created, beforeSnap, '取消拼接');
+            this.promptPlatformOverlap(created, beforeSnap, '取消', null, preRoots, preEdges);
           }
         });
       });
@@ -8070,42 +9107,157 @@
         this.updateHistoryButtons();
 
         const stationEdgeId = res.edge.id;
-        if (newCrossings.length === 0) {
-          this.showToast(`已生成 ${res.edge.platformLength}m 站线`);
-          return;
+        const plat = res.platform;
+        const platOv = plat ? this.platforms.findPlatformOverlaps(plat) : { platforms: [], edges: [] };
+        const platAlreadyRoots = new Set();
+        for (const op of platOv.platforms) {
+          const r = Array.from(this.platforms.getConnectedPlatformIds(op.id)).sort()[0];
+          if (r) platAlreadyRoots.add(r);
         }
-
-        // Prompt user sequentially for every crossing between the new station track and existing tracks
+        const platAlreadyEdges = new Set();
+        for (const ed of platOv.edges) {
+          const op = this.platforms.getEdgeOwnerPlatform(ed);
+          if (op) {
+            const r = Array.from(this.platforms.getConnectedPlatformIds(op.id)).sort()[0];
+            if (r) platAlreadyRoots.add(r);
+          } else {
+            platAlreadyEdges.add(ed.id);
+          }
+        }
+        newCrossings.sort((a, b) => {
+          const aOe = this.graph.edges.get(a.edgeA === stationEdgeId ? a.edgeB : a.edgeA);
+          const bOe = this.graph.edges.get(b.edgeA === stationEdgeId ? b.edgeB : b.edgeA);
+          const aGrp = (aOe && aOe.platformId) ? 0 : 1;
+          const bGrp = (bOe && bOe.platformId) ? 0 : 1;
+          return aGrp - bGrp;
+        });
+        const resolvedOtherRoots = new Set();
+        const myGroupIds = plat ? this.platforms.getConnectedPlatformIds(plat.id) : new Set();
+        const crossedPlatGroups = [];
+        const seenPlatRoots = new Set();
+        for (const otherP of this.platforms.platforms.values()) {
+          if (myGroupIds.has(otherP.id)) continue;
+          const ov = this.platforms.findPlatformOverlaps(otherP);
+          if (ov.edges.some(ed => ed.id === stationEdgeId)) {
+            const gIds = this.platforms.getConnectedPlatformIds(otherP.id);
+            const root = Array.from(gIds).sort()[0];
+            if (!seenPlatRoots.has(root)) {
+              seenPlatRoots.add(root);
+              crossedPlatGroups.push(otherP);
+            }
+          }
+        }
         const promptStationCross = (idx) => {
           if (idx >= newCrossings.length) {
-            this.graph.rebuildCrossingIndex();
-            this.routes.rebuildAll();
-            this.dispatcher.syncTrainsWithRoutes(false);
-            this.refreshDiagnostics();
-            this.showToast(`已生成 ${res.edge.platformLength}m 站线`);
+            const promptPlatCross = (pIdx) => {
+              if (pIdx >= crossedPlatGroups.length) {
+                this.graph.rebuildCrossingIndex();
+                this.routes.rebuildAll();
+                this.dispatcher.syncTrainsWithRoutes(false);
+                this.refreshDiagnostics();
+                this.showToast(`已生成 ${res.edge.platformLength}m 站线`);
+                return;
+              }
+              const op = crossedPlatGroups[pIdx];
+              const oRoot = Array.from(this.platforms.getConnectedPlatformIds(op.id)).sort()[0];
+              if (oRoot && (resolvedOtherRoots.has(oRoot) || platAlreadyRoots.has(oRoot))) { promptPlatCross(pIdx + 1); return; }
+              const myZ = plat ? (plat.zLayer || 0) : 0;
+              const opZ = op.zLayer || 0;
+              if (Math.abs(myZ - opZ) >= 1e-4) { promptPlatCross(pIdx + 1); return; }
+              this.showInlinePromptAt(op.cx, op.cy, `站线穿过${this.formatGroupName(op.id)}`, crossedPlatGroups.length > 1 ? `${pIdx + 1}/${crossedPlatGroups.length}` : '', [
+                { label: '上跨', cls: 'btn-primary', onClick: () => { if (plat) this.platforms.syncGroupElevation(plat.id, Math.max(1, opZ + 1)); this.hideInlinePrompt(); promptPlatCross(pIdx + 1); } },
+                { label: '下穿', onClick: () => { if (plat) this.platforms.syncGroupElevation(plat.id, Math.min(-1, opZ - 1)); this.hideInlinePrompt(); promptPlatCross(pIdx + 1); } }
+              ]);
+            };
+            promptPlatCross(0);
             return;
           }
           const cr = newCrossings[idx];
           const otherEdgeId = cr.edgeA === stationEdgeId ? cr.edgeB : cr.edgeA;
+          const otherEdge = this.graph.edges.get(otherEdgeId);
+          const otherPlat = (otherEdge && otherEdge.platformId) ? this.platforms.getPlatform(otherEdge.platformId) : null;
+          const myZ = plat ? (plat.zLayer || 0) : 0;
+          const otherZ = otherPlat ? (otherPlat.zLayer || 0) : 0;
+          if (plat && (plat.overEdgeIds || []).includes(otherEdgeId)) {
+            cr.type = 'overpass'; cr.overEdgeId = stationEdgeId; cr.underEdgeId = otherEdgeId;
+            promptStationCross(idx + 1);
+            return;
+          }
+          if (plat && (plat.underEdgeIds || []).includes(otherEdgeId)) {
+            cr.type = 'underpass'; cr.overEdgeId = otherEdgeId; cr.underEdgeId = stationEdgeId;
+            promptStationCross(idx + 1);
+            return;
+          }
+          if (plat && otherPlat && (plat.overPlatIds || []).includes(otherPlat.id)) {
+            cr.type = 'overpass'; cr.overEdgeId = stationEdgeId; cr.underEdgeId = otherEdgeId;
+            promptStationCross(idx + 1);
+            return;
+          }
+          if (plat && otherPlat && (plat.underPlatIds || []).includes(otherPlat.id)) {
+            cr.type = 'underpass'; cr.overEdgeId = otherEdgeId; cr.underEdgeId = stationEdgeId;
+            promptStationCross(idx + 1);
+            return;
+          }
+          const otherRoot = otherPlat ? (Array.from(this.platforms.getConnectedPlatformIds(otherPlat.id)).sort()[0] || null) : null;
+          if (myZ !== otherZ || (otherRoot && platAlreadyRoots.has(otherRoot)) || (!otherPlat && platAlreadyEdges.has(otherEdgeId))) {
+            let isOver = myZ > otherZ;
+            if (myZ === otherZ && plat) {
+              // Inherit from any existing crossing between this platform group's bound tracks and otherEdgeId
+              const gEdges = this.platforms.getGroupBoundEdgeIds(plat.id);
+              for (const exCr of this.graph.crossings.values()) {
+                if (exCr.id === cr.id) continue;
+                const touchesG = gEdges.has(exCr.edgeA) || gEdges.has(exCr.edgeB);
+                const touchesO = exCr.edgeA === otherEdgeId || exCr.edgeB === otherEdgeId;
+                if (touchesG && touchesO && (exCr.type === 'overpass' || exCr.type === 'underpass')) {
+                  isOver = gEdges.has(exCr.overEdgeId);
+                  break;
+                }
+              }
+            }
+            if (isOver) {
+              cr.type = 'overpass'; cr.overEdgeId = stationEdgeId; cr.underEdgeId = otherEdgeId;
+            } else {
+              cr.type = 'underpass'; cr.overEdgeId = otherEdgeId; cr.underEdgeId = stationEdgeId;
+            }
+            promptStationCross(idx + 1);
+            return;
+          }
           const apply = (mode) => {
+            if (otherPlat) {
+              const oRoot = Array.from(this.platforms.getConnectedPlatformIds(otherPlat.id)).sort()[0];
+              if (oRoot) resolvedOtherRoots.add(oRoot);
+            }
             if (mode === 'level') {
               cr.type = 'level'; cr.overEdgeId = null; cr.underEdgeId = null;
             } else if (mode === 'over') {
               cr.type = 'overpass'; cr.overEdgeId = stationEdgeId; cr.underEdgeId = otherEdgeId;
+              if (plat) this.platforms.syncGroupElevation(plat.id, Math.max(1, otherZ + 1));
             } else {
               cr.type = 'underpass'; cr.overEdgeId = otherEdgeId; cr.underEdgeId = stationEdgeId;
+              if (plat) this.platforms.syncGroupElevation(plat.id, Math.min(-1, otherZ - 1));
             }
             this.graph.rebuildCrossingIndex();
             this.hideInlinePrompt();
             promptStationCross(idx + 1);
           };
-          const stepText = newCrossings.length > 1 ? `站线交叉 ${idx + 1}/${newCrossings.length}` : '站线交叉';
-          this.showInlinePromptAt(cr.x, cr.y, '站线交叉方式', stepText, [
-            { label: '平面相交', title: '共用闭塞区段', onClick: () => apply('level') },
-            { label: '站线上跨', cls: 'btn-primary', title: '新站线作为高架桥上跨', onClick: () => apply('over') },
-            { label: '站线下跨', title: '新站线从既有轨道下方下穿', onClick: () => apply('under') },
+          const remSet = new Set();
+          let remUnbound = 0;
+          for (let j = idx; j < newCrossings.length; j++) {
+            const c2 = newCrossings[j];
+            const oe2 = this.graph.edges.get(c2.edgeA === stationEdgeId ? c2.edgeB : c2.edgeA);
+            const op2 = (oe2 && oe2.platformId) ? this.platforms.getPlatform(oe2.platformId) : null;
+            if (Math.abs((plat ? (plat.zLayer || 0) : 0) - (op2 ? (op2.zLayer || 0) : 0)) >= 1e-4) continue;
+            if (op2) remSet.add(Array.from(this.platforms.getConnectedPlatformIds(op2.id)).sort()[0]);
+            else remUnbound++;
+          }
+          const remTotal = remSet.size + remUnbound;
+          const stepText = remTotal > 1 ? `剩 ${remTotal} 处` : '';
+          this.showInlinePromptAt(cr.x, cr.y, '站线交叉', stepText, [
+            ...(otherZ === 0 && !otherPlat ? [{ label: '平面相交', onClick: () => apply('level') }] : []),
+            { label: '上跨', cls: 'btn-primary', onClick: () => apply('over') },
+            { label: '下穿', onClick: () => apply('under') },
             {
-              label: '取消生成',
+              label: '取消',
               cls: 'btn-danger',
               onClick: () => {
                 this.hideInlinePrompt();
@@ -8162,13 +9314,19 @@
         if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
           e.preventDefault();
-          if (e.shiftKey) this.redo();
-          else this.undo();
+          if (this.mode === 'route' && this.routeDraft) {
+            if (e.shiftKey) this.redoDraft();
+            else this.undoDraft();
+          } else {
+            if (e.shiftKey) this.redo();
+            else this.undo();
+          }
           return;
         }
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
           e.preventDefault();
-          this.redo();
+          if (this.mode === 'route' && this.routeDraft) this.redoDraft();
+          else this.redo();
           return;
         }
         if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !e.altKey && this.mode === 'track' && this.trackDrawStyle === 'l-bend') {
@@ -8186,6 +9344,9 @@
           if (this.mode === 'route' && this.routeDraft && this.routeDraft.selectedSegIdx !== null && this.routeDraft.selectedSegIdx !== undefined) {
             e.preventDefault();
             this.deleteSelectedDraftSegment();
+          } else if (this.mode === 'route' && this.routeDraft && this.routeDraft.selectedNodeIdx !== null && this.routeDraft.selectedNodeIdx !== undefined) {
+            e.preventDefault();
+            this.deleteSelectedDraftNode();
           } else if (this.selectedEntity) {
             e.preventDefault();
             this.deleteSelectedEntity();
@@ -8270,17 +9431,69 @@
           const plat = this.platforms.getPlatform(platformId);
           const hit = this.graph.findEdgeAt(w.x, w.y, 18 / this.cam.zoom);
           if (hit && this.platforms.isEdgeEligibleForSnap(plat, hit.edge)) {
+            const beforeSnap = this.captureSnapshot();
             this.pushHistory('吸附站台至轨道');
             const res = this.platforms.snapPlatformToEdge(platformId, side, hit.edge.id, this.routes, w);
             this.pendingTrackSnap = null;
             this.hoveredCandidateEdge = null;
             if (res && res.ok) {
               this.graph.syncAllCrossings('overpass');
+              // Inherit crossing relationships already established on the snapped track!
+              const preRoots = new Set();
+              const preEdges = new Set();
+              const snappedEdge = res.edge;
+              const pGroup = res.platform;
+              const snappedCrossings = Array.from(this.graph.crossings.values()).filter(
+                cr => cr.edgeA === snappedEdge.id || cr.edgeB === snappedEdge.id
+              );
+              // 1) First align pGroup zLayer against any unbound single-track crossings on snappedEdge
+              let wantAboveZero = false, wantBelowZero = false;
+              for (const cr of snappedCrossings) {
+                const otherEid = cr.edgeA === snappedEdge.id ? cr.edgeB : cr.edgeA;
+                const otherEd = this.graph.edges.get(otherEid);
+                const otherPl = otherEd ? this.platforms.getEdgeOwnerPlatform(otherEd) : null;
+                if (!otherPl) {
+                  preEdges.add(otherEid);
+                  if (cr.type === 'overpass' || cr.type === 'underpass') {
+                    if (cr.overEdgeId === snappedEdge.id) wantAboveZero = true;
+                    else if (cr.underEdgeId === snappedEdge.id) wantBelowZero = true;
+                  }
+                }
+              }
+              if (wantAboveZero && (pGroup.zLayer || 0) <= 0) {
+                this.platforms.syncGroupElevation(pGroup.id, 1);
+              } else if (wantBelowZero && !wantAboveZero && (pGroup.zLayer || 0) >= 0) {
+                this.platforms.syncGroupElevation(pGroup.id, -1);
+              }
+              // 2) Then align any crossed station groups relative to pGroup's zLayer
+              for (const cr of snappedCrossings) {
+                const otherEid = cr.edgeA === snappedEdge.id ? cr.edgeB : cr.edgeA;
+                const otherEd = this.graph.edges.get(otherEid);
+                const otherPl = otherEd ? this.platforms.getEdgeOwnerPlatform(otherEd) : null;
+                if (otherPl) {
+                  const oRoot = Array.from(this.platforms.getConnectedPlatformIds(otherPl.id)).sort()[0];
+                  if (oRoot) preRoots.add(oRoot);
+                  if (cr.type === 'overpass' || cr.type === 'underpass') {
+                    this.platforms.setGroupPlatRelation(pGroup.id, otherPl.id, cr.overEdgeId === snappedEdge.id ? 'over' : 'under');
+                  }
+                }
+              }
+              // Any platform body that snappedEdge already passes through was already judged when snappedEdge was placed
+              const myGroupIdsForSnap = this.platforms.getConnectedPlatformIds(pGroup.id);
+              for (const pl of this.platforms.platforms.values()) {
+                if (myGroupIdsForSnap.has(pl.id)) continue;
+                const ov = this.platforms.findPlatformOverlaps(pl);
+                if (ov.edges.some(ed => ed.id === snappedEdge.id)) {
+                  const oRoot = Array.from(this.platforms.getConnectedPlatformIds(pl.id)).sort()[0];
+                  if (oRoot) preRoots.add(oRoot);
+                }
+              }
               this.routes.rebuildAll();
-              this.dispatcher.syncTrainsWithRoutes();
+              this.dispatcher.syncTrainsWithRoutes(false);
               this.renderLineTree();
               this.refreshDiagnostics();
-              this.showToast(`已将「${res.platform.name}」吸附至轨道 ${res.edge.id}`);
+              this.showToast(`已将「${res.platform.name}」吸附至轨道`);
+              this.promptPlatformOverlap(res.platform, beforeSnap, '取消', null, preRoots, preEdges);
             } else {
               this.undoStack.pop();
               this.updateHistoryButtons();
@@ -8298,6 +9511,19 @@
 
         if (this.mode === 'platform' || (this.mode === 'select' && this.selectedEntity && this.selectedEntity.type === 'platform')) {
           const sp = this.platforms.findSnapPointAt(w.x, w.y, 13 / this.cam.zoom);
+          if (this.mode === 'select' && sp && sp.platformId === this.selectedEntity.id && sp.sideType === 'track') {
+            this.pushHistory('解绑站台与站线');
+            const res = this.platforms.unbindPlatformTrack(sp.platformId, sp.side);
+            if (res) {
+              this.routes.rebuildAll();
+              this.dispatcher.syncTrainsWithRoutes(false);
+              this.renderSubbar();
+              this.renderLineTree();
+              this.refreshDiagnostics();
+              this.showToast(`已解绑「${res.platform.name}」与站线 ${res.edgeId}`);
+            }
+            return;
+          }
           const isValidForMode = sp && !sp.occupied && (this.mode === 'platform' || sp.platformId === this.selectedEntity.id);
           if (isValidForMode) {
             this.showSnapPopover(sp, sx, sy);
@@ -8332,20 +9558,24 @@
         if (this.mode === 'select') {
           const hitCross = this.graph.findCrossingAt(w.x, w.y, 14 / this.cam.zoom);
           if (hitCross) {
-            this.showInlinePromptAt(hitCross.x, hitCross.y, `交叉 ${hitCross.id}`, hitCross.type === 'level' ? '平交' : '立交', [
-              { label: '平面相交', cls: hitCross.type === 'level' ? 'btn-primary' : '', title: '共用闭塞区段', onClick: () => {
+            const { labelA, labelB } = this.getCrossingEdgeLabels(hitCross.edgeA, hitCross.edgeB);
+            this.showInlinePromptAt(hitCross.x, hitCross.y, '交叉方式', hitCross.type === 'level' ? '平交' : '立交', [
+              { label: '平面相交', cls: hitCross.type === 'level' ? 'btn-primary' : '', onClick: () => {
                 this.pushHistory('修改交叉方式');
                 hitCross.type = 'level'; hitCross.overEdgeId = null; hitCross.underEdgeId = null;
+                this.syncPlatformsForCrossing(hitCross);
                 this.hideInlinePrompt();
               } },
-              { label: `${hitCross.edgeA} 上跨`, cls: hitCross.overEdgeId === hitCross.edgeA ? 'btn-primary' : '', onClick: () => {
+              { label: `${labelA} 上跨`, hoverEdgeId: hitCross.edgeA, cls: hitCross.overEdgeId === hitCross.edgeA ? 'btn-primary' : '', onClick: () => {
                 this.pushHistory('修改交叉方式');
                 hitCross.type = 'overpass'; hitCross.overEdgeId = hitCross.edgeA; hitCross.underEdgeId = hitCross.edgeB;
+                this.syncPlatformsForCrossing(hitCross);
                 this.hideInlinePrompt();
               } },
-              { label: `${hitCross.edgeB} 上跨`, cls: hitCross.overEdgeId === hitCross.edgeB ? 'btn-primary' : '', onClick: () => {
+              { label: `${labelB} 上跨`, hoverEdgeId: hitCross.edgeB, cls: hitCross.overEdgeId === hitCross.edgeB ? 'btn-primary' : '', onClick: () => {
                 this.pushHistory('修改交叉方式');
                 hitCross.type = 'overpass'; hitCross.overEdgeId = hitCross.edgeB; hitCross.underEdgeId = hitCross.edgeA;
+                this.syncPlatformsForCrossing(hitCross);
                 this.hideInlinePrompt();
               } },
               { label: '关闭', onClick: () => this.hideInlinePrompt() }
@@ -8467,7 +9697,7 @@
           this.platformConfig.name = '';
           this.renderSubbar();
           this.showToast(`已放置「${p.name}」(${p.length}m)`);
-          this.promptPlatformOverlap(p, beforeSnap, '取消放置');
+          this.promptPlatformOverlap(p, beforeSnap, '取消');
         } else if (this.mode === 'track') {
           const gx = snapToGrid(w.x);
           const gy = snapToGrid(w.y);
@@ -8504,6 +9734,11 @@
               return;
             }
             if (plan.hits.length > 0 || plan.switchCandidates.length > 0) {
+              plan.hits.sort((a, b) => {
+                const aGrp = (a.edge && a.edge.platformId) ? 0 : 1;
+                const bGrp = (b.edge && b.edge.platformId) ? 0 : 1;
+                return aGrp - bGrp;
+              });
               this.pendingPlacement = {
                 plan,
                 hits: plan.hits,
@@ -8528,12 +9763,14 @@
             const segIdx = this.findDraftSegmentAt(w.x, w.y, 13 / this.cam.zoom);
             if (segIdx !== null) {
               this.routeDraft.selectedSegIdx = segIdx;
+              this.routeDraft.selectedNodeIdx = null;
               this.routeDraft.lastCutSlotIdx = null;
               this.routeDraft.insertAfterIdx = null;
               this.renderSubbar();
               this.renderLineTree();
-            } else if (this.routeDraft.selectedSegIdx !== null && this.routeDraft.selectedSegIdx !== undefined) {
+            } else if ((this.routeDraft.selectedSegIdx !== null && this.routeDraft.selectedSegIdx !== undefined) || (this.routeDraft.selectedNodeIdx !== null && this.routeDraft.selectedNodeIdx !== undefined)) {
               this.routeDraft.selectedSegIdx = null;
+              this.routeDraft.selectedNodeIdx = null;
               this.renderSubbar();
               this.renderLineTree();
             }
@@ -8669,7 +9906,10 @@
         this.hoveredNodeId = hn ? hn.id : null;
         if (this.mode === 'platform' || (this.mode === 'select' && this.selectedEntity && this.selectedEntity.type === 'platform')) {
           const sp = this.platforms.findSnapPointAt(w.x, w.y, 13 / this.cam.zoom);
-          const isValidForMode = sp && !sp.occupied && (this.mode === 'platform' || sp.platformId === this.selectedEntity.id);
+          const isValidForMode = sp && (
+            (!sp.occupied && (this.mode === 'platform' || sp.platformId === this.selectedEntity.id)) ||
+            (this.mode === 'select' && sp.platformId === this.selectedEntity.id && sp.sideType === 'track')
+          );
           this.hoveredSnapPoint = isValidForMode ? sp : null;
         } else {
           this.hoveredSnapPoint = null;
@@ -8811,14 +10051,88 @@
             }
             }; // end runSwitchDropPrompt
 
-            // Prompt user sequentially for each genuinely NEW crossing created by the drag (replicating new-track UX without adding nodes!)
+            newBridgeQueue.sort((a, b) => {
+              const aEdA = this.graph.edges.get(a.edgeA), aEdB = this.graph.edges.get(a.edgeB);
+              const bEdA = this.graph.edges.get(b.edgeA), bEdB = this.graph.edges.get(b.edgeB);
+              const aGrp = ((aEdA && aEdA.platformId) || (aEdB && aEdB.platformId)) ? 0 : 1;
+              const bGrp = ((bEdA && bEdA.platformId) || (bEdB && bEdB.platformId)) ? 0 : 1;
+              return aGrp - bGrp;
+            });
+            // Prompt user sequentially for each genuinely NEW crossing created by the drag (deduplicating station groups!)
+            const resolvedDragGroupChoices = new Map();
+            const getEdgeGroupRoot = (eid) => {
+              const ed = this.graph.edges.get(eid);
+              if (!ed || !ed.platformId) return null;
+              return Array.from(this.platforms.getConnectedPlatformIds(ed.platformId)).sort()[0] || null;
+            };
+            const movedEdgeSet = new Set();
+            if (dragBaseSnap && dragBaseSnap.graph && dragBaseSnap.graph.nodes) {
+              const oldNodePos = new Map(dragBaseSnap.graph.nodes.map(n => [n.id, n]));
+              for (const ed of this.graph.edges.values()) {
+                const na = this.graph.getNode(ed.from), nb = this.graph.getNode(ed.to);
+                const oa = oldNodePos.get(ed.from), ob = oldNodePos.get(ed.to);
+                if (!oa || !ob || !na || !nb || Math.hypot(na.x - oa.x, na.y - oa.y) > 1 || Math.hypot(nb.x - ob.x, nb.y - ob.y) > 1) {
+                  movedEdgeSet.add(ed.id);
+                }
+              }
+            }
             const promptNewCrossings = (idx) => {
               if (idx >= newBridgeQueue.length) {
                 if (wasPlatId) {
                   const movedPlat = this.platforms.getPlatform(wasPlatId);
-                  this.promptPlatformOverlap(movedPlat, dragBaseSnap, '取消拖动');
+                  this.promptPlatformOverlap(movedPlat, dragBaseSnap, '取消');
                 } else {
-                  runSwitchDropPrompt();
+                  const resolvedRootsFromCrossings = new Set();
+                  for (const pk of resolvedDragGroupChoices.keys()) {
+                    const [k1, k2] = pk.split('|');
+                    if (k1) resolvedRootsFromCrossings.add(k1);
+                    if (k2) resolvedRootsFromCrossings.add(k2);
+                  }
+                  const dragCrossedPlats = [];
+                  const seenDragRoots = new Set();
+                  for (const pl of this.platforms.platforms.values()) {
+                    const gIds = this.platforms.getConnectedPlatformIds(pl.id);
+                    const root = Array.from(gIds).sort()[0];
+                    if (resolvedRootsFromCrossings.has(root) || seenDragRoots.has(root)) continue;
+                    const ov = this.platforms.findPlatformOverlaps(pl);
+                    if (ov.edges.some(ed => movedEdgeSet.has(ed.id))) {
+                      seenDragRoots.add(root);
+                      dragCrossedPlats.push(pl);
+                    }
+                  }
+                  const promptDragPlatOverlaps = (pIdx) => {
+                    if (pIdx >= dragCrossedPlats.length) { runSwitchDropPrompt(); return; }
+                    const pl = dragCrossedPlats[pIdx];
+                    const rem = dragCrossedPlats.length - pIdx;
+                    this.showInlinePromptAt(pl.cx, pl.cy, `轨道穿过${this.formatGroupName(pl.id)}`, rem > 1 ? `剩 ${rem} 处` : '', [
+                      {
+                        label: '轨道上跨',
+                        cls: 'btn-primary',
+                        onClick: () => {
+                          for (const eid of movedEdgeSet) {
+                            if (this.platforms.findPlatformOverlaps(pl).edges.some(ed => ed.id === eid)) {
+                              this.platforms.setGroupEdgeRelation(pl.id, eid, 'under');
+                            }
+                          }
+                          this.hideInlinePrompt();
+                          promptDragPlatOverlaps(pIdx + 1);
+                        }
+                      },
+                      {
+                        label: '轨道下穿',
+                        onClick: () => {
+                          for (const eid of movedEdgeSet) {
+                            if (this.platforms.findPlatformOverlaps(pl).edges.some(ed => ed.id === eid)) {
+                              this.platforms.setGroupEdgeRelation(pl.id, eid, 'over');
+                            }
+                          }
+                          this.hideInlinePrompt();
+                          promptDragPlatOverlaps(pIdx + 1);
+                        }
+                      }
+                    ]);
+                  };
+                  promptDragPlatOverlaps(0);
                 }
                 return;
               }
@@ -8827,7 +10141,7 @@
                 promptNewCrossings(idx + 1);
                 return;
               }
-              const applyChoice = (mode) => {
+              const applyChoice = (mode, silent = false) => {
                 // Apply to cr AND any sibling crossing sharing the exact same bendNodeId
                 const targets = cr.bendNodeId
                   ? Array.from(this.graph.crossings.values()).filter(x => x.bendNodeId === cr.bendNodeId)
@@ -8840,18 +10154,32 @@
                   } else if (mode === 'overB') {
                     t.type = 'underpass'; t.overEdgeId = t.edgeB; t.underEdgeId = t.edgeA;
                   }
+                  this.syncPlatformsForCrossing(t);
                 }
                 this.graph.rebuildCrossingIndex();
-                this.hideInlinePrompt();
+                if (!silent) this.hideInlinePrompt();
                 promptNewCrossings(idx + 1);
               };
-              const stepText = newBridgeQueue.length > 1 ? `新交叉 ${idx + 1}/${newBridgeQueue.length}` : '新增交叉';
-              this.showInlinePromptAt(cr.x, cr.y, '拖动产生新交叉', stepText, [
-                { label: '平面相交', title: '共用闭塞区段', onClick: () => applyChoice('level') },
-                { label: `${cr.edgeA} 上跨`, cls: 'btn-primary', title: `${cr.edgeA} 作为高架桥上跨`, onClick: () => applyChoice('overA') },
-                { label: `${cr.edgeB} 上跨`, title: `${cr.edgeB} 作为高架桥上跨`, onClick: () => applyChoice('overB') },
+              const rA = getEdgeGroupRoot(cr.edgeA);
+              const rB = getEdgeGroupRoot(cr.edgeB);
+              const pairKey = (rA || cr.edgeA) + '|' + (rB || cr.edgeB);
+              if ((rA || rB) && resolvedDragGroupChoices.has(pairKey)) {
+                applyChoice(resolvedDragGroupChoices.get(pairKey), true);
+                return;
+              }
+              const origApplyChoice = applyChoice;
+              const wrappedApply = (mode) => {
+                if ((rA || rB) && mode !== 'level') resolvedDragGroupChoices.set(pairKey, mode);
+                origApplyChoice(mode, false);
+              };
+              const { labelA, labelB } = this.getCrossingEdgeLabels(cr.edgeA, cr.edgeB, movedEdgeSet);
+              const stepText = newBridgeQueue.length > 1 ? `${idx + 1}/${newBridgeQueue.length}` : '';
+              this.showInlinePromptAt(cr.x, cr.y, (rA || rB) ? `交叉${this.formatGroupName(this.graph.edges.get(rA ? cr.edgeA : cr.edgeB).platformId)}` : '轨道交叉', stepText, [
+                ...(!(rA || rB) ? [{ label: '平面相交', onClick: () => wrappedApply('level') }] : []),
+                { label: `${labelA} 上跨`, hoverEdgeId: cr.edgeA, cls: 'btn-primary', onClick: () => wrappedApply('overA') },
+                { label: `${labelB} 上跨`, hoverEdgeId: cr.edgeB, onClick: () => wrappedApply('overB') },
                 {
-                  label: '取消拖动',
+                  label: '取消',
                   cls: 'btn-danger',
                   onClick: () => {
                     this.hideInlinePrompt();
@@ -8867,18 +10195,31 @@
               ]);
             };
 
-            const runAfterCrossings = () => {
-              if (wasPlatId) {
-                const movedPlat = this.platforms.getPlatform(wasPlatId);
-                this.promptPlatformOverlap(movedPlat, dragBaseSnap, '取消拖动');
-              } else {
-                runSwitchDropPrompt();
-              }
+            // If dragging a platform group, resolve ALL platform overlaps FIRST (syncing station-track crossings automatically!),
+            // then only prompt any remaining track-vs-track crossings not already separated by zLayer!
+            const runRemainingCrossings = () => {
+              const filteredQueue = newBridgeQueue.filter(cr => {
+                const live = this.graph.crossings.get(cr.id);
+                if (!live) return false;
+                const eA = this.graph.edges.get(live.edgeA);
+                const eB = this.graph.edges.get(live.edgeB);
+                const pA = eA && eA.platformId ? this.platforms.getPlatform(eA.platformId) : null;
+                const pB = eB && eB.platformId ? this.platforms.getPlatform(eB.platformId) : null;
+                const zA = pA ? (pA.zLayer || 0) : 0;
+                const zB = pB ? (pB.zLayer || 0) : 0;
+                return zA === zB;
+              });
+              newBridgeQueue.length = 0;
+              newBridgeQueue.push(...filteredQueue);
+              if (newBridgeQueue.length > 0) promptNewCrossings(0);
             };
-            if (newBridgeQueue.length > 0) {
+            if (wasPlatId) {
+              const movedPlat = this.platforms.getPlatform(wasPlatId);
+              this.promptPlatformOverlap(movedPlat, dragBaseSnap, '取消拖动', runRemainingCrossings);
+            } else if (newBridgeQueue.length > 0) {
               promptNewCrossings(0);
             } else {
-              runAfterCrossings();
+              runSwitchDropPrompt();
             }
           }
         }
