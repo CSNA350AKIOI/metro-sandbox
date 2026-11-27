@@ -133,8 +133,8 @@
   }
 
   .rail-btn svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     stroke: currentColor;
     fill: none;
     stroke-width: 1.9;
@@ -964,6 +964,56 @@
   .inline-pop-title { font-size: 11.5px; font-weight: 700; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
   .inline-pop-opts { display: flex; flex-direction: column; gap: 4px; }
 
+  .alert-stack {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 45;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    max-width: min(560px, calc(100% - 28px));
+    pointer-events: none;
+  }
+  .alert-item {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 7px 12px;
+    border-radius: 8px;
+    background: #dc2626;
+    color: #ffffff;
+    border: 1px solid #b91c1c;
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.32);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .alert-banner-msg {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.4;
+  }
+  .alert-banner-close {
+    border: none;
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .alert-banner-close:hover { background: rgba(255, 255, 255, 0.32); }
+
   .toast {
     position: absolute;
     bottom: 42px;
@@ -995,42 +1045,34 @@
 
     <button class="rail-btn mode-btn" data-mode="select" title="选择 / 移动 / 删除">
       <svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 2-2 6z"/></svg>
-      <span>选择</span>
     </button>
 
     <button class="rail-btn mode-btn" data-mode="track" id="btnModeTrack" title="铺设轨道 (L形135°折线)">
       <svg viewBox="0 0 24 24"><path d="M4 18h9l7-12"/></svg>
-      <span>轨道</span>
     </button>
 
     <button class="rail-btn mode-btn" data-mode="platform" title="新建站台">
       <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="2"/><line x1="3" y1="5" x2="21" y2="5"/></svg>
-      <span>站台</span>
     </button>
 
     <button class="rail-btn mode-btn" data-mode="route" title="交路编辑">
       <svg viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-      <span>交路</span>
     </button>
 
     <button class="rail-btn mode-btn active" data-mode="simulate" title="运营仿真">
       <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-      <span>仿真</span>
     </button>
 
     <div class="rail-sep"></div>
 
     <button class="rail-btn" id="btnUndo" title="撤回 (Ctrl+Z)" disabled>
       <svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
-      <span>撤回</span>
     </button>
     <button class="rail-btn" id="btnRedo" title="复原 (Ctrl+Shift+Z)" disabled>
       <svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>
-      <span>复原</span>
     </button>
     <button class="rail-btn" id="btnFitView" title="居中全网">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
-      <span>居中</span>
     </button>
 
     <div class="rail-spacer"></div>
@@ -1038,7 +1080,6 @@
     <div class="flyout-wrap" id="fileDropdownWrap">
       <button class="rail-btn" id="btnFileMenu" title="文件：新建 / 演示 / 导入 / 导出">
         <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-        <span>文件</span>
       </button>
       <div class="flyout-menu align-bottom" id="fileDropdown">
         <button class="drop-item" id="btnClearAll">新建空白</button>
@@ -1051,12 +1092,10 @@
 
     <button class="rail-btn" id="btnThemeToggle" title="切换深浅色">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-      <span id="themeLbl">深色</span>
     </button>
 
     <button class="rail-btn" id="btnToggleSidebar" title="收起/展开右侧栏">
       <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-      <span>面板</span>
     </button>
   </nav>
 
@@ -1074,7 +1113,6 @@
             </div>
           </div>
           <button class="hud-pill toggle-pill active" id="btnToggleBlocks" title="显示/隐藏移动闭塞分区">闭塞</button>
-          <button class="hud-pill alert-pill" id="btnDiagAlerts" style="display:none">0 告警</button>
           <div class="hud-pill" id="hudZoom">100%</div>
         </div>
 
@@ -1085,7 +1123,7 @@
             <input type="range" id="simSpeedSlider" min="0.5" max="10" step="0.5" value="1" title="调整仿真倍速 (0.5x - 10x)" style="width:152px;accent-color:var(--accent);cursor:pointer;">
             <strong id="simSpeedVal" style="font-size:11px;color:var(--text-main);min-width:34px;text-align:right;font-variant-numeric:tabular-nums;">1.0x</strong>
           </div>
-          <button class="btn btn-xs" id="btnResetTrains" title="重置所有列车位置">重置</button>
+          <button class="btn btn-xs" id="btnResetTrains" title="重置所有列车位置" style="padding:3px 6px;display:inline-flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
           <span style="font-size:11px;color:var(--text-muted);font-variant-numeric:tabular-nums;padding:0 2px;"><strong id="simClock" style="color:var(--text-main);">00:00</strong></span>
         </div>
       </div>
@@ -1127,6 +1165,7 @@
         <div class="cp-grid" id="cpPresetGrid"></div>
       </div>
 
+      <div class="alert-stack" id="alertStack" role="alert"></div>
       <div class="toast" id="toast"></div>
     </div>
 
@@ -1514,23 +1553,50 @@
         }
       }
 
-      // 2. Bend-node-on-edge crossings: a degree-2 corner node landing strictly on the interior of another track edge
-      for (const bn of this.nodes.values()) {
-        if (bn.isStationEnd) continue;
+      // 2. Node-on-edge crossings: a degree-1/2 node (bend corner or station-end) landing strictly on the interior of another track edge
+      const nodeList = Array.from(this.nodes.values());
+      for (const bn of nodeList) {
         const inc = this.getIncidentEdges(bn.id);
-        if (inc.length !== 2) continue;
-        const [eA, eB] = inc;
+        if (inc.length === 0 || inc.length > 2) continue;
         for (const eCarrier of edgeList) {
-          if (eCarrier.id === eA.id || eCarrier.id === eB.id) continue;
           if (eCarrier.from === bn.id || eCarrier.to === bn.id) continue;
-          if (eCarrier.from === eA.from || eCarrier.from === eA.to || eCarrier.to === eA.from || eCarrier.to === eA.to) continue;
-          if (eCarrier.from === eB.from || eCarrier.from === eB.to || eCarrier.to === eB.from || eCarrier.to === eB.to) continue;
+          let shares = false;
+          for (const e of inc) {
+            if (eCarrier.id === e.id || eCarrier.from === e.from || eCarrier.from === e.to || eCarrier.to === e.from || eCarrier.to === e.to) {
+              shares = true;
+              break;
+            }
+          }
+          if (shares) continue;
           const u = this.nodes.get(eCarrier.from), v = this.nodes.get(eCarrier.to);
           if (!u || !v) continue;
           const proj = pointToSegmentDist(bn.x, bn.y, u.x, u.y, v.x, v.y);
           if (proj.dist < 3.5 && proj.t > 0.02 && proj.t < 0.98) {
-            upsertCrossing(eA.id, eCarrier.id, bn.x, bn.y, bn.id);
-            upsertCrossing(eB.id, eCarrier.id, bn.x, bn.y, bn.id);
+            for (const e of inc) {
+              upsertCrossing(e.id, eCarrier.id, bn.x, bn.y, bn.id);
+            }
+          }
+        }
+      }
+
+      // 2b. Coincident endpoint/bend crossings (e.g. an implicit bend node landing on a station-end node)
+      for (let i = 0; i < nodeList.length; i++) {
+        const n1 = nodeList[i];
+        if (!n1.isImplicit && !n1.isStationEnd) continue;
+        const inc1 = this.getIncidentEdges(n1.id);
+        if (inc1.length === 0) continue;
+        for (let j = i + 1; j < nodeList.length; j++) {
+          const n2 = nodeList[j];
+          if (!n1.isImplicit && !n2.isImplicit && !n2.isStationEnd) continue;
+          if (dist(n1.x, n1.y, n2.x, n2.y) >= 3.5) continue;
+          const inc2 = this.getIncidentEdges(n2.id);
+          if (inc2.length === 0) continue;
+          const bendId = n1.isImplicit ? n1.id : n2.id;
+          for (const e1 of inc1) {
+            for (const e2 of inc2) {
+              if (e1.id === e2.id || e1.from === e2.from || e1.from === e2.to || e1.to === e2.from || e1.to === e2.to) continue;
+              upsertCrossing(e1.id, e2.id, n1.x, n1.y, bendId);
+            }
           }
         }
       }
@@ -1687,8 +1753,23 @@
                 y: pt.y,
                 isBendCrossing: true,
                 bendKey: k,
+                existingBendNodeId: existingNode ? existingNode.id : null,
                 segIndices: [...touchedSegs]
               });
+            } else if (existingNode) {
+              const inc = this.getIncidentEdges(existingNode.id);
+              if (inc.length > 0) {
+                hits.push({
+                  edge: inc[0],
+                  extraEdges: inc.slice(1),
+                  x: pt.x,
+                  y: pt.y,
+                  isBendCrossing: true,
+                  bendKey: k,
+                  existingBendNodeId: existingNode.id,
+                  segIndices: [...touchedSegs]
+                });
+              }
             }
             continue;
           }
@@ -1714,8 +1795,31 @@
       // 5. Find interior crossings ONLY for genuinely new segments
       for (let i = 0; i < newSegs.length; i++) {
         const s = newSegs[i];
+        for (const cr of this.crossings.values()) {
+          if (cr.type === 'level' && pointToSegmentDist(cr.x, cr.y, s.ax, s.ay, s.bx, s.by).dist < 10) {
+            return { ok: false, reason: '禁止在平交道口处再叠加交叉' };
+          }
+        }
         const segHits = this.findSegmentIntersections(s.ax, s.ay, s.bx, s.by);
         for (const h of segHits) hits.push({ ...h, segIdx: i });
+        // Also detect when new segment passes strictly through an existing bend/corner or station-end node
+        for (const n of this.nodes.values()) {
+          if (dist(n.x, n.y, s.ax, s.ay) < 4 || dist(n.x, n.y, s.bx, s.by) < 4) continue;
+          const p = pointToSegmentDist(n.x, n.y, s.ax, s.ay, s.bx, s.by);
+          if (p.dist < 3 && p.t > 0.005 && p.t < 0.995) {
+            const inc = this.getIncidentEdges(n.id);
+            if (inc.length > 0) {
+              hits.push({
+                edge: inc[0],
+                extraEdges: inc.slice(1),
+                x: n.x,
+                y: n.y,
+                segIdx: i,
+                existingBendNodeId: n.id
+              });
+            }
+          }
+        }
       }
 
       // Forbid stacking a 3rd track crossing on top of an existing bridge (strictly 2 tracks per bridge!)
@@ -1983,6 +2087,7 @@
         }
       }
       this.rebuildCrossingIndex();
+      if (this.onEdgeSplit) this.onEdgeSplit(edgeId, e1, e2);
       return { node: mid, oldFrom: a.id, oldTo: b.id, e1, e2 };
     }
 
@@ -2172,18 +2277,19 @@
       this.nextId = 1;
     }
 
-    addPlatform(cx, cy, length = 180, angleDeg = 0, name = '') {
+    addPlatform(cx, cy, length = 180, angleDeg = 0, name = '', zLayer = 0) {
       const id = 'P' + (this.nextId++);
       const rad = (angleDeg * Math.PI) / 180;
       const platform = {
         id,
-        name: name || ('站台 ' + id.slice(1)),
+        name: (name || '').trim(),
         cx,
         cy,
         length,
         width: PLATFORM_WIDTH,
         angleDeg,
         rad,
+        zLayer: Number(zLayer) || 0,
         sides: {
           '-1': { type: null, refId: null },
           '1': { type: null, refId: null }
@@ -2241,52 +2347,10 @@
       return null;
     }
 
-    movePlatformGroup(platformId, dx, dy) {
-      const base = this.platforms.get(platformId);
-      if (!base) return;
-      const visited = new Set([base.id]);
-      const queue = [base];
-      const movedNodeIds = new Set();
-      while (queue.length > 0) {
-        const p = queue.shift();
-        p.cx = Math.round((p.cx + dx) * 100) / 100;
-        p.cy = Math.round((p.cy + dy) * 100) / 100;
-        [-1, 1].forEach(side => {
-          const info = p.sides[String(side)];
-          if (info.type === 'platform' && info.refId && !visited.has(info.refId)) {
-            const sib = this.platforms.get(info.refId);
-            if (sib) {
-              visited.add(sib.id);
-              queue.push(sib);
-            }
-          } else if (info.type === 'track' && info.refId) {
-            const edge = this.graph.edges.get(info.refId);
-            if (edge) {
-              [edge.from, edge.to].forEach(nid => {
-                if (!movedNodeIds.has(nid)) {
-                  movedNodeIds.add(nid);
-                  const n = this.graph.getNode(nid);
-                  if (n) this.graph.updateNodePosition(nid, n.x + dx, n.y + dy);
-                }
-              });
-            }
-            // Any other platform bound to this exact same track edge MUST move together!
-            for (const other of this.platforms.values()) {
-              if (visited.has(other.id)) continue;
-              if ((other.sides['-1'].type === 'track' && other.sides['-1'].refId === info.refId) ||
-                  (other.sides['1'].type === 'track' && other.sides['1'].refId === info.refId)) {
-                visited.add(other.id);
-                queue.push(other);
-              }
-            }
-          }
-        });
-      }
-    }
-
     removePlatform(platformId) {
       const p = this.platforms.get(platformId);
       if (!p) return;
+      this.clearGroupPairwiseRelations(platformId);
       [-1, 1].forEach(side => {
         const info = p.sides[String(side)];
         if (info.type === 'platform' && info.refId) {
@@ -2363,7 +2427,7 @@
         base.cy + ny * base.width * side,
         newLength,
         base.angleDeg,
-        newName || (base.name + '·换乘侧')
+        newName || base.name
       );
       created.zLayer = base.zLayer || 0;
       created.overEdgeIds = [...(base.overEdgeIds || [])];
@@ -2439,11 +2503,12 @@
       return visited;
     }
 
-    wouldOverlapOtherPlatform(cx, cy, length, rad, ignoreIds) {
+    wouldOverlapOtherPlatform(cx, cy, length, rad, ignoreIds, candidateZ = null) {
       const tx = Math.cos(rad), ty = Math.sin(rad);
       const nx = -ty, ny = tx;
       for (const other of this.platforms.values()) {
         if (ignoreIds.has(other.id)) continue;
+        if (candidateZ !== null && Math.abs((other.zLayer || 0) - candidateZ) >= 1e-4) continue;
         // Only parallel / co-directional platforms can physically overlap; angled crossings are resolved via elevation
         if (Math.abs(Math.sin(rad - other.rad)) >= 0.15) continue;
         // Project center delta onto candidate platform local frame
@@ -2478,6 +2543,31 @@
         return true;
       };
       return clip(-dx, p1.x + halfL) && clip(dx, halfL - p1.x) && clip(-dy, p1.y + halfW) && clip(dy, halfW - p1.y) && t0 <= t1;
+    }
+
+    _segBoxHitPoint(ax, ay, bx, by, cx, cy, rad, halfL, halfW) {
+      const tx = Math.cos(rad), ty = Math.sin(rad);
+      const nx = -ty, ny = tx;
+      const toLocal = (wx, wy) => {
+        const dx = wx - cx, dy = wy - cy;
+        return { x: dx * tx + dy * ty, y: dx * nx + dy * ny };
+      };
+      const p1 = toLocal(ax, ay);
+      const p2 = toLocal(bx, by);
+      let t0 = 0, t1 = 1;
+      const dx = p2.x - p1.x, dy = p2.y - p1.y;
+      const clip = (p, q) => {
+        if (Math.abs(p) < 1e-8) return q >= 0;
+        const r = q / p;
+        if (p < 0) { if (r > t1) return false; if (r > t0) t0 = r; }
+        else { if (r < t0) return false; if (r < t1) t1 = r; }
+        return true;
+      };
+      if (!(clip(-dx, p1.x + halfL) && clip(dx, halfL - p1.x) && clip(-dy, p1.y + halfW) && clip(dy, halfW - p1.y) && t0 <= t1)) {
+        return null;
+      }
+      const tm = (t0 + t1) / 2;
+      return { x: ax + (bx - ax) * tm, y: ay + (by - ay) * tm };
     }
 
     findPlatformOverlaps(p) {
@@ -2544,6 +2634,8 @@
     }
 
     getEdgeZLayer(ed) {
+      if (!ed) return 0;
+      if (this._frameEdgeZMap) return this._frameEdgeZMap.get(ed.id) || 0;
       const pl = this.getEdgeOwnerPlatform(ed);
       return pl ? (pl.zLayer || 0) : 0;
     }
@@ -2568,6 +2660,66 @@
 
     // Pairwise Group-vs-Group elevation: keep existing zLayers intact when already valid,
     // otherwise lift abovePlatId above belowPlatId (never dragging belowPlatId below 0 unnecessarily).
+    handleEdgeSplit(oldEdgeId, e1, e2) {
+      if (!oldEdgeId || !e1 || !e2) return;
+      const a1 = this.graph.getNode(e1.from), b1 = this.graph.getNode(e1.to);
+      const a2 = this.graph.getNode(e2.from), b2 = this.graph.getNode(e2.to);
+      for (const p of this.platforms.values()) {
+        for (const key of ['overEdgeIds', 'underEdgeIds']) {
+          const arr = p[key];
+          if (!arr || !arr.includes(oldEdgeId)) continue;
+          const next = arr.filter(id => id !== oldEdgeId);
+          if (a1 && b1 && this._segHitsBox(a1.x, a1.y, b1.x, b1.y, p.cx, p.cy, p.rad, p.length / 2, p.width / 2)) {
+            if (!next.includes(e1.id)) next.push(e1.id);
+          }
+          if (a2 && b2 && this._segHitsBox(a2.x, a2.y, b2.x, b2.y, p.cx, p.cy, p.rad, p.length / 2, p.width / 2)) {
+            if (!next.includes(e2.id)) next.push(e2.id);
+          }
+          p[key] = next;
+        }
+      }
+    }
+
+    handleEdgesMerged(e1Id, e2Id, newEdgeId) {
+      for (const p of this.platforms.values()) {
+        for (const key of ['overEdgeIds', 'underEdgeIds']) {
+          const arr = p[key];
+          if (!arr || (!arr.includes(e1Id) && !arr.includes(e2Id))) continue;
+          const next = [];
+          for (const id of arr) {
+            const mapped = (id === e1Id || id === e2Id) ? newEdgeId : id;
+            if (mapped && !next.includes(mapped)) next.push(mapped);
+          }
+          p[key] = next;
+        }
+      }
+    }
+
+    clearGroupPairwiseRelations(platformId) {
+      const gIds = this.getConnectedPlatformIds(platformId);
+      for (const pid of gIds) {
+        const pl = this.platforms.get(pid);
+        if (!pl) continue;
+        pl.overEdgeIds = [];
+        pl.underEdgeIds = [];
+        pl.overPlatIds = [];
+        pl.underPlatIds = [];
+      }
+      for (const other of this.platforms.values()) {
+        if (gIds.has(other.id)) continue;
+        if (other.overPlatIds) other.overPlatIds = other.overPlatIds.filter(id => !gIds.has(id));
+        if (other.underPlatIds) other.underPlatIds = other.underPlatIds.filter(id => !gIds.has(id));
+      }
+    }
+
+    clearEdgePairwiseRelations(edgeIds) {
+      const set = edgeIds instanceof Set ? edgeIds : new Set(edgeIds);
+      for (const p of this.platforms.values()) {
+        if (p.overEdgeIds) p.overEdgeIds = p.overEdgeIds.filter(id => !set.has(id));
+        if (p.underEdgeIds) p.underEdgeIds = p.underEdgeIds.filter(id => !set.has(id));
+      }
+    }
+
     setGroupPlatRelation(platAId, platBId, mode) {
       const gA = Array.from(this.getConnectedPlatformIds(platAId));
       const gB = Array.from(this.getConnectedPlatformIds(platBId));
@@ -2657,34 +2809,159 @@
       this.graph.rebuildCrossingIndex();
     }
 
+    clearGroupOrdinaryEdgeRelations(platformId) {
+      const gIds = this.getConnectedPlatformIds(platformId);
+      const isOrdinary = (eid) => {
+        const ed = this.graph.edges.get(eid);
+        return !!(ed && !this.getEdgeOwnerPlatform(ed));
+      };
+      for (const pid of gIds) {
+        const pl = this.platforms.get(pid);
+        if (!pl) continue;
+        if (pl.overEdgeIds) pl.overEdgeIds = pl.overEdgeIds.filter(eid => !isOrdinary(eid));
+        if (pl.underEdgeIds) pl.underEdgeIds = pl.underEdgeIds.filter(eid => !isOrdinary(eid));
+      }
+    }
+
+    findSameLayerOverlappingPlatform(cx, cy, length, rad, zLayer, ignoreIds = new Set()) {
+      const boxIntersects = (acx, acy, alen, awid, arad, b) => {
+        const tx = Math.cos(arad), ty = Math.sin(arad);
+        const nx = -ty, ny = tx;
+        const hL = alen / 2 - 2, hW = awid / 2 - 2;
+        const corners = [
+          { x: acx - tx * hL - nx * hW, y: acy - ty * hL - ny * hW },
+          { x: acx + tx * hL - nx * hW, y: acy + ty * hL - ny * hW },
+          { x: acx + tx * hL + nx * hW, y: acy + ty * hL + ny * hW },
+          { x: acx - tx * hL + nx * hW, y: acy - ty * hL + ny * hW }
+        ];
+        const bHalfL = b.length / 2 - 2, bHalfW = b.width / 2 - 2;
+        for (let i = 0; i < 4; i++) {
+          const c1 = corners[i], c2 = corners[(i + 1) % 4];
+          if (this._segHitsBox(c1.x, c1.y, c2.x, c2.y, b.cx, b.cy, b.rad, bHalfL, bHalfW)) return true;
+        }
+        return false;
+      };
+      for (const other of this.platforms.values()) {
+        if (ignoreIds.has(other.id)) continue;
+        if (Math.abs((other.zLayer || 0) - (zLayer || 0)) >= 1e-4) continue;
+        const oFake = { cx, cy, length, width: PLATFORM_WIDTH, rad };
+        if (boxIntersects(cx, cy, length, PLATFORM_WIDTH, rad, other) ||
+            boxIntersects(other.cx, other.cy, other.length, other.width, other.rad, oFake)) {
+          return other;
+        }
+      }
+      return null;
+    }
+
+    _platformsOverlap(pA, pB) {
+      const boxIntersects = (a, b) => {
+        const { tx, ty, nx, ny } = this.getBasis(a);
+        const hL = a.length / 2, hW = a.width / 2;
+        const corners = [
+          { x: a.cx - tx * hL - nx * hW, y: a.cy - ty * hL - ny * hW },
+          { x: a.cx + tx * hL - nx * hW, y: a.cy + ty * hL - ny * hW },
+          { x: a.cx + tx * hL + nx * hW, y: a.cy + ty * hL + ny * hW },
+          { x: a.cx - tx * hL + nx * hW, y: a.cy - ty * hL + ny * hW }
+        ];
+        const bHalfL = b.length / 2, bHalfW = b.width / 2;
+        for (let i = 0; i < 4; i++) {
+          const c1 = corners[i], c2 = corners[(i + 1) % 4];
+          if (this._segHitsBox(c1.x, c1.y, c2.x, c2.y, b.cx, b.cy, b.rad, bHalfL, bHalfW)) return true;
+        }
+        return false;
+      };
+      return boxIntersects(pA, pB) || boxIntersects(pB, pA);
+    }
+
+    syncAllGroupLayerRelations() {
+      const platList = Array.from(this.platforms.values());
+      const rootMap = new Map();
+      const groupEdgesMap = new Map();
+      for (const p of platList) {
+        const r = this.getGroupRootId(p.id);
+        rootMap.set(p.id, r);
+        if (!groupEdgesMap.has(r)) groupEdgesMap.set(r, this.getGroupBoundEdgeIds(p.id));
+        p.overPlatIds = [];
+        p.underPlatIds = [];
+        p.overEdgeIds = (p.overEdgeIds || []).filter(eid => {
+          const ed = this.graph.edges.get(eid);
+          return ed && !this.getEdgeOwnerPlatform(ed);
+        });
+        p.underEdgeIds = (p.underEdgeIds || []).filter(eid => {
+          const ed = this.graph.edges.get(eid);
+          return ed && !this.getEdgeOwnerPlatform(ed);
+        });
+      }
+
+      for (let i = 0; i < platList.length; i++) {
+        const pA = platList[i];
+        const rA = rootMap.get(pA.id);
+        const zA = pA.zLayer || 0;
+        for (let j = i + 1; j < platList.length; j++) {
+          const pB = platList[j];
+          const rB = rootMap.get(pB.id);
+          if (rA === rB) continue;
+          const zB = pB.zLayer || 0;
+          if (Math.abs(zA - zB) < 1e-4) continue;
+          if (this._platformsOverlap(pA, pB)) {
+            if (zA > zB) {
+              if (!pA.overPlatIds.includes(pB.id)) pA.overPlatIds.push(pB.id);
+              if (!pB.underPlatIds.includes(pA.id)) pB.underPlatIds.push(pA.id);
+            } else {
+              if (!pB.overPlatIds.includes(pA.id)) pB.overPlatIds.push(pA.id);
+              if (!pA.underPlatIds.includes(pB.id)) pA.underPlatIds.push(pB.id);
+            }
+          }
+        }
+        // Check station edges from other groups overlapping pA
+        for (const [rOther, edgeSet] of groupEdgesMap.entries()) {
+          if (rOther === rA) continue;
+          for (const eid of edgeSet) {
+            const ed = this.graph.edges.get(eid);
+            if (!ed) continue;
+            const owner = this.getEdgeOwnerPlatform(ed);
+            const zO = owner ? (owner.zLayer || 0) : 0;
+            if (Math.abs(zA - zO) < 1e-4) continue;
+            const a = this.graph.getNode(ed.from), b = this.graph.getNode(ed.to);
+            if (!a || !b) continue;
+            if (!this._segHitsBox(a.x, a.y, b.x, b.y, pA.cx, pA.cy, pA.rad, pA.length / 2, pA.width / 2)) continue;
+            if (zA > zO) {
+              if (!pA.overEdgeIds.includes(eid)) pA.overEdgeIds.push(eid);
+            } else {
+              if (!pA.underEdgeIds.includes(eid)) pA.underEdgeIds.push(eid);
+            }
+          }
+        }
+      }
+
+      // Sync station-track vs station-track crossings strictly by group zLayer
+      for (const cr of this.graph.crossings.values()) {
+        const eA = this.graph.edges.get(cr.edgeA);
+        const eB = this.graph.edges.get(cr.edgeB);
+        const pA = eA ? this.getEdgeOwnerPlatform(eA) : null;
+        const pB = eB ? this.getEdgeOwnerPlatform(eB) : null;
+        if (!pA || !pB) continue;
+        if (rootMap.get(pA.id) === rootMap.get(pB.id)) continue;
+        const zA = pA.zLayer || 0, zB = pB.zLayer || 0;
+        if (zA > zB + 1e-4) {
+          cr.type = 'overpass'; cr.overEdgeId = cr.edgeA; cr.underEdgeId = cr.edgeB;
+        } else if (zB > zA + 1e-4) {
+          cr.type = 'underpass'; cr.overEdgeId = cr.edgeB; cr.underEdgeId = cr.edgeA;
+        } else {
+          cr.type = 'level'; cr.overEdgeId = null; cr.underEdgeId = null;
+        }
+      }
+      this.graph.rebuildCrossingIndex();
+    }
+
     // Sync zLayer across the entire transfer station group AND align all crossings on its bound station tracks!
     syncGroupElevation(platformId, newZ) {
       const groupIds = this.getConnectedPlatformIds(platformId);
       for (const pid of groupIds) {
         const pl = this.platforms.get(pid);
-        if (pl) pl.zLayer = newZ;
+        if (pl) pl.zLayer = Number(newZ) || 0;
       }
-      const groupEdgeIds = this.getGroupBoundEdgeIds(platformId);
-      for (const cr of this.graph.crossings.values()) {
-        const aIn = groupEdgeIds.has(cr.edgeA);
-        const bIn = groupEdgeIds.has(cr.edgeB);
-        if (aIn === bIn) continue; // both inside same group or neither inside
-        const myEdgeId = aIn ? cr.edgeA : cr.edgeB;
-        const otherEdgeId = aIn ? cr.edgeB : cr.edgeA;
-        const otherEdge = this.graph.edges.get(otherEdgeId);
-        const otherPlat = (otherEdge && otherEdge.platformId) ? this.platforms.get(otherEdge.platformId) : null;
-        const otherZ = otherPlat ? (otherPlat.zLayer || 0) : 0;
-        if (newZ > otherZ) {
-          cr.type = 'overpass';
-          cr.overEdgeId = myEdgeId;
-          cr.underEdgeId = otherEdgeId;
-        } else if (newZ < otherZ) {
-          cr.type = 'underpass';
-          cr.overEdgeId = otherEdgeId;
-          cr.underEdgeId = myEdgeId;
-        }
-      }
-      this.graph.rebuildCrossingIndex();
+      this.syncAllGroupLayerRelations();
     }
 
     hasBoundTrackInGroup(platformId) {
@@ -2701,8 +2978,6 @@
     // Rule 2: if edge is already a station track, ONLY allow exact same length (±6) to avoid overwriting/breaking existing station
     isEdgeEligibleForSnap(p, edge) {
       if (!p || !edge) return false;
-      if (edge.isStationTrack && Math.abs(edge.length - p.length) > 6) return false;
-      if (edge.length < p.length - 2) return false;
       const a = this.graph.getNode(edge.from);
       const b = this.graph.getNode(edge.to);
       if (!a || !b) return false;
@@ -2711,7 +2986,12 @@
       const ety = (b.y - a.y) / len;
       const ptx = Math.cos(p.rad);
       const pty = Math.sin(p.rad);
-      return Math.abs(etx * ptx + ety * pty) > 0.985;
+      if (Math.abs(etx * ptx + ety * pty) <= 0.985) return false;
+      if (edge.isStationTrack) {
+        const refLen = edge.platformLength || edge.length;
+        return Math.abs(refLen - p.length) <= 6;
+      }
+      return edge.length >= p.length - 2;
     }
 
     // Respect the platform's own orientation & chosen snap side direction; supports sliding along longer edges >= p.length
@@ -2743,14 +3023,18 @@
       const alignedRad = (ptx * etx + pty * ety) >= 0 ? edgeRad : (edgeRad + Math.PI);
       const normRad = ((alignedRad % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
 
-      // Platform normal points toward side = +1; placing track at side puts platform center at M - pNormal * TRACK_OFFSET * side
+      // Platform normal points toward side = +1; placing track at side puts platform center at M - pNormal * trackOff * side
+      const newAngleDeg = Math.round(((normRad * 180) / Math.PI) % 360);
+      const isDiag = newAngleDeg % 90 !== 0;
+      const trackOff = isDiag ? TRACK_OFFSET * Math.SQRT2 : TRACK_OFFSET;
       const pnx = -Math.sin(normRad);
       const pny = Math.cos(normRad);
-      const newCx = mx - pnx * TRACK_OFFSET * side;
-      const newCy = my - pny * TRACK_OFFSET * side;
-      const newAngleDeg = Math.round(((normRad * 180) / Math.PI) % 360);
+      const newCx = mx - pnx * trackOff * side;
+      const newCy = my - pny * trackOff * side;
       const ignoreIds = this.getConnectedPlatformIds(p.id);
-      const overlap = this.wouldOverlapOtherPlatform(newCx, newCy, p.length, normRad, ignoreIds);
+      const existingOwner = this.getEdgeOwnerPlatform(edge);
+      const candidateZ = existingOwner ? (existingOwner.zLayer || 0) : (p.zLayer || 0);
+      const overlap = this.wouldOverlapOtherPlatform(newCx, newCy, p.length, normRad, ignoreIds, candidateZ);
       return { cx: newCx, cy: newCy, rad: normRad, angleDeg: newAngleDeg, pnx, pny, overlap, sCenter, etx, ety };
     }
 
@@ -3892,6 +4176,34 @@
         }
       }
 
+      // Same-layer overlapping station groups warning
+      const diagPlats = Array.from(this.platforms.platforms.values());
+      const seenSameLayerPairs = new Set();
+      for (let i = 0; i < diagPlats.length; i++) {
+        const pA = diagPlats[i];
+        const rA = this.platforms.getGroupRootId(pA.id);
+        const zA = pA.zLayer || 0;
+        for (let j = i + 1; j < diagPlats.length; j++) {
+          const pB = diagPlats[j];
+          const rB = this.platforms.getGroupRootId(pB.id);
+          if (rA === rB) continue;
+          const zB = pB.zLayer || 0;
+          if (Math.abs(zA - zB) >= 1e-4) continue;
+          const pk = rA < rB ? `${rA}|${rB}` : `${rB}|${rA}`;
+          if (seenSameLayerPairs.has(pk)) continue;
+          if (this.platforms._platformsOverlap(pA, pB)) {
+            seenSameLayerPairs.add(pk);
+            issues.push({
+              key: `SAME_LAYER_PLAT_${pk}_${zA}`,
+              level: 'warn',
+              title: `同层站组交叠：「${pA.name}」与「${pB.name}」`,
+              detail: `两个站组同处第 ${zA} 层且存在交叠，建议选中其中一方修改「层」数以区分上下关系`,
+              x: (pA.cx + pB.cx) / 2,
+              y: (pA.cy + pB.cy) / 2
+            });
+          }
+        }
+      }
       return issues;
     }
 
@@ -3909,17 +4221,20 @@
       this.simTime += dt;
 
       // Priority scheduling: trains currently inside/exiting a turnback stub ALWAYS get priority over incoming trains!
-      const isInTurnbackStub = t => {
+      const inStubMap = new Map();
+      for (const t of this.trains.values()) {
         const r = this.routeManager.routes.get(t.routeId);
-        if (!r || !r.turnbackStubEdgeIds || !t.occupiedEdges) return false;
-        for (const eid of t.occupiedEdges) {
-          if (r.turnbackStubEdgeIds.has(eid)) return true;
+        let inStub = 0;
+        if (r && r.turnbackStubEdgeIds && t.occupiedEdges) {
+          for (const eid of t.occupiedEdges) {
+            if (r.turnbackStubEdgeIds.has(eid)) { inStub = 1; break; }
+          }
         }
-        return false;
-      };
+        inStubMap.set(t.id, inStub);
+      }
       const orderedTrains = Array.from(this.trains.values()).sort((a, b) => {
-        const aTb = isInTurnbackStub(a) ? 1 : 0;
-        const bTb = isInTurnbackStub(b) ? 1 : 0;
+        const aTb = inStubMap.get(a.id) || 0;
+        const bTb = inStubMap.get(b.id) || 0;
         if (aTb !== bTb) return bTb - aTb;
         if (a.state === 'WAITING' && b.state === 'WAITING') return a.waitSince - b.waitSince;
         if (a.state === 'WAITING') return -1;
@@ -4083,6 +4398,7 @@
       this.routes = new RouteManager(this.graph);
       this.dispatcher = new Dispatcher(this.graph, this.routes);
       this.dispatcher.platforms = this.platforms;
+      this.graph.onEdgeSplit = (oldId, e1, e2) => this.platforms.handleEdgeSplit(oldId, e1, e2);
 
       this.cam = { x: 0, y: 0, zoom: 1 };
       this.dpr = window.devicePixelRatio || 1;
@@ -4111,7 +4427,7 @@
       this.hoveredSnapPoint = null;
       this.activeSnapPopover = null;
 
-      this.platformConfig = { length: 180, angleDeg: 0, name: '' };
+      this.platformConfig = { length: 180, angleDeg: 0, name: '', zLayer: 0 };
       this.trackChainStartNode = null; // used as 2k+1 start point; resets after 2k+2 click (no auto-chain!)
       this.trackDrawStyle = 'l-bend'; // L形135°折线 (legacy s-bend saves still render cleanly)
       this.trackFlipL = false;
@@ -4135,7 +4451,6 @@
 
       // Selection, Drag, Focus-Node & Route-Loop Insert state
       this.selectedEntity = null;
-      this.draggingEntity = null;
       this.pendingRouteInsert = null;
       this.focusedNodeId = null;
 
@@ -4175,8 +4490,17 @@
         : this.themeMode;
       this.theme = resolved;
       document.documentElement.dataset.theme = resolved;
-      const lbl = document.getElementById('themeLbl');
-      if (lbl) lbl.textContent = this.themeMode === 'system' ? '系统' : (this.themeMode === 'light' ? '浅色' : '深色');
+      const themeBtn = document.getElementById('btnThemeToggle');
+      if (themeBtn) {
+        themeBtn.title = '切换深浅色（当前：' + (this.themeMode === 'system' ? '系统' : (this.themeMode === 'light' ? '亮色' : '暗色')) + '）';
+        if (this.themeMode === 'system') {
+          themeBtn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>';
+        } else if (this.themeMode === 'light') {
+          themeBtn.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
+        } else {
+          themeBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+        }
+      }
       if (persist) {
         try { localStorage.setItem('metro_sandbox_theme', this.themeMode); } catch (_) {}
       }
@@ -4235,6 +4559,11 @@
             visible: r.visible, headwaySec: r.headwaySec, trainCount: r.trainCount,
             ...(r.customTrainLength ? { customTrainLength: r.customTrainLength } : {})
           }))
+        },
+        uiState: {
+          mode: this.mode,
+          inspectedRouteId: this.inspectedRouteId,
+          routeDraft: this.captureDraftState(this.routeDraft)
         }
       };
     }
@@ -4259,9 +4588,11 @@
       for (const p of snap.platforms.items) {
         this.platforms.platforms.set(p.id, {
           ...p,
+          zLayer: Number(p.zLayer) || 0,
           sides: { '-1': { ...p.sides['-1'] }, '1': { ...p.sides['1'] } }
         });
       }
+      this.platforms.syncAllGroupLayerRelations();
 
       this.routes.clear();
       this.routes.nextLineId = snap.routes.nextLineId;
@@ -4302,6 +4633,32 @@
       }
       this.hideSnapPopover();
       this.dispatcher.syncTrainsWithRoutes(resetTrains);
+      if (snap.uiState) {
+        this.inspectedRouteId = snap.uiState.inspectedRouteId || null;
+        if (snap.uiState.routeDraft) {
+          const sd = snap.uiState.routeDraft;
+          this.routeDraft = {
+            editingRouteId: sd.editingRouteId || null,
+            lineId: sd.lineId,
+            name: sd.name,
+            color: sd.color,
+            customTrainLength: sd.customTrainLength,
+            nodeIds: [...(sd.nodeIds || [])],
+            turnbackIndices: new Set(sd.turnbackIndices || []),
+            skipStopKeys: new Set(sd.skipStopKeys || []),
+            selectedSegIdx: sd.selectedSegIdx ?? null,
+            selectedNodeIdx: sd.selectedNodeIdx ?? null,
+            insertAfterIdx: sd.insertAfterIdx ?? null,
+            lastCutSlotIdx: sd.lastCutSlotIdx ?? null
+          };
+          if (this.mode !== 'route') {
+            this.mode = 'route';
+            document.querySelectorAll('#modeGroup .mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === 'route'));
+          }
+        } else {
+          this.routeDraft = null;
+        }
+      }
       this.renderSubbar();
       this.renderLineTree();
     }
@@ -4309,13 +4666,8 @@
     updateHistoryButtons() {
       const u = document.getElementById('btnUndo');
       const r = document.getElementById('btnRedo');
-      if (this.mode === 'route' && this.routeDraft) {
-        if (u) u.disabled = !(this.routeDraft.undoStack && this.routeDraft.undoStack.length > 0);
-        if (r) r.disabled = !(this.routeDraft.redoStack && this.routeDraft.redoStack.length > 0);
-      } else {
-        if (u) u.disabled = this.undoStack.length === 0;
-        if (r) r.disabled = this.redoStack.length === 0;
-      }
+      if (u) u.disabled = this.undoStack.length === 0;
+      if (r) r.disabled = this.redoStack.length === 0;
     }
 
     pushHistory(label = '') {
@@ -4326,11 +4678,11 @@
     }
 
     undo() {
+      if (this.activeInlinePrompt) return;
       if (this.undoStack.length === 0) return;
       this.hideInlinePrompt();
       this.hideSnapPopover();
       this.pendingTrackSnap = null;
-      this.draggingEntity = null;
       const entry = this.undoStack.pop();
       this.redoStack.push({ label: entry.label, data: this.captureSnapshot() });
       this.restoreSnapshot(entry.data);
@@ -4340,11 +4692,11 @@
     }
 
     redo() {
+      if (this.activeInlinePrompt) return;
       if (this.redoStack.length === 0) return;
       this.hideInlinePrompt();
       this.hideSnapPopover();
       this.pendingTrackSnap = null;
-      this.draggingEntity = null;
       const entry = this.redoStack.pop();
       this.undoStack.push({ label: entry.label, data: this.captureSnapshot() });
       this.restoreSnapshot(entry.data);
@@ -4480,7 +4832,64 @@
       document.getElementById('hudZoom').textContent = Math.round(this.cam.zoom * 100) + '%';
     }
 
-    showToast(msg) {
+    renderAlerts() {
+      const stack = document.getElementById('alertStack');
+      if (!stack) return;
+      const items = [];
+      for (const op of (this.opAlerts || [])) {
+        items.push({ kind: 'op', id: op.id, msg: op.msg });
+      }
+      for (const issue of (this.currentIssues || [])) {
+        if (this.dismissedDiagKeys && this.dismissedDiagKeys.has(issue.key)) continue;
+        items.push({ kind: 'diag', id: issue.key, msg: issue.title });
+      }
+      const sig = items.map(it => it.kind + ':' + it.id + ':' + it.msg).join('|');
+      if (this._lastAlertSig === sig) return;
+      this._lastAlertSig = sig;
+      stack.innerHTML = items.map(it => `
+        <div class="alert-item">
+          <span class="alert-banner-msg">${it.msg}</span>
+          <button class="alert-banner-close" data-dismiss-kind="${it.kind}" data-dismiss-id="${String(it.id).replace(/"/g, '&quot;')}" title="关闭">✕</button>
+        </div>
+      `).join('');
+      stack.querySelectorAll('[data-dismiss-kind]').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          const kind = btn.dataset.dismissKind;
+          const id = btn.dataset.dismissId;
+          if (kind === 'op') {
+            this.opAlerts = (this.opAlerts || []).filter(x => String(x.id) !== id);
+          } else {
+            if (!this.dismissedDiagKeys) this.dismissedDiagKeys = new Set();
+            this.dismissedDiagKeys.add(id);
+          }
+          this.renderAlerts();
+        });
+      });
+    }
+
+    showAlert(msg, source = 'op') {
+      if (source === 'diag') { this.renderAlerts(); return; }
+      if (!this.opAlerts) this.opAlerts = [];
+      // Deduplicate identical active op alert messages
+      this.opAlerts = this.opAlerts.filter(x => x.msg !== msg);
+      const id = 'OP_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+      this.opAlerts.push({ id, msg });
+      if (this.opAlerts.length > 5) this.opAlerts.shift();
+      this.renderAlerts();
+    }
+
+    hideAlert() {
+      this.opAlerts = [];
+      this.renderAlerts();
+    }
+
+    showToast(msg, isAlert = null) {
+      const looksAlert = isAlert === true || (isAlert !== false && /禁止|无法|停运|告警|失败|无效|不可|不能|尚不连通|不足|重叠|超过|冲突/.test(String(msg || '')));
+      if (looksAlert) {
+        this.showAlert(msg, 'op');
+        return;
+      }
       const el = document.getElementById('toast');
       el.textContent = msg;
       el.classList.add('show');
@@ -4489,14 +4898,18 @@
     }
 
     setMode(newMode) {
+      if (this.activeInlinePrompt) {
+        this.showAlert('请先完成当前穿插/道岔选择', 'op');
+        return;
+      }
       this.mode = newMode;
       this.trackChainStartNode = null;
       this.pendingTrackSnap = null;
       this.hoveredCandidateEdge = null;
-      this.draggingEntity = null;
       if (newMode !== 'select') this.selectedEntity = null;
       this.hideSnapPopover();
       if (newMode !== 'route') {
+        if (this.routeDraft) this.finishRouteDraft(true);
         this.routeDraft = null;
         this.pendingRouteInsert = null;
         this.markTurnbackMode = false;
@@ -4746,7 +5159,7 @@
         bar.style.display = 'flex';
         bar.innerHTML = `
           <div class="mode-panel-row">
-            <span class="subbar-lbl" style="color:var(--accent)">点击高亮同向轨道（≥${this.pendingTrackSnap.targetLength}m）吸附「${p ? p.name : '站台'}」</span>
+            <span class="subbar-lbl" style="color:var(--accent)">点击高亮同向轨道（≥${this.pendingTrackSnap.targetLength}m）吸附「${(p && p.name) ? p.name : '站台'}」</span>
             <button class="btn btn-xs" id="btnCancelTrackSnap">取消 (Esc)</button>
           </div>
         `;
@@ -4789,13 +5202,15 @@
           const selPlat = this.selectedEntity.type === 'platform' ? this.platforms.getPlatform(this.selectedEntity.id) : null;
           const selNode = this.selectedEntity.type === 'node' ? this.graph.getNode(this.selectedEntity.id) : null;
           const canToggleSwitch = !!(selNode && this.graph.classifyNode(selNode.id) === 'switch');
-          const canSplit = this.selectedEntity.type === 'edge' && this.graph.edges.get(this.selectedEntity.id) && !this.graph.edges.get(this.selectedEntity.id).isStationTrack;
           bar.innerHTML = `
             <div class="mode-panel-row" style="justify-content:space-between;">
               <span class="subbar-lbl" style="color:var(--text-main);">${desc}</span>
               <button class="btn btn-danger btn-xs" id="btnDeleteSelected">删除 (Del)</button>
             </div>
-            ${selPlat ? `<div class="mode-panel-row"><span class="subbar-lbl">站名</span><input class="input-sm" id="editPlatNameInput" value="${selPlat.name.replace(/"/g, '&quot;')}" placeholder="输入站名" style="flex:1;min-width:0;"></div>` : ''}
+            ${selPlat ? `
+              <div class="mode-panel-row"><span class="subbar-lbl">站名</span><input class="input-sm" id="editPlatNameInput" value="${selPlat.name.replace(/"/g, '&quot;')}" placeholder="输入站名" style="flex:1;min-width:0;"></div>
+              <div class="mode-panel-row"><span class="subbar-lbl">层</span><input class="input-sm" type="number" step="any" id="editPlatZLayerInput" value="${selPlat.zLayer || 0}" style="width:76px;" title="修改整个站组所在层（任意数值，层大在上，层小在下）"><span class="subbar-lbl" style="opacity:0.72;font-size:11px;">整站组同步</span></div>
+            ` : ''}
             ${canToggleSwitch ? `
               <div class="mode-panel-row">
                 <span class="subbar-lbl">道岔</span>
@@ -4805,7 +5220,6 @@
                 </div>
               </div>
             ` : ''}
-            ${canSplit ? '<div class="mode-panel-row"><button class="btn btn-primary btn-xs" id="btnSplitSelectedEdge">轨中加点</button></div>' : ''}
           `;
           if (canToggleSwitch) {
             const setSw = (val) => {
@@ -4833,30 +5247,23 @@
               if (!pushedRename) { this.pushHistory('修改站名'); pushedRename = true; }
               selPlat.name = e.target.value;
             });
-          }
-          if (canSplit) {
-            document.getElementById('btnSplitSelectedEdge').addEventListener('click', () => {
-              const e = this.graph.edges.get(this.selectedEntity.id);
-              if (!e) return;
-              const a = this.graph.getNode(e.from);
-              const b = this.graph.getNode(e.to);
-              if (!a || !b) return;
-              this.pushHistory('在轨道中插入节点');
-              const split = this.graph.splitEdgeAt(e.id, (a.x + b.x) / 2, (a.y + b.y) / 2);
-              if (split) {
-                this.routes.handleEdgeSplit(split.oldFrom, split.oldTo, split.node.id);
-                this.routes.rebuildAll();
-                this.dispatcher.syncTrainsWithRoutes();
-                this.selectedEntity = { type: 'node', id: split.node.id };
-                this.renderSubbar();
-                this.renderLineTree();
-                this.showToast(`已在轨道中插入节点 ${split.node.id}`);
-              }
-            });
+            const zInp = document.getElementById('editPlatZLayerInput');
+            if (zInp) {
+              zInp.addEventListener('keydown', e => {
+                if (e.key === 'Enter') { e.preventDefault(); zInp.blur(); }
+              });
+              zInp.addEventListener('change', e => {
+                const raw = parseFloat(e.target.value);
+                const nextZ = Number.isFinite(raw) ? raw : 0;
+                zInp.value = nextZ;
+                this.applyPlatformGroupLayerChange(selPlat.id, nextZ);
+              });
+            }
           }
           document.getElementById('btnDeleteSelected').addEventListener('click', () => this.deleteSelectedEntity());
         } else {
-          bar.innerHTML = `<span class="subbar-lbl">点击并拖拽任意节点或站台即可移动，选中后按 Delete 删除</span>`;
+          bar.style.display = 'none';
+          bar.innerHTML = '';
         }
         return;
       }
@@ -4881,6 +5288,15 @@
             </div>
           </div>
           <div class="mode-panel-row">
+            <span class="subbar-lbl">层</span>
+            <input class="input-sm" type="number" step="any" id="subPlatZLayer" style="width:70px;" value="${this.platformConfig.zLayer ?? 0}" title="站组所在层（任意数值，层大在上，层小在下）">
+            <div class="chip-group" id="subZGroup">
+              <button class="chip ${this.platformConfig.zLayer === -1 ? 'active' : ''}" data-z="-1">-1</button>
+              <button class="chip ${this.platformConfig.zLayer === 0 ? 'active' : ''}" data-z="0">0</button>
+              <button class="chip ${this.platformConfig.zLayer === 1 ? 'active' : ''}" data-z="1">1</button>
+            </div>
+          </div>
+          <div class="mode-panel-row">
             <span class="subbar-lbl">站名</span>
             <input class="input-sm" id="subPlatName" placeholder="站名 (可选)" style="flex:1;min-width:0;" value="${this.platformConfig.name}">
           </div>
@@ -4893,6 +5309,17 @@
           this.platformConfig.angleDeg = Number(b.dataset.ang);
           this.renderSubbar();
         }));
+        bar.querySelectorAll('#subZGroup .chip').forEach(b => b.addEventListener('click', () => {
+          this.platformConfig.zLayer = Number(b.dataset.z);
+          this.renderSubbar();
+        }));
+        document.getElementById('subPlatZLayer').addEventListener('input', e => {
+          const v = parseFloat(e.target.value);
+          if (Number.isFinite(v)) {
+            this.platformConfig.zLayer = v;
+            bar.querySelectorAll('#subZGroup .chip').forEach(c => c.classList.toggle('active', Number(c.dataset.z) === v));
+          }
+        });
         document.getElementById('subPlatName').addEventListener('input', e => {
           this.platformConfig.name = e.target.value;
         });
@@ -4979,6 +5406,8 @@
     captureDraftState(d) {
       if (!d) return null;
       return {
+        editingRouteId: d.editingRouteId || null,
+        lineId: d.lineId,
         name: d.name,
         color: d.color,
         customTrainLength: d.customTrainLength,
@@ -5008,14 +5437,8 @@
     }
 
     pushDraftHistory() {
-      const d = this.routeDraft;
-      if (!d) return;
-      if (!d.undoStack) d.undoStack = [];
-      if (!d.redoStack) d.redoStack = [];
-      d.undoStack.push(this.captureDraftState(d));
-      if (d.undoStack.length > 80) d.undoStack.shift();
-      d.redoStack = [];
-      this.updateHistoryButtons();
+      if (!this.routeDraft) return;
+      this.pushHistory('编辑交路');
     }
 
     undoDraft() {
@@ -5284,52 +5707,28 @@
         JSON.stringify(_beforeDraftSnap.nodeIds) !== JSON.stringify(this.routeDraft.nodeIds) ||
         JSON.stringify(_beforeDraftSnap.turnbackIndices) !== JSON.stringify(Array.from(this.routeDraft.turnbackIndices || []))
       )) {
-        if (!this.routeDraft.undoStack) this.routeDraft.undoStack = [];
-        this.routeDraft.undoStack.push(_beforeDraftSnap);
-        if (this.routeDraft.undoStack.length > 80) this.routeDraft.undoStack.shift();
-        this.routeDraft.redoStack = [];
+        const snap = this.captureSnapshot();
+        snap.uiState = { mode: this.mode, inspectedRouteId: this.inspectedRouteId, routeDraft: _beforeDraftSnap };
+        this.undoStack.push({ label: '编辑交路', data: snap });
+        if (this.undoStack.length > this.maxHistory) this.undoStack.shift();
+        this.redoStack.length = 0;
         this.updateHistoryButtons();
       }
     }
 
-    finishRouteDraft() {
+    finishRouteDraft(silent = false) {
       const draft = this.routeDraft;
-      if (!draft || draft.nodeIds.filter(x => x !== '__GAP__').length < 2) {
-        this.showToast('交路至少需要 2 个节点');
+      if (!draft) return;
+      const rawClean = draft.nodeIds.filter(x => x !== '__GAP__');
+      if (rawClean.length === 0 && !draft.editingRouteId) {
+        this.routeDraft = null;
         return;
       }
-      const gapPos = draft.nodeIds.indexOf('__GAP__');
-      if (gapPos !== -1) {
-        const n = draft.nodeIds.length;
-        const aId = draft.nodeIds[(gapPos - 1 + n) % n];
-        const bId = draft.nodeIds[(gapPos + 1) % n];
-        draft.lastCutSlotIdx = (gapPos - 1 + n) % n;
-        this.renderLineTree();
-        this.showToast(`无法保存：${aId} 与 ${bId} 之间已断开，请点击「+」补全路径`);
-        return;
-      }
-      // Remove consecutive duplicates if user deleted a node between identical neighbors
       const cleaned = [];
-      for (const nid of draft.nodeIds) {
+      for (const nid of rawClean) {
         if (cleaned.length === 0 || cleaned[cleaned.length - 1] !== nid) cleaned.push(nid);
       }
       if (cleaned.length > 1 && cleaned[0] === cleaned[cleaned.length - 1]) cleaned.pop();
-      if (cleaned.length < 2) {
-        this.showToast('有效节点不足 2 个，请继续编辑');
-        return;
-      }
-
-      // Check every adjacent pair (including closing edge) is connected by a physical track edge
-      const m = cleaned.length;
-      for (let i = 0; i < m; i++) {
-        const aId = cleaned[i];
-        const bId = cleaned[(i + 1) % m];
-        if (!this.graph.getEdgeBetween(aId, bId)) {
-          this.focusNodeOnMap(aId);
-          this.showToast(`无法保存：${aId} → ${bId} 之间没有直连轨道，请点击「+」插入中间节点或删去断点`);
-          return;
-        }
-      }
 
       let saved = null;
       if (draft.editingRouteId && this.routes.routes.has(draft.editingRouteId)) {
@@ -5377,7 +5776,7 @@
       this.activeSnapPopover = sp;
       const pop = document.getElementById('snapPopover');
       const p = this.platforms.getPlatform(sp.platformId);
-      document.getElementById('popTitleText').textContent = `${p ? p.name : '站台'} · 设线点`;
+      document.getElementById('popTitleText').textContent = `${(p && p.name) ? p.name : '站台'} · 设线点`;
       pop.style.left = clamp(sx + 12, 10, this.width - 230) + 'px';
       pop.style.top = clamp(sy - 16, 54, this.height - 155) + 'px';
       pop.classList.add('visible');
@@ -5410,7 +5809,7 @@
           const p = this.platforms.getPlatform(edge.platformId);
           const dirKey = nid + '->' + targetNextId;
           const isSkip = d.skipStopKeys && d.skipStopKeys.has(dirKey);
-          platChip = `<button class="plat-stop-chip ${isSkip ? 'skip' : ''}" data-draft-stop-key="${dirKey}" title="点击切换停站或不停通过">${p ? p.name : '站台'}·${isSkip ? '过' : '停'}</button>`;
+          platChip = `<button class="plat-stop-chip ${isSkip ? 'skip' : ''}" data-draft-stop-key="${dirKey}" title="点击切换停站或不停通过">${(p && p.name) ? p.name : '站台'}·${isSkip ? '过' : '停'}</button>`;
         }
         return `
           <span class="loop-chip ${broken ? 'bad' : ''} ${(isSegEnd || d.selectedNodeIdx === idx) ? 'seg-selected' : ''}" data-draft-node-idx="${idx}">
@@ -5443,12 +5842,10 @@
                 <button class="chip ${curLen === 240 ? 'active' : ''}" data-draft-len="240" style="flex:1;">8编 240m</button>
               </div>
             </div>
-            <div style="font-size:10.5px;color:var(--text-muted);margin-top:4px;">点击线段选中删除 · 点 + 连续插点直至连通</div>
           `}
           <div class="draft-nodes" id="draftNodesList">${nodesHtml}</div>
           <div style="display:flex;gap:5px;">
             <button class="btn btn-primary btn-xs" id="draftSaveBtn" style="flex:1;justify-content:center;">✓ ${d.editingRouteId ? '保存路线' : '闭合保存'}</button>
-            <button class="btn btn-xs" id="draftUndoBtn">退一格</button>
             <button class="btn btn-danger btn-xs" id="draftCancelBtn">取消</button>
           </div>
         </div>
@@ -5459,7 +5856,11 @@
       if (!this.routeDraft) return;
       const nameInp = document.getElementById('draftNameInput');
       if (nameInp) {
-        nameInp.addEventListener('input', e => { this.routeDraft.name = e.target.value; });
+        let pushedDraftName = false;
+        nameInp.addEventListener('input', e => {
+          if (!pushedDraftName) { this.pushHistory('重命名交路'); pushedDraftName = true; }
+          this.routeDraft.name = e.target.value;
+        });
       }
       wrap.querySelectorAll('[data-draft-len]').forEach(btn => btn.addEventListener('click', () => {
         this.pushDraftHistory();
@@ -5502,20 +5903,6 @@
       }
       const saveBtn = document.getElementById('draftSaveBtn');
       if (saveBtn) saveBtn.addEventListener('click', () => this.finishRouteDraft());
-      const undoBtn = document.getElementById('draftUndoBtn');
-      if (undoBtn) undoBtn.addEventListener('click', () => {
-        if (this.routeDraft.undoStack && this.routeDraft.undoStack.length > 0) {
-          this.undoDraft();
-          return;
-        }
-        if (this.routeDraft.nodeIds.length > 0) {
-          this.pushDraftHistory();
-          this.routeDraft.nodeIds.pop();
-          this.routeDraft.insertAfterIdx = null;
-          this.renderSubbar();
-          this.renderLineTree();
-        }
-      });
       const cancelBtn = document.getElementById('draftCancelBtn');
       if (cancelBtn) cancelBtn.addEventListener('click', () => {
         this.routeDraft = null;
@@ -5553,7 +5940,7 @@
           const prevEdge = this.graph.getEdgeBetween(r.nodeIds[(i - 1 + r.nodeIds.length) % r.nodeIds.length], aId);
           if (r.turnbackIndices.has(i) && prevEdge && prevEdge.id === edge.id) continue;
           const p = this.platforms.getPlatform(edge.platformId);
-          stopChain.push({ name: p ? p.name : '站台', nodeId: aId });
+          stopChain.push({ name: (p && p.name) ? p.name : '站台', nodeId: aId });
         }
         const isEditingThis = !isSimMode && !!(this.routeDraft && this.routeDraft.editingRouteId === r.id);
         const curLen = Number(r.customTrainLength || r.trainLength) || 120;
@@ -5567,9 +5954,11 @@
           ${!r.runnable && r.brokenReason ? `<div style="font-size:11px;color:var(--danger);background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.28);border-radius:6px;padding:6px 8px;margin-bottom:8px;">交路停运：${r.brokenReason}</div>` : ''}
           <div class="detail-section">
             <div class="detail-sec-title">
-              <span>交路缩略图</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;">
+                <span>路线缩略图</span>
+                ${!isSimMode ? (isEditingThis ? `<span style="color:var(--accent);font-weight:600;font-size:11px;">编辑中</span>` : `<button class="icon-btn" id="btnEnableDetailEdit" title="路线编辑"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>`) : ''}
+              </span>
               <span class="mini-ctrl">
-                <span>${r.turnbackPoints.length > 0 ? `折返×${r.turnbackPoints.length}` : '环线'}</span>
                 <button class="btn btn-xs" id="detailDecTrain">-</button>
                 <strong>${r.trainCount}车</strong>
                 <button class="btn btn-xs" id="detailIncTrain">+</button>
@@ -5587,7 +5976,7 @@
           </div>
           ${!isSimMode ? `
             <div class="detail-section">
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:${isEditingThis ? '8px' : '0'};">
                 <span style="font-size:11px;color:var(--text-muted);font-weight:600;white-space:nowrap;">编组</span>
                 <div class="chip-group" style="flex:1;justify-content:space-between;">
                   <button class="chip ${curLen === 120 ? 'active' : ''}" data-detail-len="120" style="flex:1;">4编 120m</button>
@@ -5595,14 +5984,7 @@
                   <button class="chip ${curLen === 240 ? 'active' : ''}" data-detail-len="240" style="flex:1;">8编 240m</button>
                 </div>
               </div>
-              <div class="detail-sec-title" style="margin-bottom:${isEditingThis ? '4px' : '0'};">
-                <span>路线编辑</span>
-                ${isEditingThis ? `<span style="color:var(--accent);font-weight:600;">编辑中（已隐藏列车）</span>` : `<button class="btn btn-primary btn-xs" id="btnEnableDetailEdit">启用编辑</button>`}
-              </div>
-              ${isEditingThis
-                ? this.buildDraftBoxHtml(this.routeDraft)
-                : `<div style="font-size:11px;color:var(--text-muted);margin-top:6px;">停靠站台长度需 ≥ 所选编组；启用编辑可增删节点与切换停站/过站。</div>`
-              }
+              ${isEditingThis ? this.buildDraftBoxHtml(this.routeDraft) : ''}
             </div>
           ` : ''}
         `;
@@ -5615,6 +5997,7 @@
           });
         });
         document.getElementById('btnDetailBack').addEventListener('click', () => {
+          if (this.routeDraft) this.finishRouteDraft(true);
           this.inspectedRouteId = null;
           this.selectedRouteId = null;
           this.routeDraft = null;
@@ -5723,6 +6106,7 @@
           ${this.buildDraftBoxHtml(d)}
         `;
         document.getElementById('btnNewDraftBack').addEventListener('click', () => {
+          if (this.routeDraft) this.finishRouteDraft(true);
           this.routeDraft = null;
           this.pendingRouteInsert = null;
           this.renderSubbar();
@@ -5756,7 +6140,7 @@
                 <div class="line-title-wrap">
                   <button class="collapse-caret ${isLineCollapsed ? 'collapsed' : ''}" data-action="toggle-line-collapse" title="折叠/展开线路">▾</button>
                   <span class="line-bar" style="background:${line.color};${isSimMode ? 'cursor:default;' : ''}" data-action="cycle-line-color" title="${isSimMode ? '' : '切换线路主色'}"></span>
-                  <span class="line-name" data-action="rename-line" title="${isSimMode ? line.name : '双击重命名线路'}" style="${isSimMode ? '' : 'cursor:text;'}">${line.name}</span>
+                  <span class="line-name" data-action="rename-line" title="${isSimMode ? line.name : '点击重命名线路'}" style="${isSimMode ? '' : 'cursor:text;'}">${line.name}</span>
                 </div>
                 <div style="display:flex;gap:3px;">
                   ${!isSimMode ? `<button class="btn btn-xs" data-action="add-sub-route" title="新建交路">+</button>` : ''}
@@ -5805,7 +6189,7 @@
                     const prevEdge = this.graph.getEdgeBetween(r.nodeIds[(i - 1 + r.nodeIds.length) % r.nodeIds.length], aId);
                     if (r.turnbackIndices.has(i) && prevEdge && prevEdge.id === edge.id) continue;
                     const p = this.platforms.getPlatform(edge.platformId);
-                    stopChain.push({ name: p ? p.name : '站台', nodeId: aId });
+                    stopChain.push({ name: (p && p.name) ? p.name : '站台', nodeId: aId });
                   }
                   return `
                     <div class="route-item" data-route-id="${r.id}">
@@ -5815,20 +6199,14 @@
                           <span class="color-dot" style="background:${r.color};${isSimMode ? 'cursor:default;' : ''}" data-action="cycle-route-color" title="${isSimMode ? '' : '切换交路色彩'}"></span>
                           <span class="route-name" data-action="rename-route" title="${isSimMode ? '点击查看交路详情' : '单击进入单交路详情 · 双击重命名'}">${r.name}</span>
                         </div>
-                        <div style="display:flex;gap:3px;align-items:center;">
+                        <span class="mini-ctrl" style="flex-shrink:0;">
+                          <button class="btn btn-xs" data-action="dec-train">-</button>
+                          <strong>${r.trainCount}车</strong>
+                          <button class="btn btn-xs" data-action="inc-train">+</button>
+                        </span>
+                        <div style="display:flex;gap:3px;align-items:center;flex-shrink:0;">
                           <span style="font-size:10px;color:${r.runnable ? 'var(--text-muted)' : 'var(--danger)'};font-weight:${r.runnable ? '400' : '700'}">${r.runnable ? `${r.trainLength}m` : '停运'}</span>
-                          ${!isSimMode ? `<button class="icon-btn" data-action="edit-route" title="编辑"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>` : ''}
                           ${!isSimMode ? `<button class="icon-btn danger" data-action="delete-route" title="删除"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : ''}
-                        </div>
-                      </div>
-                      <div class="route-body">
-                        <div class="route-sub" style="margin-top:0;justify-content:space-between;">
-                          <span style="font-size:11px;color:var(--text-muted);">${r.turnbackPoints.length > 0 ? `折返×${r.turnbackPoints.length}` : '环线'}</span>
-                          <span class="mini-ctrl">
-                            <button class="btn btn-xs" data-action="dec-train">-</button>
-                            <strong>${r.trainCount}车</strong>
-                            <button class="btn btn-xs" data-action="inc-train">+</button>
-                          </span>
                         </div>
                       </div>
                     </div>
@@ -5861,7 +6239,7 @@
         if (!line) return;
 
         group.querySelector('.line-head').addEventListener('click', ev => {
-          if (ev.target.closest('button, input, .line-bar')) return;
+          if (ev.target.closest('button, input, .line-bar') || (!isSimMode && ev.target.closest('[data-action="rename-line"]'))) return;
           if (this.expandedLines.has(lid)) this.expandedLines.delete(lid);
           else this.expandedLines.add(lid);
           this.renderLineTree();
@@ -5873,9 +6251,9 @@
           this.renderLineTree();
         });
         const lineNameEl = group.querySelector('[data-action="rename-line"]');
-        lineNameEl.addEventListener('dblclick', e => {
+        lineNameEl.addEventListener('click', e => {
+          if (this.mode !== 'route') return;
           e.stopPropagation();
-          if (this.mode === 'simulate') { this.setMode('route'); return; }
           const inp = document.createElement('input');
           inp.className = 'input-sm';
           inp.value = line.name;
@@ -6091,17 +6469,31 @@
     }
 
     updateLivePanelStats() {
-      document.getElementById('simClock').textContent = formatTime(this.dispatcher.simTime);
-      document.getElementById('statTrains').textContent = this.dispatcher.trains.size;
+      if (!this._statsDom) {
+        this._statsDom = {
+          clock: document.getElementById('simClock'),
+          trains: document.getElementById('statTrains'),
+          blocks: document.getElementById('statBlocks'),
+          waiting: document.getElementById('statWaiting'),
+          insp: document.getElementById('trainInspector')
+        };
+      }
+      const d = this._statsDom;
+      const clockTxt = formatTime(this.dispatcher.simTime);
+      if (d.clock.textContent !== clockTxt) d.clock.textContent = clockTxt;
+      const trainCntTxt = String(this.dispatcher.trains.size);
+      if (d.trains.textContent !== trainCntTxt) d.trains.textContent = trainCntTxt;
 
       let locked = 0;
       for (const e of this.graph.edges.values()) if (e.lockedBy) locked++;
       let waiting = 0;
       for (const t of this.dispatcher.trains.values()) if (t.state === 'WAITING') waiting++;
-      document.getElementById('statBlocks').textContent = locked;
-      document.getElementById('statWaiting').textContent = waiting;
+      const lockedTxt = String(locked);
+      const waitTxt = String(waiting);
+      if (d.blocks.textContent !== lockedTxt) d.blocks.textContent = lockedTxt;
+      if (d.waiting.textContent !== waitTxt) d.waiting.textContent = waitTxt;
 
-      const insp = document.getElementById('trainInspector');
+      const insp = d.insp;
       if (this.selectedTrainId && this.dispatcher.trains.has(this.selectedTrainId)) {
         const t = this.dispatcher.trains.get(this.selectedTrainId);
         const r = this.routes.routes.get(t.routeId);
@@ -6113,7 +6505,7 @@
           WAITING: { txt: `闭塞等待 · ${t.waitingForEdgeId || ''}`, c: '#f43f5e' }
         };
         const st = map[t.state] || map.RUNNING;
-        insp.innerHTML = `
+        const html = `
           <div style="display:flex;justify-content:space-between;color:var(--text-main);font-weight:600;margin-bottom:3px;">
             <span>${t.id} · ${line ? line.name + ' / ' : ''}${r ? r.name : ''}</span>
             <span>${t.length}m</span>
@@ -6123,12 +6515,17 @@
             <span>${Math.round(t.speed * 0.85)} km/h · 占用 ${Array.from(t.occupiedEdges).join(', ')}</span>
           </div>
         `;
-      } else {
+        if (this._lastInspHtml !== html) {
+          this._lastInspHtml = html;
+          insp.innerHTML = html;
+        }
+      } else if (this._lastInspHtml !== 'IDLE') {
+        this._lastInspHtml = 'IDLE';
         insp.textContent = '点击列车查看实时状态';
       }
 
       const nowMs = performance.now();
-      if (nowMs - this.lastDiagCheck > 400) {
+      if (nowMs - this.lastDiagCheck > 1200) {
         this.lastDiagCheck = nowMs;
         this.refreshDiagnostics();
       }
@@ -6143,7 +6540,9 @@
         this.showToast('已删除选中站台');
       } else if (type === 'node') {
         this.pushHistory('删除节点');
-        for (const e of this.graph.getIncidentEdges(id)) {
+        const incDel = this.graph.getIncidentEdges(id);
+        this.platforms.clearEdgePairwiseRelations(incDel.map(x => x.id));
+        for (const e of incDel) {
           for (const p of this.platforms.platforms.values()) {
             [-1, 1].forEach(sDir => {
               if (p.sides[String(sDir)].type === 'track' && p.sides[String(sDir)].refId === e.id) {
@@ -6163,12 +6562,14 @@
             }
           });
         }
+        this.platforms.clearEdgePairwiseRelations([id]);
         this.graph.removeEdge(id);
         this.showToast(`已删除轨道 ${id}`);
       }
       this.selectedEntity = null;
       this.cleanupAndRenumberGraph();
       this.graph.syncAllCrossings('level');
+      this.platforms.syncAllGroupLayerRelations();
       this.routes.rebuildAll();
       this.dispatcher.syncTrainsWithRoutes();
       this.renderSubbar();
@@ -6179,29 +6580,14 @@
     refreshDiagnostics() {
       const issues = this.dispatcher.diagnoseIssues();
       this.currentIssues = issues;
-      const pill = document.getElementById('btnDiagAlerts');
-      if (issues.length === 0) {
-        pill.style.display = 'none';
-        this.diagOpen = false;
-        document.getElementById('diagPanel').classList.remove('open');
-        this.seenIssueKeys.clear();
-        return;
-      }
-
-      const hasError = issues.some(i => i.level === 'error');
-      pill.style.display = 'inline-flex';
-      pill.classList.toggle('error', hasError);
-      pill.textContent = `${issues.length} 告警`;
-
       const nextKeys = new Set(issues.map(i => i.key));
-      for (const issue of issues) {
-        if (!this.seenIssueKeys.has(issue.key)) {
-          this.showToast(`告警：${issue.title}`);
-          break;
+      if (this.dismissedDiagKeys) {
+        for (const k of Array.from(this.dismissedDiagKeys)) {
+          if (!nextKeys.has(k)) this.dismissedDiagKeys.delete(k);
         }
       }
       this.seenIssueKeys = nextKeys;
-      if (this.diagOpen) this.renderDiagPanel();
+      this.renderAlerts();
     }
 
     renderDiagPanel() {
@@ -6647,6 +7033,7 @@
         n34_wWB2.id, n34_wWB1.id, n3W_wbE.id, st3W_WB.n2.id, st3W_WB.n1.id, n3W_j.id
       ], [], { color: '#14b8a6', trainCount: 1, headwaySec: 20 });
 
+      this.platforms.syncAllGroupLayerRelations();
       this.dispatcher.syncTrainsWithRoutes();
       this.dispatcher.running = true;
       document.getElementById('btnPlayPause').textContent = '暂停';
@@ -6708,8 +7095,6 @@
         ctx.shadowColor = 'rgba(15, 23, 42, 0.28)';
         ctx.shadowBlur = 8;
         ctx.shadowOffsetY = 3;
-      } else if (zl < 0) {
-        ctx.globalAlpha = 0.82;
       }
       ctx.fillStyle = pal.platformFill;
       ctx.strokeStyle = isPlatSel ? '#f59e0b' : pal.platformStroke;
@@ -6745,7 +7130,7 @@
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       if (Math.cos(p.rad) < -0.01) ctx.rotate(Math.PI);
-      ctx.fillText(`${p.name} (${p.length}m)`, 0, 0.5);
+      ctx.fillText(`${p.name}`, 0, 0.5);
       ctx.restore();
 
       // Show snap points ONLY in platform mode OR on the selected platform in select mode (NEVER in track mode!)
@@ -6870,13 +7255,176 @@
       }
     }
 
+    _getBridgeHiddenNodeIds() {
+      if (this._frameBridgeHiddenNodeIds) return this._frameBridgeHiddenNodeIds;
+      const hidden = new Set();
+      for (const cr of this.graph.crossings.values()) {
+        if (cr.type !== 'overpass' && cr.type !== 'underpass') continue;
+        if (cr.bendNodeId) hidden.add(cr.bendNodeId);
+        const eA = this.graph.edges.get(cr.edgeA);
+        const eB = this.graph.edges.get(cr.edgeB);
+        for (const ed of [eA, eB]) {
+          if (!ed) continue;
+          for (const nid of [ed.from, ed.to]) {
+            const nd = this.graph.getNode(nid);
+            if (nd && dist(nd.x, nd.y, cr.x, cr.y) < 3.5) hidden.add(nid);
+          }
+        }
+      }
+      return hidden;
+    }
+
+    _redrawTransitionCarsAtNode(ctx, pal, node, layerZ) {
+      if (this.routeDraft || !node) return;
+      const inc = this.graph.getIncidentEdges(node.id);
+      const lowerEdgeIds = new Set();
+      for (const ed of inc) {
+        if (this.platforms.getEdgeZLayer(ed) < layerZ - 1e-4) lowerEdgeIds.add(ed.id);
+      }
+      if (lowerEdgeIds.size === 0) return;
+      if (this._frameCarsByEdge) {
+        for (const eid of lowerEdgeIds) {
+          const cars = this._frameCarsByEdge.get(eid);
+          if (!cars) continue;
+          for (const item of cars) {
+            if (dist(item.sample.x, item.sample.y, node.x, node.y) < 22) {
+              this.drawTrainCar(ctx, pal, item.train, item.route, item.sample, item.c, item.numCars, item.carLen, item.carWidth, item.isSel);
+            }
+          }
+        }
+        return;
+      }
+    }
+
+    _healLowerLayerTrackRailSeams(ctx, pal, layerZ) {
+      for (const n of this.graph.nodes.values()) {
+        const inc = this.graph.getIncidentEdges(n.id);
+        if (inc.length < 2) continue;
+        let hasCurr = false;
+        const lowerEdges = [];
+        for (const ed of inc) {
+          const ez = this.platforms.getEdgeZLayer(ed);
+          if (Math.abs(ez - layerZ) < 1e-4) hasCurr = true;
+          else if (ez < layerZ - 1e-4) lowerEdges.push(ed);
+        }
+        if (!hasCurr || lowerEdges.length === 0) continue;
+        ctx.save();
+        ctx.lineCap = 'round';
+        const { trims, curves } = this._frameFilletData || this.graph.computeTrackFilletData();
+        const incCurves = curves.filter(c => dist(c.ctrl.x, c.ctrl.y, n.x, n.y) < 1.5);
+        for (const ed of lowerEdges) {
+          const other = this.graph.getNode(ed.from === n.id ? ed.to : ed.from);
+          if (!other || !ed.length) continue;
+          const ux = (other.x - n.x) / ed.length;
+          const uy = (other.y - n.y) / ed.length;
+          const tInfo = trims.get(ed.id) || { startTrim: 0, endTrim: 0 };
+          const nTrim = ed.from === n.id ? tInfo.startTrim : tInfo.endTrim;
+          const span = Math.min(16, ed.length * 0.48);
+          const relCv = nTrim > 0 ? incCurves.find(c => c.edgeA.id === ed.id || c.edgeB.id === ed.id) : null;
+          const traceStub = (offX = 0, offY = 0) => {
+            ctx.beginPath();
+            if (relCv) {
+              ctx.moveTo(relCv.p0.x + offX, relCv.p0.y + offY);
+              ctx.quadraticCurveTo(relCv.ctrl.x + offX, relCv.ctrl.y + offY, relCv.p1.x + offX, relCv.p1.y + offY);
+            } else {
+              ctx.moveTo(n.x + offX, n.y + offY);
+              ctx.lineTo(n.x + ux * span + offX, n.y + uy * span + offY);
+            }
+          };
+          ctx.strokeStyle = pal.trackRail;
+          ctx.lineWidth = 3.2;
+          traceStub();
+          ctx.stroke();
+          if (ed.isStationTrack) {
+            ctx.strokeStyle = pal.stationRail;
+            ctx.lineWidth = 2.2;
+            traceStub();
+            ctx.stroke();
+          }
+          const soloRouteId = (this.inspectedRouteId && (this.mode === 'route' || this.mode === 'simulate') && this.routes.routes.has(this.inspectedRouteId)) ? this.inspectedRouteId : null;
+          if ((this.showRoutes || soloRouteId) && !this.routeDraft) {
+            const coMap = this._frameCoMap || this.routes.getEdgeCoRunningMap();
+            const rawList = soloRouteId ? [this.routes.routes.get(soloRouteId)].filter(Boolean) : (coMap.get(ed.id) || []);
+            const uniqColors = [];
+            const seenC = new Set();
+            for (const rt of rawList) {
+              if (!rt) continue;
+              if (soloRouteId && rt.id !== soloRouteId) continue;
+              if (!soloRouteId && !this.routes.isRouteVisible(rt)) continue;
+              if (soloRouteId && (!rt.segments || !rt.segments.some(s => s.edgeId === ed.id))) continue;
+              const c = (soloRouteId ? rt.color : this.getEffectiveRouteColor(rt)).toLowerCase();
+              if (!seenC.has(c)) { seenC.add(c); uniqColors.push(soloRouteId ? rt.color : this.getEffectiveRouteColor(rt)); }
+            }
+            if (uniqColors.length > 0) {
+              const aN = this.graph.getNode(ed.from), bN = this.graph.getNode(ed.to);
+              let cdx = bN.x - aN.x, cdy = bN.y - aN.y;
+              if (cdx < -1e-3 || (Math.abs(cdx) <= 1e-3 && cdy < 0)) { cdx = -cdx; cdy = -cdy; }
+              const clen = Math.hypot(cdx, cdy) || 1;
+              const cnx = -cdy / clen, cny = cdx / clen;
+              const k = uniqColors.length;
+              ctx.lineCap = 'butt';
+              ctx.lineWidth = soloRouteId ? 4.2 : 3.0;
+              uniqColors.forEach((col, idx) => {
+                const off = (!soloRouteId && k > 1) ? (idx - (k - 1) / 2) * 5.2 : 0;
+                ctx.strokeStyle = col;
+                traceStub(cnx * off, cny * off);
+                ctx.stroke();
+              });
+            }
+          }
+        }
+        ctx.restore();
+      }
+    }
+
+    _redrawAllTransitionCarsForLayer(ctx, pal, layerZ) {
+      if (this.routeDraft || !this._frameCarsByEdge) return;
+      for (const n of this.graph.nodes.values()) {
+        const inc = this.graph.getIncidentEdges(n.id);
+        if (inc.length < 2) continue;
+        let hasCurr = false, hasLower = false;
+        for (const ed of inc) {
+          const ez = this.platforms.getEdgeZLayer(ed);
+          if (Math.abs(ez - layerZ) < 1e-4) hasCurr = true;
+          else if (ez < layerZ - 1e-4) hasLower = true;
+        }
+        if (hasCurr && hasLower) {
+          this._redrawTransitionCarsAtNode(ctx, pal, n, layerZ);
+        }
+      }
+    }
+
+    _drawElevatedLayerNodes(ctx, pal, layerEdges, layerZ) {
+      if (this.mode === 'simulate') return;
+      const bridgeBendNodeIds = this._getBridgeHiddenNodeIds();
+      const drawn = new Set();
+      for (const eId of layerEdges) {
+        const e = this.graph.edges.get(eId);
+        if (!e) continue;
+        for (const nid of [e.from, e.to]) {
+          if (drawn.has(nid) || bridgeBendNodeIds.has(nid)) continue;
+          drawn.add(nid);
+          const n = this.graph.getNode(nid);
+          if (!n) continue;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff';
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = '#d97706';
+          ctx.stroke();
+          this._redrawTransitionCarsAtNode(ctx, pal, n, layerZ);
+        }
+      }
+    }
+
     drawTrackLayer(ctx, pal, targetZ) {
       const layerEdges = new Set();
       for (const e of this.graph.edges.values()) {
         if (Math.abs(this.platforms.getEdgeZLayer(e) - targetZ) < 1e-4) layerEdges.add(e.id);
       }
       if (layerEdges.size === 0) return layerEdges;
-      const { trims, curves } = this.graph.computeTrackFilletData();
+      const { trims, curves } = this._frameFilletData || this.graph.computeTrackFilletData();
       ctx.save();
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -6907,6 +7455,7 @@
       strokeSub(pal.trackBed, 9);
       strokeSub(pal.trackRail, 3.2);
       strokeSub(pal.stationRail, 2.2, e => e.isStationTrack);
+      this._healLowerLayerTrackRailSeams(ctx, pal, targetZ);
       if (this.selectedEntity && this.selectedEntity.type === 'edge' && layerEdges.has(this.selectedEntity.id)) {
         strokeSub('#f59e0b', 7, e => e.id === this.selectedEntity.id);
       }
@@ -6928,28 +7477,14 @@
           }
         }
       }
-      // Draw station-end nodes on this elevated/underground layer
-      for (const eId of layerEdges) {
-        const e = this.graph.edges.get(eId);
-        if (!e) continue;
-        for (const nid of [e.from, e.to]) {
-          const n = this.graph.getNode(nid);
-          if (!n) continue;
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, 4, 0, Math.PI * 2);
-          ctx.fillStyle = '#fff';
-          ctx.fill();
-          ctx.lineWidth = 2;
-          ctx.strokeStyle = '#d97706';
-          ctx.stroke();
-        }
-      }
+      // Draw station-end nodes on this elevated/underground layer (hiding nodes under/over bridges)
+      this._drawElevatedLayerNodes(ctx, pal, layerEdges, targetZ);
       ctx.restore();
       return layerEdges;
     }
 
     drawTracks(ctx, pal) {
-      const { trims, curves } = this.graph.computeTrackFilletData();
+      const { trims, curves } = this._frameFilletData || this.graph.computeTrackFilletData();
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 
@@ -6976,10 +7511,9 @@
         ctx.stroke();
       };
 
-      const isGroundEdge = e => Math.abs(this.platforms.getEdgeZLayer(e)) < 1e-4;
-      strokeNet(pal.trackBed, 9, isGroundEdge);
-      strokeNet(pal.trackRail, 3.2, isGroundEdge);
-      strokeNet(pal.stationRail, 2.2, e => e.isStationTrack && isGroundEdge(e));
+      strokeNet(pal.trackBed, 9);
+      strokeNet(pal.trackRail, 3.2);
+      strokeNet(pal.stationRail, 2.2, e => e.isStationTrack);
 
       if (this.showBlocks && !this.routeDraft) {
         // Draw live Moving-Block Safety Envelope ahead of every train (stretches/shrinks directly with blockDistance!)
@@ -7049,7 +7583,7 @@
           ctx.lineWidth = isSel ? 4.2 : 3.0;
           for (const seg of route.segments) {
             const edge = this.graph.edges.get(seg.edgeId);
-            if (edge && !isGroundEdge(edge)) continue;
+            // Unified track pass: draw all route segments together regardless of layer
             const slots = getSlotsForEdge(seg.edgeId, route);
             const k = slots.length;
             const idx = Math.max(0, slots.indexOf(effKey));
@@ -7220,11 +7754,20 @@
 
       const bridgeBendNodeIds = new Set();
       for (const cr of this.graph.crossings.values()) {
-        if (cr.bendNodeId && (cr.type === 'overpass' || cr.type === 'underpass')) bridgeBendNodeIds.add(cr.bendNodeId);
+        if (cr.type !== 'overpass' && cr.type !== 'underpass') continue;
+        if (cr.bendNodeId) bridgeBendNodeIds.add(cr.bendNodeId);
+        const eA = this.graph.edges.get(cr.edgeA);
+        const eB = this.graph.edges.get(cr.edgeB);
+        for (const ed of [eA, eB]) {
+          if (!ed) continue;
+          for (const nid of [ed.from, ed.to]) {
+            const nd = this.graph.getNode(nid);
+            if (nd && dist(nd.x, nd.y, cr.x, cr.y) < 3.5) bridgeBendNodeIds.add(nid);
+          }
+        }
       }
       for (const n of this.graph.nodes.values()) {
-        const incForZ = this.graph.getIncidentEdges(n.id);
-        if (incForZ.length > 0 && incForZ.every(ed => !isGroundEdge(ed))) continue;
+        // Unified node pass: draw all non-bridged nodes & switches together
         if (n.isImplicit || bridgeBendNodeIds.has(n.id)) continue;
         const isHover = this.hoveredNodeId === n.id;
         const isNodeSel = this.selectedEntity && this.selectedEntity.type === 'node' && this.selectedEntity.id === n.id;
@@ -7248,7 +7791,7 @@
           ctx.restore();
         }
 
-        if (showNodes || isHover || isNodeSel || isFocused || isDraftStart || isJunction) {
+        if (showNodes || n.isStationEnd || isHover || isNodeSel || isFocused || isDraftStart || isJunction) {
           ctx.beginPath();
           ctx.arc(n.x, n.y, isFocused || isNodeSel || isHover || isDraftStart || isChainStart ? 6.5 : (isValidNext ? 5.2 : (isJunction ? 4 : 3.4)), 0, Math.PI * 2);
           ctx.fillStyle = isFocused || isNodeSel ? '#f59e0b' : (isDraftStart ? '#10b981' : (isValidNext ? 'rgba(16, 185, 129, 0.85)' : (isHover || isChainStart ? '#0ea5e9' : pal.nodeFill)));
@@ -7312,7 +7855,14 @@
       }
 
       // 7. Render Level Crossings (Overpass bridges are drawn after base trains so underpass trains pass underneath!)
-      for (const c of this.graph.crossings.values()) {
+      const sortedCrossings = Array.from(this.graph.crossings.values()).sort((a, b) => {
+        const ea = this.graph.edges.get(a.overEdgeId || a.edgeA);
+        const eb = this.graph.edges.get(b.overEdgeId || b.edgeA);
+        const za = ea ? this.platforms.getEdgeZLayer(ea) : 0;
+        const zb = eb ? this.platforms.getEdgeZLayer(eb) : 0;
+        return za - zb;
+      });
+      for (const c of sortedCrossings) {
         if (c.type === 'overpass' || c.type === 'underpass') continue;
         ctx.save();
         ctx.fillStyle = 'rgba(245, 158, 11, 0.24)';
@@ -7372,6 +7922,22 @@
 
     drawTrains(ctx, pal, filterEdgeIds = null) {
       if (this.routeDraft) return;
+      if (this._frameCarsByEdge && filterEdgeIds) {
+        for (const eid of filterEdgeIds) {
+          const cars = this._frameCarsByEdge.get(eid);
+          if (!cars) continue;
+          for (const item of cars) {
+            this.drawTrainCar(ctx, pal, item.train, item.route, item.sample, item.c, item.numCars, item.carLen, item.carWidth, item.isSel);
+          }
+        }
+        return;
+      }
+      if (this._frameTrainCars && !filterEdgeIds) {
+        for (const item of this._frameTrainCars) {
+          this.drawTrainCar(ctx, pal, item.train, item.route, item.sample, item.c, item.numCars, item.carLen, item.carWidth, item.isSel);
+        }
+        return;
+      }
       for (const train of this.dispatcher.trains.values()) {
         const route = this.routes.routes.get(train.routeId);
         if (!route || route.segments.length === 0) continue;
@@ -7391,28 +7957,169 @@
       }
     }
 
-    drawPlatformEdgePairwiseOverrides(ctx, pal) {
+    strokeSmoothBridgeGuardrails(ctx, pal, ed, hitPt, span, bridgeHalfW, trims, curves) {
+      const a = this.graph.getNode(ed.from), b = this.graph.getNode(ed.to);
+      if (!a || !b || !ed.length) return;
+      const t = trims.get(ed.id) || { startTrim: 0, endTrim: 0 };
+      const vx = (b.x - a.x) / ed.length, vy = (b.y - a.y) / ed.length;
+      const incFrom = this.graph.getIncidentEdges(ed.from);
+      const incTo = this.graph.getIncidentEdges(ed.to);
+      const fromTrim = incFrom.length >= 3 ? Math.max(t.startTrim, 5) : t.startTrim;
+      const toTrim = incTo.length >= 3 ? Math.max(t.endTrim, 5) : t.endTrim;
+      if (fromTrim + toTrim >= ed.length - 1) return;
+
+      const pStart = { x: a.x + vx * fromTrim, y: a.y + vy * fromTrim };
+      const pEnd = { x: b.x - vx * toTrim, y: b.y - vy * toTrim };
+      const pts = [];
+
+      const sampleQuad = (p0, ctrl, p1, steps = 10) => {
+        const arr = [];
+        for (let i = 0; i <= steps; i++) {
+          const u = i / steps, m = 1 - u;
+          arr.push({
+            x: m * m * p0.x + 2 * m * u * ctrl.x + u * u * p1.x,
+            y: m * m * p0.y + 2 * m * u * ctrl.y + u * u * p1.y
+          });
+        }
+        return arr;
+      };
+
+      const cvStart = incFrom.length === 2
+        ? curves.find(c => (c.edgeA.id === ed.id || c.edgeB.id === ed.id) && dist(c.ctrl.x, c.ctrl.y, a.x, a.y) < 1.5)
+        : null;
+      if (cvStart) {
+        const p0End = dist(cvStart.p0.x, cvStart.p0.y, pStart.x, pStart.y) < dist(cvStart.p1.x, cvStart.p1.y, pStart.x, pStart.y);
+        const qPts = p0End ? sampleQuad(cvStart.p1, cvStart.ctrl, cvStart.p0) : sampleQuad(cvStart.p0, cvStart.ctrl, cvStart.p1);
+        const otherEd = cvStart.edgeA.id === ed.id ? cvStart.edgeB : cvStart.edgeA;
+        const otherN = this.graph.getNode(otherEd.from === ed.from ? otherEd.to : otherEd.from);
+        if (otherN) {
+          const ol = dist(a.x, a.y, otherN.x, otherN.y) || 1;
+          const oux = (otherN.x - a.x) / ol, ouy = (otherN.y - a.y) / ol;
+          const ext = Math.min(span, Math.max(0, ol * 0.65 - fromTrim));
+          if (ext > 1) pts.push({ x: qPts[0].x + oux * ext, y: qPts[0].y + ouy * ext });
+        }
+        for (let i = 0; i < qPts.length - 1; i++) pts.push(qPts[i]);
+      }
+
+      pts.push(pStart);
+      const midSteps = Math.max(2, Math.ceil(dist(pStart.x, pStart.y, pEnd.x, pEnd.y) / 8));
+      for (let i = 1; i < midSteps; i++) {
+        const u = i / midSteps;
+        pts.push({ x: pStart.x + (pEnd.x - pStart.x) * u, y: pStart.y + (pEnd.y - pStart.y) * u });
+      }
+      pts.push(pEnd);
+
+      const cvEnd = incTo.length === 2
+        ? curves.find(c => (c.edgeA.id === ed.id || c.edgeB.id === ed.id) && dist(c.ctrl.x, c.ctrl.y, b.x, b.y) < 1.5)
+        : null;
+      if (cvEnd) {
+        const p0Start = dist(cvEnd.p0.x, cvEnd.p0.y, pEnd.x, pEnd.y) < dist(cvEnd.p1.x, cvEnd.p1.y, pEnd.x, pEnd.y);
+        const qPts = p0Start ? sampleQuad(cvEnd.p0, cvEnd.ctrl, cvEnd.p1) : sampleQuad(cvEnd.p1, cvEnd.ctrl, cvEnd.p0);
+        for (let i = 1; i < qPts.length; i++) pts.push(qPts[i]);
+        const otherEd = cvEnd.edgeA.id === ed.id ? cvEnd.edgeB : cvEnd.edgeA;
+        const otherN = this.graph.getNode(otherEd.from === ed.to ? otherEd.to : otherEd.from);
+        if (otherN) {
+          const ol = dist(b.x, b.y, otherN.x, otherN.y) || 1;
+          const oux = (otherN.x - b.x) / ol, ouy = (otherN.y - b.y) / ol;
+          const ext = Math.min(span, Math.max(0, ol * 0.65 - toTrim));
+          if (ext > 1) pts.push({ x: qPts[qPts.length - 1].x + oux * ext, y: qPts[qPts.length - 1].y + ouy * ext });
+        }
+      }
+
+      if (pts.length < 2) return;
+      const sArr = [0];
+      let bestS = 0, bestD = Infinity;
+      for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[i], p1 = pts[i + 1];
+        const segL = dist(p0.x, p0.y, p1.x, p1.y);
+        sArr.push(sArr[i] + segL);
+        if (segL > 1e-4) {
+          const pr = pointToSegmentDist(hitPt.x, hitPt.y, p0.x, p0.y, p1.x, p1.y);
+          if (pr.dist < bestD) { bestD = pr.dist; bestS = sArr[i] + pr.t * segL; }
+        }
+      }
+      const totalL = sArr[sArr.length - 1];
+      const sMin = Math.max(0, bestS - span);
+      const sMax = Math.min(totalL, bestS + span);
+      if (sMax - sMin < 2) return;
+
+      const sampleAtS = (s) => {
+        for (let i = 0; i < pts.length - 1; i++) {
+          if (s <= sArr[i + 1] + 1e-4 || i === pts.length - 2) {
+            const segL = sArr[i + 1] - sArr[i];
+            const u = segL > 1e-4 ? clamp((s - sArr[i]) / segL, 0, 1) : 0;
+            const p0 = pts[i], p1 = pts[i + 1];
+            const tx = (p1.x - p0.x) / (segL || 1), ty = (p1.y - p0.y) / (segL || 1);
+            return { x: p0.x + (p1.x - p0.x) * u, y: p0.y + (p1.y - p0.y) * u, nx: -ty, ny: tx };
+          }
+        }
+        return null;
+      };
+
+      const subPts = [];
+      const firstPt = sampleAtS(sMin);
+      if (firstPt) subPts.push(firstPt);
+      for (let i = 1; i < pts.length - 1; i++) {
+        if (sArr[i] > sMin + 0.5 && sArr[i] < sMax - 0.5) {
+          const pPrev = pts[i - 1], pNext = pts[i + 1];
+          const tx = pNext.x - pPrev.x, ty = pNext.y - pPrev.y;
+          const tl = Math.hypot(tx, ty) || 1;
+          subPts.push({ x: pts[i].x, y: pts[i].y, nx: -ty / tl, ny: tx / tl });
+        }
+      }
+      const lastPt = sampleAtS(sMax);
+      if (lastPt) subPts.push(lastPt);
+      if (subPts.length < 2) return;
+
+      ctx.save();
+      ctx.strokeStyle = pal.platformStroke;
+      ctx.lineWidth = 1.2;
+      ctx.lineCap = 'butt';
+      ctx.lineJoin = 'round';
+      for (const side of [-1, 1]) {
+        const off = side * (bridgeHalfW / 2);
+        ctx.beginPath();
+        subPts.forEach((pt, idx) => {
+          const ox = pt.x + pt.nx * off, oy = pt.y + pt.ny * off;
+          if (idx === 0) ctx.moveTo(ox, oy);
+          else ctx.lineTo(ox, oy);
+        });
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    drawPlatformEdgePairwiseOverrides(ctx, pal, mode = 'all', targetZ = null) {
       const soloRouteId = (this.inspectedRouteId && (this.mode === 'route' || this.mode === 'simulate') && this.routes.routes.has(this.inspectedRouteId)) ? this.inspectedRouteId : null;
       const coMapForBridge = ((this.showRoutes || soloRouteId) && !this.routeDraft) ? (this._frameCoMap || this.routes.getEdgeCoRunningMap()) : new Map();
 
       // Pass 1: Platform-over-Track and Platform-over-Platform local clipped patches
-      for (const p of this.platforms.platforms.values()) {
+      if (mode === 'all' || mode === 'platsOver') for (const p of Array.from(this.platforms.platforms.values()).sort((a, b) => (a.zLayer || 0) - (b.zLayer || 0))) {
+        const pZ = p.zLayer || 0;
         const { tx, ty } = this.platforms.getBasis(p);
         const p1x = p.cx - tx * (p.length / 2), p1y = p.cy - ty * (p.length / 2);
         const p2x = p.cx + tx * (p.length / 2), p2y = p.cy + ty * (p.length / 2);
         for (const eid of (p.overEdgeIds || [])) {
           const ed = this.graph.edges.get(eid);
           if (!ed) continue;
+          // Only ordinary tracks (drawn at z=0 after underLayers) or higher-drawn edges need a platsOver patch;
+          // lower-layer station tracks (eZ < pZ and pZ >= 0) are already underneath p in render()!
+
+          if (targetZ !== null) {
+            const drawZ = Math.max(pZ, this.platforms.getEdgeZLayer(ed));
+            if (Math.abs(drawZ - targetZ) >= 1e-4) continue;
+          }
           const a = this.graph.getNode(ed.from), b = this.graph.getNode(ed.to);
           if (!a || !b) continue;
           let hit = segmentInteriorIntersection(a.x, a.y, b.x, b.y, p1x, p1y, p2x, p2y);
-          if (!hit && this.platforms._segHitsBox(a.x, a.y, b.x, b.y, p.cx, p.cy, p.rad, p.length / 2, p.width / 2)) {
-            hit = { x: p.cx, y: p.cy };
+          if (!hit) {
+            hit = this.platforms._segBoxHitPoint(a.x, a.y, b.x, b.y, p.cx, p.cy, p.rad, p.length / 2, p.width / 2);
           }
           if (!hit) continue;
           const s = (hit.x - p.cx) * tx + (hit.y - p.cy) * ty;
           const eRad = Math.atan2(b.y - a.y, b.x - a.x);
-          const halfClip = Math.min(p.length / 2 + 4, 14 / Math.max(0.35, Math.abs(Math.sin(p.rad - eRad))) + 10);
+          const sinA = Math.abs(Math.sin(p.rad - eRad));
+          const halfClip = sinA < 0.15 ? (p.length / 2 + 6) : Math.min(p.length / 2 + 4, 7 / Math.max(0.35, sinA) + 5);
           ctx.save();
           ctx.translate(p.cx, p.cy);
           ctx.rotate(p.rad);
@@ -7427,13 +8134,19 @@
         for (const opId of (p.overPlatIds || [])) {
           const op = this.platforms.getPlatform(opId);
           if (!op) continue;
+
+          if (targetZ !== null) {
+            const drawZ = Math.max(pZ, op.zLayer || 0);
+            if (Math.abs(drawZ - targetZ) >= 1e-4) continue;
+          }
           const { tx: otx, ty: oty } = this.platforms.getBasis(op);
           const o1x = op.cx - otx * (op.length / 2), o1y = op.cy - oty * (op.length / 2);
           const o2x = op.cx + otx * (op.length / 2), o2y = op.cy + oty * (op.length / 2);
           const hit = segmentInteriorIntersection(p1x, p1y, p2x, p2y, o1x, o1y, o2x, o2y);
           if (!hit) continue;
           const s = (hit.x - p.cx) * tx + (hit.y - p.cy) * ty;
-          const halfClip = Math.min(p.length / 2 + 4, (op.width / 2) / Math.max(0.35, Math.abs(Math.sin(p.rad - op.rad))) + 8);
+          const sinP = Math.abs(Math.sin(p.rad - op.rad));
+          const halfClip = sinP < 0.15 ? (p.length / 2 + 6) : Math.min(p.length / 2 + 4, (op.width / 2) / Math.max(0.35, sinP) + 4);
           ctx.save();
           ctx.translate(p.cx, p.cy);
           ctx.rotate(p.rad);
@@ -7448,28 +8161,36 @@
       }
 
       // Pass 2: Track-over-Platform local bridge decks + trains ON TOP
+      if (mode !== 'all' && mode !== 'tracksOverPlats') return;
       const overBridgeEdges = new Set();
       for (const p of this.platforms.platforms.values()) {
         const { tx, ty } = this.platforms.getBasis(p);
         const p1x = p.cx - tx * (p.length / 2), p1y = p.cy - ty * (p.length / 2);
         const p2x = p.cx + tx * (p.length / 2), p2y = p.cy + ty * (p.length / 2);
+        const pZ = p.zLayer || 0;
+        const { trims, curves } = this._frameFilletData || this.graph.computeTrackFilletData();
+        const platItems = [];
         for (const eid of (p.underEdgeIds || [])) {
           const ed = this.graph.edges.get(eid);
           if (!ed) continue;
+          const eOwner = this.platforms.getEdgeOwnerPlatform(ed);
+          if (eOwner && pZ >= (eOwner.zLayer || 0) - 1e-4) continue;
+          if (targetZ !== null) {
+            const drawZ = Math.max(pZ, this.platforms.getEdgeZLayer(ed));
+            if (Math.abs(drawZ - targetZ) >= 1e-4) continue;
+          }
           const a = this.graph.getNode(ed.from), b = this.graph.getNode(ed.to);
           if (!a || !b) continue;
           let hit = segmentInteriorIntersection(a.x, a.y, b.x, b.y, p1x, p1y, p2x, p2y);
-          if (!hit && this.platforms._segHitsBox(a.x, a.y, b.x, b.y, p.cx, p.cy, p.rad, p.length / 2, p.width / 2)) {
-            hit = { x: p.cx, y: p.cy };
+          if (!hit) {
+            hit = this.platforms._segBoxHitPoint(a.x, a.y, b.x, b.y, p.cx, p.cy, p.rad, p.length / 2, p.width / 2);
           }
           if (!hit) continue;
           overBridgeEdges.add(ed.id);
-          ctx.save();
           let dx = b.x - a.x, dy = b.y - a.y;
           if (dx < -1e-3 || (Math.abs(dx) <= 1e-3 && dy < 0)) { dx = -dx; dy = -dy; }
           const len = Math.hypot(dx, dy) || 1;
-          const ux = dx / len, uy = dy / len;
-          const nx = -uy, ny = ux;
+          const nx = -dy / len, ny = dx / len;
           const rawRoutes = (coMapForBridge.get(ed.id) || []).filter(rt => !soloRouteId || rt.id === soloRouteId);
           const routesOnOver = [];
           const seenC = new Set();
@@ -7478,58 +8199,125 @@
             if (!seenC.has(ck)) { seenC.add(ck); routesOnOver.push(rt); }
           }
           const bridgeHalfW = Math.max(11, routesOnOver.length * 5.2 + 7);
-          const span = 18;
-          ctx.strokeStyle = pal.canvasBg;
-          ctx.lineWidth = bridgeHalfW + 4;
-          ctx.lineCap = 'butt';
-          ctx.beginPath();
-          ctx.moveTo(hit.x - ux * span, hit.y - uy * span);
-          ctx.lineTo(hit.x + ux * span, hit.y + uy * span);
-          ctx.stroke();
+          const t = trims.get(ed.id) || { startTrim: 0, endTrim: 0 };
+          const edLen = ed.length || 1;
+          const vx = (b.x - a.x) / edLen, vy = (b.y - a.y) / edLen;
+          const relCurves = curves.filter(cv => cv.edgeA.id === ed.id || cv.edgeB.id === ed.id);
+          platItems.push({ ed, a, b, hit, nx, ny, vx, vy, t, relCurves, routesOnOver, bridgeHalfW });
+        }
+        if (platItems.length === 0) continue;
 
-          ctx.strokeStyle = pal.platformStroke;
-          ctx.lineWidth = 1.2;
-          for (const side of [-1, 1]) {
-            const off = side * (bridgeHalfW / 2);
-            ctx.beginPath();
-            ctx.moveTo(hit.x - ux * span + nx * off, hit.y - uy * span + ny * off);
-            ctx.lineTo(hit.x + ux * span + nx * off, hit.y + uy * span + ny * off);
-            ctx.stroke();
+        const traceItemEdge = (it, off = 0) => {
+          ctx.beginPath();
+          ctx.moveTo(it.a.x + it.vx * it.t.startTrim + it.nx * off, it.a.y + it.vy * it.t.startTrim + it.ny * off);
+          ctx.lineTo(it.b.x - it.vx * it.t.endTrim + it.nx * off, it.b.y - it.vy * it.t.endTrim + it.ny * off);
+          for (const cv of it.relCurves) {
+            ctx.moveTo(cv.p0.x, cv.p0.y);
+            ctx.quadraticCurveTo(cv.ctrl.x, cv.ctrl.y, cv.p1.x, cv.p1.y);
           }
+        };
 
-          ctx.lineCap = 'round';
-          ctx.strokeStyle = pal.trackBed;
-          ctx.lineWidth = 9;
-          ctx.beginPath();
-          ctx.moveTo(hit.x - ux * (span + 2), hit.y - uy * (span + 2));
-          ctx.lineTo(hit.x + ux * (span + 2), hit.y + uy * (span + 2));
-          ctx.stroke();
+        // Batched clipped pass inside platform p: ALL trackBeds -> ALL trackRails -> ALL routeColors
+        ctx.save();
+        ctx.translate(p.cx, p.cy);
+        ctx.rotate(p.rad);
+        ctx.beginPath();
+        ctx.rect(-p.length / 2 - 4, -p.width / 2 - 4, p.length + 8, p.width + 8);
+        ctx.clip();
+        ctx.rotate(-p.rad);
+        ctx.translate(-p.cx, -p.cy);
 
-          ctx.strokeStyle = pal.trackRail;
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.moveTo(hit.x - ux * (span + 2), hit.y - uy * (span + 2));
-          ctx.lineTo(hit.x + ux * (span + 2), hit.y + uy * (span + 2));
-          ctx.stroke();
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = pal.trackBed;
+        ctx.lineWidth = 9;
+        for (const it of platItems) { traceItemEdge(it, 0); ctx.stroke(); }
 
-          routesOnOver.forEach((rt, idx) => {
-            const offset = (!soloRouteId && routesOnOver.length > 1) ? (idx - (routesOnOver.length - 1) / 2) * 5.2 : 0;
+        ctx.strokeStyle = pal.trackRail;
+        ctx.lineWidth = 3;
+        for (const it of platItems) { traceItemEdge(it, 0); ctx.stroke(); }
+
+        for (const it of platItems) {
+          it.routesOnOver.forEach((rt, idx) => {
+            const offset = (!soloRouteId && it.routesOnOver.length > 1) ? (idx - (it.routesOnOver.length - 1) / 2) * 5.2 : 0;
             ctx.strokeStyle = soloRouteId ? rt.color : this.getEffectiveRouteColor(rt);
             ctx.lineWidth = soloRouteId ? 4.2 : 3.0;
-            ctx.beginPath();
-            ctx.moveTo(hit.x - ux * (span + 2) + nx * offset, hit.y - uy * (span + 2) + ny * offset);
-            ctx.lineTo(hit.x + ux * (span + 2) + nx * offset, hit.y + uy * (span + 2) + ny * offset);
+            traceItemEdge(it, offset);
             ctx.stroke();
           });
+        }
+        ctx.restore();
+
+        for (const it of platItems) {
+          this.strokeSmoothBridgeGuardrails(ctx, pal, it.ed, it.hit, 12, it.bridgeHalfW, trims, curves);
+        }
+        if (!this.routeDraft && this._frameCarsByEdge) {
+          ctx.save();
+          ctx.translate(p.cx, p.cy);
+          ctx.rotate(p.rad);
+          ctx.beginPath();
+          ctx.rect(-p.length / 2 - 4, -p.width / 2 - 4, p.length + 8, p.width + 8);
+          ctx.clip();
+          ctx.rotate(-p.rad);
+          ctx.translate(-p.cx, -p.cy);
+          for (const it of platItems) {
+            const cars = this._frameCarsByEdge.get(it.ed.id);
+            if (!cars) continue;
+            for (const item of cars) {
+              this.drawTrainCar(ctx, pal, item.train, item.route, item.sample, item.c, item.numCars, item.carLen, item.carWidth, item.isSel);
+            }
+          }
           ctx.restore();
         }
       }
       if (overBridgeEdges.size > 0) {
-        this.drawTrains(ctx, pal, overBridgeEdges);
+        const hiddenIds = this._getBridgeHiddenNodeIds();
+        const drawnBridgeNodes = new Set();
+        for (const p of this.platforms.platforms.values()) {
+          const pZ = p.zLayer || 0;
+          for (const eid of (p.underEdgeIds || [])) {
+            if (!overBridgeEdges.has(eid)) continue;
+            const ed = this.graph.edges.get(eid);
+            if (!ed) continue;
+            const ez = this.platforms.getEdgeZLayer(ed);
+            if (targetZ !== null && Math.abs(Math.max(pZ, ez) - targetZ) >= 1e-4) continue;
+            for (const nid of [ed.from, ed.to]) {
+              if (drawnBridgeNodes.has(nid) || hiddenIds.has(nid)) continue;
+              const n = this.graph.getNode(nid);
+              if (!n || n.isImplicit) continue;
+              if (!this.platforms._segHitsBox(n.x, n.y, n.x, n.y, p.cx, p.cy, p.rad, p.length / 2 + 5, p.width / 2 + 5)) continue;
+              drawnBridgeNodes.add(nid);
+              if (n.isStationEnd || Math.abs(ez) >= 1e-4) {
+                if (this.mode !== 'simulate' || n.isStationEnd) {
+                  ctx.save();
+                  ctx.beginPath();
+                  ctx.arc(n.x, n.y, 4, 0, Math.PI * 2);
+                  ctx.fillStyle = '#fff';
+                  ctx.fill();
+                  ctx.lineWidth = 2;
+                  ctx.strokeStyle = '#d97706';
+                  ctx.stroke();
+                  ctx.restore();
+                }
+                if (!this.routeDraft && this._frameCarsByEdge) {
+                  for (const incEd of this.graph.getIncidentEdges(n.id)) {
+                    const cars = this._frameCarsByEdge.get(incEd.id);
+                    if (!cars) continue;
+                    for (const item of cars) {
+                      if (dist(item.sample.x, item.sample.y, n.x, n.y) < 32) {
+                        this.drawTrainCar(ctx, pal, item.train, item.route, item.sample, item.c, item.numCars, item.carLen, item.carWidth, item.isSel);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 
-    drawOverpassesAndUpperTrains(ctx, pal) {
+    drawOverpassesAndUpperTrains(ctx, pal, targetZ = null) {
       const soloRouteId = (this.inspectedRouteId && (this.mode === 'route' || this.mode === 'simulate') && this.routes.routes.has(this.inspectedRouteId)) ? this.inspectedRouteId : null;
       const coMapForBridge = ((this.showRoutes || soloRouteId) && !this.routeDraft) ? (this._frameCoMap || this.routes.getEdgeCoRunningMap()) : new Map();
       const overEdgeIds = new Set();
@@ -7553,14 +8341,28 @@
         if (c.type !== 'overpass' && c.type !== 'underpass') continue;
         const overEdge = this.graph.edges.get(c.overEdgeId || c.edgeA);
         if (!overEdge) continue;
+        if (targetZ !== null) {
+          const overZ = this.platforms.getEdgeZLayer(overEdge);
+          if (Math.abs(overZ - targetZ) >= 1e-4) continue;
+        }
         overEdgeIds.add(overEdge.id);
 
         // Special handling for bend-node-on-edge crossings:
         // - If carrier (straight) edge is ON TOP: draw once (skip duplicate pair entry)
         // - If bent track (2 edges meeting at bendNode) is ON TOP: draw ONE smooth curved viaduct bridge (no protruding X stubs!)
         if (c.bendNodeId) {
-          const bn = this.graph.getNode(c.bendNodeId);
-          const isOverAttachedToBend = (overEdge.from === c.bendNodeId || overEdge.to === c.bendNodeId);
+          let bn = this.graph.getNode(c.bendNodeId);
+          let isOverAttachedToBend = bn && (overEdge.from === bn.id || overEdge.to === bn.id);
+          if (!isOverAttachedToBend) {
+            for (const nid of [overEdge.from, overEdge.to]) {
+              const cand = this.graph.getNode(nid);
+              if (cand && cand.isImplicit && dist(cand.x, cand.y, c.x, c.y) < 3.5) {
+                bn = cand;
+                isOverAttachedToBend = true;
+                break;
+              }
+            }
+          }
           if (bn && isOverAttachedToBend) {
             const bendKey = 'BEND_OVER|' + bn.id;
             if (drawnBendBridges.has(bendKey)) continue;
@@ -7608,36 +8410,44 @@
                 ctx.save();
                 ctx.lineJoin = 'round';
                 // Mask underpass cleanly along the curved bridge deck
-                ctx.strokeStyle = pal.canvasBg;
-                ctx.lineWidth = bridgeHalfW + 4;
                 ctx.lineCap = 'butt';
-                traceBent(0, 0);
-                ctx.stroke();
-
-                // Curved bridge guardrails on both sides
-                ctx.strokeStyle = pal.platformStroke;
-                ctx.lineWidth = 1.2;
-                traceBent(-bridgeHalfW / 2, 0); ctx.stroke();
-                traceBent(bridgeHalfW / 2, 0); ctx.stroke();
-
-                // Continuous upper track bed + rail + route lines
-                ctx.lineCap = 'round';
                 ctx.strokeStyle = pal.trackBed;
                 ctx.lineWidth = 9;
-                traceBent(0, 2); ctx.stroke();
+                traceBent(0, 4); ctx.stroke();
 
                 ctx.strokeStyle = pal.trackRail;
                 ctx.lineWidth = 3;
-                traceBent(0, 2); ctx.stroke();
+                traceBent(0, 4); ctx.stroke();
 
                 routesOnOver.forEach((rt, idx) => {
                   const offset = (!soloRouteId && routesOnOver.length > 1) ? (idx - (routesOnOver.length - 1) / 2) * 5.2 : 0;
                   ctx.strokeStyle = soloRouteId ? rt.color : this.getEffectiveRouteColor(rt);
                   ctx.lineWidth = soloRouteId ? 4.2 : 3.0;
-                  traceBent(offset, 2);
+                  traceBent(offset, 4);
                   ctx.stroke();
                 });
+
+                ctx.strokeStyle = pal.platformStroke;
+                ctx.lineWidth = 1.2;
+                traceBent(-bridgeHalfW / 2, 0); ctx.stroke();
+                traceBent(bridgeHalfW / 2, 0); ctx.stroke();
                 ctx.restore();
+                if (!this.routeDraft && this._frameCarsByEdge) {
+                  ctx.save();
+                  ctx.beginPath();
+                  ctx.arc(c.x, c.y, 20, 0, Math.PI * 2);
+                  ctx.clip();
+                  for (const eid of [e1.id, e2.id]) {
+                    const cars = this._frameCarsByEdge.get(eid);
+                    if (!cars) continue;
+                    for (const item of cars) {
+                      if (dist(item.sample.x, item.sample.y, c.x, c.y) < 34) {
+                        this.drawTrainCar(ctx, pal, item.train, item.route, item.sample, item.c, item.numCars, item.carLen, item.carWidth, item.isSel);
+                      }
+                    }
+                  }
+                  ctx.restore();
+                }
                 continue;
               }
             }
@@ -7660,42 +8470,26 @@
         const nx = -uy, ny = ux;
         const routesOnOver = collectDedupRoutes([overEdge.id]);
         const bridgeHalfW = Math.max(11, routesOnOver.length * 5.2 + 7);
-        const span = 15;
+        const dToA = dist(c.x, c.y, a.x, a.y);
+        const dToB = dist(c.x, c.y, b.x, b.y);
+        const railSpan = 12;
+        // Clamp core redraw strictly inside the segment so it never clips adjacent switches or bend fillets!
+        const sA = Math.min(railSpan, Math.max(0, dToA - 2));
+        const sB = Math.min(railSpan, Math.max(0, dToB - 2));
 
-        // Mask underpass track & underpass train cars cleanly with canvas background
-        ctx.strokeStyle = pal.canvasBg;
-        ctx.lineWidth = bridgeHalfW + 4;
         ctx.lineCap = 'butt';
-        ctx.beginPath();
-        ctx.moveTo(c.x - ux * span, c.y - uy * span);
-        ctx.lineTo(c.x + ux * span, c.y + uy * span);
-        ctx.stroke();
-
-        // Bridge deck guardrails along both sides of upper track
-        ctx.strokeStyle = pal.platformStroke;
-        ctx.lineWidth = 1.2;
-        for (const side of [-1, 1]) {
-          const off = side * (bridgeHalfW / 2);
-          ctx.beginPath();
-          ctx.moveTo(c.x - ux * span + nx * off, c.y - uy * span + ny * off);
-          ctx.lineTo(c.x + ux * span + nx * off, c.y + uy * span + ny * off);
-          ctx.stroke();
-        }
-
-        // Re-draw upper track bed + rails + actual co-running route lines cleanly on top
-        ctx.lineCap = 'round';
         ctx.strokeStyle = pal.trackBed;
         ctx.lineWidth = 9;
         ctx.beginPath();
-        ctx.moveTo(c.x - ux * (span + 2), c.y - uy * (span + 2));
-        ctx.lineTo(c.x + ux * (span + 2), c.y + uy * (span + 2));
+        ctx.moveTo(c.x - ux * sA, c.y - uy * sA);
+        ctx.lineTo(c.x + ux * sB, c.y + uy * sB);
         ctx.stroke();
 
         ctx.strokeStyle = pal.trackRail;
         ctx.lineWidth = 3;
         ctx.beginPath();
-        ctx.moveTo(c.x - ux * (span + 2), c.y - uy * (span + 2));
-        ctx.lineTo(c.x + ux * (span + 2), c.y + uy * (span + 2));
+        ctx.moveTo(c.x - ux * sA, c.y - uy * sA);
+        ctx.lineTo(c.x + ux * sB, c.y + uy * sB);
         ctx.stroke();
 
         routesOnOver.forEach((rt, idx) => {
@@ -7704,25 +8498,76 @@
           ctx.strokeStyle = soloRouteId ? rt.color : this.getEffectiveRouteColor(rt);
           ctx.lineWidth = soloRouteId ? 4.2 : 3.0;
           ctx.beginPath();
-          ctx.moveTo(c.x - ux * (span + 2) + nx * offset, c.y - uy * (span + 2) + ny * offset);
-          ctx.lineTo(c.x + ux * (span + 2) + nx * offset, c.y + uy * (span + 2) + ny * offset);
+          ctx.moveTo(c.x - ux * sA + nx * offset, c.y - uy * sA + ny * offset);
+          ctx.lineTo(c.x + ux * sB + nx * offset, c.y + uy * sB + ny * offset);
           ctx.stroke();
         });
+
+        const { trims: ovTrims, curves: ovCurves } = this._frameFilletData || this.graph.computeTrackFilletData();
+        this.strokeSmoothBridgeGuardrails(ctx, pal, overEdge, c, railSpan, bridgeHalfW, ovTrims, ovCurves);
         ctx.restore();
+        if (!this.routeDraft && this._frameCarsByEdge) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, 18, 0, Math.PI * 2);
+          ctx.clip();
+          const cars = this._frameCarsByEdge.get(overEdge.id);
+          if (cars) {
+            for (const item of cars) {
+              if (dist(item.sample.x, item.sample.y, c.x, c.y) < 32) {
+                this.drawTrainCar(ctx, pal, item.train, item.route, item.sample, item.c, item.numCars, item.carLen, item.carWidth, item.isSel);
+              }
+            }
+          }
+          ctx.restore();
+        }
       }
 
-      // 2. Draw train cars running on ground-level upper bridge edges ON TOP of the bridge decks
-      // (Elevated zLayer > 0 station tracks already draw their trains in the overLayers pass)
-      const groundOverEdgeIds = new Set();
-      for (const eid of overEdgeIds) {
-        const ed = this.graph.edges.get(eid);
-        if (ed && Math.abs(this.platforms.getEdgeZLayer(ed)) < 1e-4) groundOverEdgeIds.add(eid);
+      // 2. Redraw non-bridged endpoint nodes on upper bridge edges, then draw upper trains ON TOP
+      if (overEdgeIds.size > 0) {
+        const hiddenIds = this._getBridgeHiddenNodeIds();
+        const drawnBridgeNodes = new Set();
+        for (const c of this.graph.crossings.values()) {
+          if (c.type !== 'overpass' && c.type !== 'underpass') continue;
+          const overEdge = this.graph.edges.get(c.overEdgeId || c.edgeA);
+          if (!overEdge || !overEdgeIds.has(overEdge.id)) continue;
+          const ez = this.platforms.getEdgeZLayer(overEdge);
+          for (const nid of [overEdge.from, overEdge.to]) {
+            if (drawnBridgeNodes.has(nid) || hiddenIds.has(nid)) continue;
+            const n = this.graph.getNode(nid);
+            if (!n || n.isImplicit || dist(n.x, n.y, c.x, c.y) >= 22) continue;
+            drawnBridgeNodes.add(nid);
+            if (n.isStationEnd || Math.abs(ez) >= 1e-4) {
+              if (this.mode !== 'simulate' || n.isStationEnd) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#d97706';
+                ctx.stroke();
+                ctx.restore();
+              }
+              if (!this.routeDraft && this._frameCarsByEdge) {
+                for (const incEd of this.graph.getIncidentEdges(n.id)) {
+                  const cars = this._frameCarsByEdge.get(incEd.id);
+                  if (!cars) continue;
+                  for (const item of cars) {
+                    if (dist(item.sample.x, item.sample.y, n.x, n.y) < 32) {
+                      this.drawTrainCar(ctx, pal, item.train, item.route, item.sample, item.c, item.numCars, item.carLen, item.carWidth, item.isSel);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
-      if (groundOverEdgeIds.size > 0) {
-        this.drawTrains(ctx, pal, groundOverEdgeIds);
-      }
+    }
 
-      // 3. Draw train status badges on top for readability
+    drawTrainStatusBadges(ctx, pal) {
+      // Draw train status badges on top for readability
       if (this.routeDraft) return;
       for (const train of this.dispatcher.trains.values()) {
         if (train.state !== 'TURNBACK' && train.state !== 'WAITING') continue;
@@ -7839,8 +8684,11 @@
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate((this.platformConfig.angleDeg * Math.PI) / 180);
-        ctx.fillStyle = 'rgba(14, 165, 233, 0.16)';
-        ctx.strokeStyle = '#0ea5e9';
+        const pRadPrev = (this.platformConfig.angleDeg * Math.PI) / 180;
+        const pZPrev = Number(this.platformConfig.zLayer) || 0;
+        const previewConflict = this.platforms.findSameLayerOverlappingPlatform(cx, cy, this.platformConfig.length, pRadPrev, pZPrev);
+        ctx.fillStyle = previewConflict ? 'rgba(244, 63, 94, 0.24)' : 'rgba(14, 165, 233, 0.16)';
+        ctx.strokeStyle = previewConflict ? '#f43f5e' : '#0ea5e9';
         ctx.lineWidth = 1.5;
         ctx.setLineDash([5, 4]);
         ctx.beginPath();
@@ -7972,84 +8820,164 @@
       ctx.scale(this.cam.zoom, this.cam.zoom);
 
       this._frameCoMap = (this.showRoutes || this.inspectedRouteId) && !this.routeDraft ? this.routes.getEdgeCoRunningMap() : null;
-      this.drawGrid(ctx, pal);
-      const zLevels = new Set();
+      this._frameFilletData = this.graph.computeTrackFilletData();
+      this._frameBridgeHiddenNodeIds = null;
+      this._frameBridgeHiddenNodeIds = this._getBridgeHiddenNodeIds();
+
+      // Pre-sample all train cars ONCE per frame & index by edgeId
+      const frameCars = [];
+      const carsByEdge = new Map();
+      if (!this.routeDraft) {
+        for (const train of this.dispatcher.trains.values()) {
+          const route = this.routes.routes.get(train.routeId);
+          if (!route || route.segments.length === 0) continue;
+          const numCars = Math.max(2, Math.round(train.length / 30));
+          const carPitch = train.length / numCars;
+          const carLen = carPitch - 3.2;
+          const carWidth = 11.5;
+          const isSel = train.id === this.selectedTrainId;
+          for (let c = 0; c < numCars; c++) {
+            const sample = route.sampleAt(train.headS - (c + 0.5) * carPitch);
+            if (!sample) continue;
+            const item = { train, route, sample, c, numCars, carLen, carWidth, isSel };
+            frameCars.push(item);
+            let arr = carsByEdge.get(sample.edgeId);
+            if (!arr) { arr = []; carsByEdge.set(sample.edgeId, arr); }
+            arr.push(item);
+          }
+        }
+      }
+      this._frameTrainCars = frameCars;
+      this._frameCarsByEdge = carsByEdge;
+
+      // Pre-build edge -> zLayer map ONCE per frame
+      const edgeZMap = new Map();
       for (const p of this.platforms.platforms.values()) {
         const zl = p.zLayer || 0;
-        if (Math.abs(zl) >= 1e-4) zLevels.add(zl);
+        for (const sd of ['-1', '1']) {
+          const info = p.sides[sd];
+          if (info && info.type === 'track' && info.refId) edgeZMap.set(info.refId, zl);
+        }
       }
-      const underLayers = Array.from(zLevels).filter(z => z < 0).sort((a, b) => a - b);
-      const overLayers = Array.from(zLevels).filter(z => z > 0).sort((a, b) => a - b);
-      for (const z of underLayers) {
-        this.drawPlatforms(ctx, pal, z);
-        const lEdges = this.drawTrackLayer(ctx, pal, z);
-        if (lEdges.size > 0) this.drawTrains(ctx, pal, lEdges);
-      }
-      this.drawPlatforms(ctx, pal, 'ground');
-      this.drawTracks(ctx, pal);
-      const groundEdgeIds = new Set();
       for (const e of this.graph.edges.values()) {
-        if (Math.abs(this.platforms.getEdgeZLayer(e)) < 1e-4) groundEdgeIds.add(e.id);
+        if (!edgeZMap.has(e.id) && e.platformId) {
+          const pl = this.platforms.getPlatform(e.platformId);
+          if (pl) edgeZMap.set(e.id, pl.zLayer || 0);
+        }
       }
-      this.drawTrains(ctx, pal, groundEdgeIds);
-      this.drawOverpassesAndUpperTrains(ctx, pal);
-      for (const z of overLayers) {
-        const lEdges = this.drawTrackLayer(ctx, pal, z);
-        if (lEdges.size > 0) this.drawTrains(ctx, pal, lEdges);
+      this._frameEdgeZMap = edgeZMap;
+      this.platforms._frameEdgeZMap = edgeZMap;
+
+      this.drawGrid(ctx, pal);
+      const zLevels = new Set([0]);
+      for (const p of this.platforms.platforms.values()) {
+        zLevels.add(p.zLayer || 0);
+      }
+      const sortedLayers = Array.from(zLevels).sort((a, b) => a - b);
+      // Pass 1: All platforms from lowest layer to highest layer
+      for (const z of sortedLayers) {
         this.drawPlatforms(ctx, pal, z);
       }
-      this.drawPlatformEdgePairwiseOverrides(ctx, pal);
+      // Pass 2: All tracks, route colors, switches/nodes, and trains in ONE unified pass (layer-independent!)
+      this.drawTracks(ctx, pal);
+      this.drawTrains(ctx, pal);
+      // Pass 3: Local pairwise & layer overrides (bridges & platforms covering lower tracks/platforms) from lowest to highest layer
+      for (const z of sortedLayers) {
+        this.drawPlatformEdgePairwiseOverrides(ctx, pal, 'tracksOverPlats', z);
+        this.drawOverpassesAndUpperTrains(ctx, pal, z);
+        this.drawPlatformEdgePairwiseOverrides(ctx, pal, 'platsOver', z);
+      }
+      this.drawTrainStatusBadges(ctx, pal);
       this.drawSelectedOverlay(ctx, pal);
       this.drawToolPreview(ctx, pal);
+      this._frameFilletData = null;
+      this._frameBridgeHiddenNodeIds = null;
+      this._frameTrainCars = null;
+      this._frameCarsByEdge = null;
+      this._frameEdgeZMap = null;
+      this.platforms._frameEdgeZMap = null;
       ctx.restore();
     }
 
     loop(now) {
-      const dt = (now - this.lastFrameTime) / 1000;
-      this.lastFrameTime = now;
-      this.dispatcher.step(dt);
-      this.render();
-      this.updateLivePanelStats();
-      requestAnimationFrame(t => this.loop(t));
+      try {
+        const dt = (now - this.lastFrameTime) / 1000;
+        this.lastFrameTime = now;
+        this.dispatcher.step(dt);
+        this.render();
+        this.updateLivePanelStats();
+      } catch (err) {
+        console.error('Sandbox loop error:', err);
+      } finally {
+        requestAnimationFrame(t => this.loop(t));
+      }
     }
 
     // Prompt strictly Overpass / Underpass in order:
     //   1) Overlapped platform groups (re-checking same-layer conflicts dynamically if zLayer changes!)
     //   2) Remaining same-layer overlapped non-bound tracks
     // Maintains valid [lowerBoundZ, upperBoundZ] bounds so inserting between two existing layers (e.g. 0 and 1 -> 0.5) works seamlessly!
-    promptPlatformOverlap(p, beforeSnap, cancelLabel = '取消', onDone = null, preResolvedRoots = null, preResolvedEdgeIds = null) {
+    applyPlatformGroupLayerChange(platformId, newZ) {
+      const p = this.platforms.getPlatform(platformId);
+      if (!p) return;
+      const prevZ = p.zLayer || 0;
+      if (Math.abs(prevZ - newZ) < 1e-6) return;
+      const gIds = this.platforms.getConnectedPlatformIds(p.id);
+      for (const pid of gIds) {
+        const gp = this.platforms.getPlatform(pid);
+        if (!gp) continue;
+        const conflict = this.platforms.findSameLayerOverlappingPlatform(gp.cx, gp.cy, gp.length, gp.rad, newZ, gIds);
+        if (conflict) {
+          this.renderSubbar();
+          this.showToast(`第 ${newZ} 层与「${conflict.name}」重叠，请改用其他层数`);
+          return;
+        }
+      }
+      const beforeSnap = this.captureSnapshot();
+      this.pushHistory('修改站组层数');
+      this.platforms.syncGroupElevation(p.id, newZ);
+      this.platforms.clearGroupOrdinaryEdgeRelations(p.id);
+      this.platforms.syncAllGroupLayerRelations();
+      this.routes.rebuildAll();
+      this.dispatcher.syncTrainsWithRoutes(false);
+      this.renderSubbar();
+      this.renderLineTree();
+      this.refreshDiagnostics();
+      this.promptPlatformOverlap(p, beforeSnap, '取消', () => {
+        this.routes.rebuildAll();
+        this.dispatcher.syncTrainsWithRoutes(false);
+        this.renderSubbar();
+        this.renderLineTree();
+        this.refreshDiagnostics();
+        this.showToast(`已将${this.formatGroupName(p.id)}调整至 ${newZ} 层`);
+      });
+    }
+
+    promptPlatformOverlap(p, beforeSnap, cancelLabel = '取消', onDone = null, _preResolvedRoots = null, preResolvedEdgeIds = null) {
       if (!p) { if (onDone) onDone(); return; }
+      this.platforms.syncAllGroupLayerRelations();
       const myGroupIds = this.platforms.getConnectedPlatformIds(p.id);
       const myGroupPlats = Array.from(myGroupIds).map(id => this.platforms.getPlatform(id)).filter(Boolean);
+      const gEdges = this.platforms.getGroupBoundEdgeIds(p.id);
 
-      const otherGroupsMap = new Map();
       const crossedEdgesMap = new Map();
       for (const mp of myGroupPlats) {
         const ov = this.platforms.findPlatformOverlaps(mp);
-        for (const op of ov.platforms) {
-          const oGroup = this.platforms.getConnectedPlatformIds(op.id);
-          const rootId = Array.from(oGroup).sort()[0];
-          if (!otherGroupsMap.has(rootId)) {
-            otherGroupsMap.set(rootId, { rootId, plat: op });
-          }
-        }
         for (const ed of ov.edges) {
-          if (ed.platformId) {
-            const oGroup = this.platforms.getConnectedPlatformIds(ed.platformId);
-            const rootId = Array.from(oGroup).sort()[0];
-            const op = this.platforms.getPlatform(ed.platformId);
-            if (op && !otherGroupsMap.has(rootId)) {
-              otherGroupsMap.set(rootId, { rootId, plat: op });
-            }
-          } else {
+          if (!this.platforms.getEdgeOwnerPlatform(ed)) {
             crossedEdgesMap.set(ed.id, ed);
           }
         }
       }
-
-      const platTasks = Array.from(otherGroupsMap.values());
-      const resolvedRoots = new Set(preResolvedRoots || []);
-      const myKey = 'G:' + this.platforms.getGroupRootId(p.id);
+      for (const cr of this.graph.crossings.values()) {
+        const inA = gEdges.has(cr.edgeA), inB = gEdges.has(cr.edgeB);
+        if (inA === inB) continue;
+        const otherId = inA ? cr.edgeB : cr.edgeA;
+        const otherEd = this.graph.edges.get(otherId);
+        if (otherEd && !this.platforms.getEdgeOwnerPlatform(otherEd)) {
+          crossedEdgesMap.set(otherEd.id, otherEd);
+        }
+      }
 
       const rollback = () => {
         this.hideInlinePrompt();
@@ -8081,7 +9009,7 @@
               resolvedEdgeIds.add(nextEd.id);
               this.platforms.setGroupEdgeRelation(p.id, nextEd.id, 'over');
               this.hideInlinePrompt();
-              runNextPlatConflict();
+              runNextTrackConflict();
             }
           },
           {
@@ -8091,48 +9019,14 @@
               resolvedEdgeIds.add(nextEd.id);
               this.platforms.setGroupEdgeRelation(p.id, nextEd.id, 'under');
               this.hideInlinePrompt();
-              runNextPlatConflict();
+              runNextTrackConflict();
             }
           },
           { label: cancelLabel, cls: 'btn-danger', onClick: rollback }
         ]);
       };
 
-      const runNextPlatConflict = () => {
-        const nextTask = platTasks.find(t => !resolvedRoots.has(t.rootId));
-        if (!nextTask) {
-          runNextTrackConflict();
-          return;
-        }
-        const op = nextTask.plat;
-        const opKey = 'G:' + nextTask.rootId;
-        const pendingCount = platTasks.filter(t => !resolvedRoots.has(t.rootId)).length;
-        const stepTxt = pendingCount > 1 ? `剩 ${pendingCount} 处` : '';
-        this.showInlinePromptAt((p.cx + op.cx) / 2, (p.cy + op.cy) / 2, `${this.formatGroupName(p.id)} 与 ${this.formatGroupName(op.id)}`, stepTxt, [
-          {
-            label: `${this.formatGroupName(p.id)}上跨`,
-            cls: 'btn-primary',
-            onClick: () => {
-              resolvedRoots.add(nextTask.rootId);
-              this.platforms.setGroupPlatRelation(p.id, op.id, 'over');
-              this.hideInlinePrompt();
-              runNextPlatConflict();
-            }
-          },
-          {
-            label: `${this.formatGroupName(p.id)}下穿`,
-            onClick: () => {
-              resolvedRoots.add(nextTask.rootId);
-              this.platforms.setGroupPlatRelation(p.id, op.id, 'under');
-              this.hideInlinePrompt();
-              runNextPlatConflict();
-            }
-          },
-          { label: cancelLabel, cls: 'btn-danger', onClick: rollback }
-        ]);
-      };
-
-      runNextPlatConflict(1);
+      runNextTrackConflict();
     }
 
     formatGroupName(platformId) {
@@ -8398,6 +9292,7 @@
           if (this.routeDraft && this.routeDraft.nodeIds.includes(n.id)) {
             this.routeDraft.nodeIds = stripFromRoute(this.routeDraft.nodeIds);
           }
+          this.platforms.handleEdgesMerged(e1.id, e2.id, eNew.id);
           this.graph.edges.delete(e1.id);
           this.graph.edges.delete(e2.id);
           this.graph.nodes.delete(n.id);
@@ -8446,230 +9341,6 @@
       if (this.hoveredNodeId && idMap.has(this.hoveredNodeId)) this.hoveredNodeId = idMap.get(this.hoveredNodeId);
       if (this.trackChainStartNode && this.trackChainStartNode.id && idMap.has(this.trackChainStartNode.id)) {
         this.trackChainStartNode = this.graph.getNode(idMap.get(this.trackChainStartNode.id)) || null;
-      }
-    }
-
-    reconnectMovedNodesOctilinear(movedNodeIds, incidentRecords) {
-      const lockedIds = new Set(movedNodeIds);
-      const isRouteTurnbackNode = (nid) => {
-        for (const r of this.routes.routes.values()) {
-          const m = r.nodeIds.length;
-          for (let i = 0; i < m; i++) {
-            if (r.nodeIds[i] === nid && r.nodeIds[(i - 1 + m) % m] === r.nodeIds[(i + 1) % m]) return true;
-          }
-        }
-        return false;
-      };
-      const lineIntersect = (p1, d1, p2, d2) => {
-        const det = d1.x * d2.y - d1.y * d2.x;
-        if (Math.abs(det) < 0.15) return null;
-        const rx = p2.x - p1.x, ry = p2.y - p1.y;
-        const t = (rx * d2.y - ry * d2.x) / det;
-        return { x: p1.x + d1.x * t, y: p1.y + d1.y * t, t };
-      };
-      const isOctilinearPair = (ax, ay, bx, by) => {
-        const dx = Math.abs(bx - ax), dy = Math.abs(by - ay);
-        return dx < 1.5 || dy < 1.5 || Math.abs(dx - dy) < 1.5;
-      };
-      const normDir = (ax, ay, bx, by) => {
-        const len = dist(ax, ay, bx, by);
-        if (len < 1e-4) return null;
-        return { x: (bx - ax) / len, y: (by - ay) / len };
-      };
-
-      for (const inc of incidentRecords) {
-        const dragNode = this.graph.getNode(inc.movedId);
-        const other = this.graph.getNode(inc.otherId);
-        const origEdge = this.graph.getEdgeBetween(inc.movedId, inc.otherId);
-        if (!dragNode || !other || !origEdge || origEdge.isStationTrack) continue;
-
-        // Already 0° / 45° / 90° straight -> keep single edge with zero extra bend nodes!
-        if (isOctilinearPair(dragNode.x, dragNode.y, other.x, other.y)) {
-          origEdge.bendStyle = 'l-bend';
-          continue;
-        }
-
-        // Try sliding `other` cleanly if it is a 3-way switch on a straight through-track OR a degree-2 bend corner
-        let slidOther = false;
-        if (!lockedIds.has(other.id) && !other.isStationEnd && !other.isImplicit && inc.origDirFromDrag) {
-          const otherInc = this.graph.getIncidentEdges(other.id).filter(e => e.id !== origEdge.id);
-          // Subcase A: 3-way switch on a straight through-track U — other — V (directly move switch position, no prompt!)
-          if (otherInc.length === 2 && !otherInc[0].isStationTrack && !otherInc[1].isStationTrack) {
-            const uId = otherInc[0].from === other.id ? otherInc[0].to : otherInc[0].from;
-            const vId = otherInc[1].from === other.id ? otherInc[1].to : otherInc[1].from;
-            const uNode = this.graph.getNode(uId);
-            const vNode = this.graph.getNode(vId);
-            if (uNode && vNode) {
-              const dU = normDir(other.x, other.y, uNode.x, uNode.y);
-              const dV = normDir(other.x, other.y, vNode.x, vNode.y);
-              if (dU && dV && (dU.x * dV.x + dU.y * dV.y) < -0.985) {
-                const segUV = { x: vNode.x - uNode.x, y: vNode.y - uNode.y };
-                const lenUV = Math.hypot(segUV.x, segUV.y);
-                const dirUV = { x: segUV.x / lenUV, y: segUV.y / lenUV };
-                const hit = lineIntersect(uNode, dirUV, dragNode, inc.origDirFromDrag);
-                if (hit && hit.t > 12 && hit.t < lenUV - 12 && dist(dragNode.x, dragNode.y, hit.x, hit.y) > 12 && !this.graph.findBridgeNear(hit.x, hit.y, 20)) {
-                  this.graph.updateNodePosition(other.id, hit.x, hit.y);
-                  lockedIds.add(other.id);
-                  origEdge.bendStyle = 'l-bend';
-                  slidOther = true;
-                }
-              }
-            }
-          }
-          // Subcase B: degree-2 bend corner U — other — dragNode
-          // Treat U -> other -> dragNode as ONE single 135° L-bend and reposition `other` directly (NEVER spawn a 3rd segment!)
-          if (!slidOther && otherInc.length === 1 && !otherInc[0].isStationTrack && !isRouteTurnbackNode(other.id)) {
-            const uId = otherInc[0].from === other.id ? otherInc[0].to : otherInc[0].from;
-            const uNode = this.graph.getNode(uId);
-            if (uNode && uId !== dragNode.id) {
-              const origDirFromU = normDir(uNode.x, uNode.y, other.x, other.y);
-              if (isOctilinearPair(uNode.x, uNode.y, dragNode.x, dragNode.y) && dist(uNode.x, uNode.y, dragNode.x, dragNode.y) > 4) {
-                // U and dragNode are now directly 0°/45°/90° collinear -> place `other` on the straight segment (merged on mouseup)
-                this.graph.updateNodePosition(other.id, (uNode.x + dragNode.x) / 2, (uNode.y + dragNode.y) / 2);
-                lockedIds.add(other.id);
-                origEdge.bendStyle = 'l-bend';
-                otherInc[0].bendStyle = 'l-bend';
-                slidOther = true;
-              } else {
-                const uPeerDirs = this.graph.getIncidentEdges(uNode.id)
-                  .filter(e => e.id !== otherInc[0].id)
-                  .map(e => {
-                    const pid = e.from === uNode.id ? e.to : e.from;
-                    const pn = this.graph.getNode(pid);
-                    return pn ? normDir(uNode.x, uNode.y, pn.x, pn.y) : null;
-                  }).filter(Boolean);
-                const dPeerDirs = this.graph.getIncidentEdges(dragNode.id)
-                  .filter(e => e.id !== origEdge.id)
-                  .map(e => {
-                    const pid = e.from === dragNode.id ? e.to : e.from;
-                    const pn = this.graph.getNode(pid);
-                    return pn ? normDir(dragNode.x, dragNode.y, pn.x, pn.y) : null;
-                  }).filter(Boolean);
-                const pen = (dir, peers) => {
-                  let s = 0;
-                  for (const pd of peers) {
-                    const dot = dir.x * pd.x + dir.y * pd.y;
-                    const ang = Math.acos(clamp(dot, -1, 1)) * 180 / Math.PI;
-                    if (dot > 0.985) s -= 2000;
-                    else if (ang > 75 && ang < 105) s -= 1000;
-                    else if (ang < 35) s -= 1000;
-                  }
-                  return s;
-                };
-                const scoreL = (pts, fl) => {
-                  if (pts.length !== 3) return -1e9;
-                  const dU = normDir(pts[0].x, pts[0].y, pts[1].x, pts[1].y);
-                  const dD = normDir(pts[2].x, pts[2].y, pts[1].x, pts[1].y);
-                  let s = 0;
-                  if (dU) {
-                    s += pen(dU, uPeerDirs);
-                    if (origDirFromU) s += (dU.x * origDirFromU.x + dU.y * origDirFromU.y) * 120;
-                  }
-                  if (dD) {
-                    s += pen(dD, dPeerDirs);
-                    if (inc.origDirFromDrag) s += (dD.x * inc.origDirFromDrag.x + dD.y * inc.origDirFromDrag.y) * 80;
-                  }
-                  if (fl === !!inc.flipL) s += 10;
-                  return s;
-                };
-                const lF = buildOctilinearPoints(uNode.x, uNode.y, dragNode.x, dragNode.y, 'l-bend', false);
-                const lT = buildOctilinearPoints(uNode.x, uNode.y, dragNode.x, dragNode.y, 'l-bend', true);
-                const winL = scoreL(lT, true) > scoreL(lF, false) ? lT : lF;
-                if (winL.length === 3) {
-                  this.graph.updateNodePosition(other.id, winL[1].x, winL[1].y);
-                  lockedIds.add(other.id);
-                  origEdge.bendStyle = 'l-bend';
-                  otherInc[0].bendStyle = 'l-bend';
-                  slidOther = true;
-                }
-              }
-            }
-          }
-        }
-        if (slidOther) continue;
-
-        // Fallback: strictly 135° L-bend (never legacy s-bend!), picking flipL that preserves original tangents & avoids <135° / overlaps
-        const otherPeerDirs = this.graph.getIncidentEdges(other.id)
-          .filter(e => e.id !== origEdge.id)
-          .map(e => {
-            const pid = e.from === other.id ? e.to : e.from;
-            const pn = this.graph.getNode(pid);
-            return pn ? normDir(other.x, other.y, pn.x, pn.y) : null;
-          }).filter(Boolean);
-        const dragPeerDirs = this.graph.getIncidentEdges(dragNode.id)
-          .filter(e => e.id !== origEdge.id)
-          .map(e => {
-            const pid = e.from === dragNode.id ? e.to : e.from;
-            const pn = this.graph.getNode(pid);
-            return pn ? normDir(dragNode.x, dragNode.y, pn.x, pn.y) : null;
-          }).filter(Boolean);
-
-        const scoreCand = (pts, flipFlag) => {
-          if (pts.length < 2) return -1e9;
-          const dDrag = normDir(pts[0].x, pts[0].y, pts[1].x, pts[1].y);
-          const dOther = normDir(pts[pts.length - 1].x, pts[pts.length - 1].y, pts[pts.length - 2].x, pts[pts.length - 2].y);
-          let sc = 0;
-          const peerPenalty = (dir, peers) => {
-            let pen = 0;
-            for (const pd of peers) {
-              const dot = dir.x * pd.x + dir.y * pd.y;
-              const ang = Math.acos(clamp(dot, -1, 1)) * 180 / Math.PI;
-              if (dot > 0.985) pen -= 2000;            // forbidden overlap on existing track
-              else if (ang > 75 && ang < 105) pen -= 1000; // forbidden 90° T-junction
-              else if (ang < 35) pen -= 1000;          // forbidden ultra-acute angle
-            }
-            return pen;
-          };
-          if (dOther) {
-            sc += peerPenalty(dOther, otherPeerDirs);
-            if (inc.origDirFromOther) {
-              sc += (dOther.x * inc.origDirFromOther.x + dOther.y * inc.origDirFromOther.y) * 120;
-            }
-          }
-          if (dDrag) {
-            sc += peerPenalty(dDrag, dragPeerDirs);
-            if (inc.origDirFromDrag) {
-              sc += (dDrag.x * inc.origDirFromDrag.x + dDrag.y * inc.origDirFromDrag.y) * 80;
-            }
-          }
-          if (flipFlag === !!inc.flipL) sc += 10;
-          return sc;
-        };
-
-        const ptsF = buildOctilinearPoints(dragNode.x, dragNode.y, other.x, other.y, 'l-bend', false);
-        const ptsT = buildOctilinearPoints(dragNode.x, dragNode.y, other.x, other.y, 'l-bend', true);
-        const useTrue = scoreCand(ptsT, true) > scoreCand(ptsF, false);
-        const pts = useTrue ? ptsT : ptsF;
-        const chosenFlip = useTrue;
-
-        if (pts.length > 2) {
-          const fromId = origEdge.from, toId = origEdge.to;
-          const orderedPts = (fromId === dragNode.id) ? pts : [...pts].reverse();
-          this.graph.edges.delete(origEdge.id);
-          let prevId = fromId;
-          const midIds = [];
-          for (let k = 1; k < orderedPts.length - 1; k++) {
-            const mx = orderedPts[k].x, my = orderedPts[k].y;
-            // Keep bend node independent from any crossed track so syncAllCrossings creates a clean overpass/underpass bridge!
-            const midNode = this.graph.addNode(mx, my, { forceNew: true });
-            midIds.push(midNode.id);
-            this.graph.addEdge(prevId, midNode.id, { bendStyle: 'l-bend', flipL: chosenFlip });
-            prevId = midNode.id;
-          }
-          this.graph.addEdge(prevId, toId, { bendStyle: 'l-bend', flipL: chosenFlip });
-          for (const rt of this.routes.routes.values()) {
-            const m = rt.nodeIds.length;
-            if (m < 2) continue;
-            const nextIds = [];
-            for (let i = 0; i < m; i++) {
-              const a = rt.nodeIds[i], b = rt.nodeIds[(i + 1) % m];
-              nextIds.push(a);
-              if (a === fromId && b === toId) nextIds.push(...midIds);
-              else if (a === toId && b === fromId) nextIds.push(...[...midIds].reverse());
-            }
-            rt.nodeIds = nextIds;
-          }
-        }
       }
     }
 
@@ -8745,16 +9416,26 @@
             }
           }
           if (!oldEdge) continue;
-          let cr;
-          if (choice === 'overpass') {
-            cr = this.graph.addCrossing(newEdge.id, oldEdge.id, h.x, h.y, 'overpass', newEdge.id, oldEdge.id);
-          } else if (choice === 'underpass') {
-            cr = this.graph.addCrossing(newEdge.id, oldEdge.id, h.x, h.y, 'underpass', oldEdge.id, newEdge.id);
-          } else {
-            cr = this.graph.addCrossing(newEdge.id, oldEdge.id, h.x, h.y, 'level', null, null);
+          const oldList = [oldEdge];
+          for (const ex of (h.extraEdges || [])) {
+            const exEd = this.graph.edges.get(ex.id);
+            if (exEd && !oldList.includes(exEd)) oldList.push(exEd);
           }
-          if (cr && bendNode) cr.bendNodeId = bendNode.id;
-          if (cr) this.syncPlatformsForCrossing(cr);
+          for (const oe of oldList) {
+            let cr;
+            if (choice === 'overpass') {
+              cr = this.graph.addCrossing(newEdge.id, oe.id, h.x, h.y, 'overpass', newEdge.id, oe.id);
+            } else if (choice === 'underpass') {
+              cr = this.graph.addCrossing(newEdge.id, oe.id, h.x, h.y, 'underpass', oe.id, newEdge.id);
+            } else {
+              cr = this.graph.addCrossing(newEdge.id, oe.id, h.x, h.y, 'level', null, null);
+            }
+            if (cr && bendNode) cr.bendNodeId = bendNode.id;
+            else if (cr && h.existingBendNodeId && (choice === 'overpass' || choice === 'underpass')) {
+              cr.bendNodeId = h.existingBendNodeId;
+            }
+            if (cr) this.syncPlatformsForCrossing(cr);
+          }
         }
       }
 
@@ -8852,14 +9533,8 @@
 
       // Inline on-map prompt buttons are bound dynamically in showInlinePromptAt()
 
-      document.getElementById('btnUndo').addEventListener('click', () => {
-        if (this.mode === 'route' && this.routeDraft) this.undoDraft();
-        else this.undo();
-      });
-      document.getElementById('btnRedo').addEventListener('click', () => {
-        if (this.mode === 'route' && this.routeDraft) this.redoDraft();
-        else this.redo();
-      });
+      document.getElementById('btnUndo').addEventListener('click', () => this.undo());
+      document.getElementById('btnRedo').addEventListener('click', () => this.redo());
       document.getElementById('btnLoadDemo').addEventListener('click', () => {
         this.pushHistory('载入演示');
         this.loadClassicDemo();
@@ -8977,10 +9652,6 @@
           document.getElementById('btnNewLineCustomColor').style.borderColor = c;
         });
       });
-      document.getElementById('btnDiagAlerts').addEventListener('click', () => {
-        this.diagOpen = !this.diagOpen;
-        this.renderDiagPanel();
-      });
 
       const btnPlay = document.getElementById('btnPlayPause');
       btnPlay.addEventListener('click', () => {
@@ -9033,6 +9704,19 @@
         btn.addEventListener('click', () => {
           if (!this.activeSnapPopover) return;
           const len = Number(btn.dataset.snapLen);
+          const baseP = this.platforms.getPlatform(this.activeSnapPopover.platformId);
+          if (baseP) {
+            const { nx, ny } = this.platforms.getBasis(baseP);
+            const candCx = baseP.cx + nx * baseP.width * this.activeSnapPopover.side;
+            const candCy = baseP.cy + ny * baseP.width * this.activeSnapPopover.side;
+            const ignoreIds = this.platforms.getConnectedPlatformIds(baseP.id);
+            const conflict = this.platforms.findSameLayerOverlappingPlatform(candCx, candCy, len, baseP.rad, baseP.zLayer || 0, ignoreIds);
+            if (conflict) {
+              this.hideSnapPopover();
+              this.showToast(`同层不可与「${conflict.name}」重叠，请先修改站组层数`);
+              return;
+            }
+          }
           const beforeSnap = this.captureSnapshot();
           this.pushHistory('拼接换乘站台');
           const created = this.platforms.snapPlatform(this.activeSnapPopover.platformId, this.activeSnapPopover.side, len);
@@ -9124,60 +9808,23 @@
             platAlreadyEdges.add(ed.id);
           }
         }
-        newCrossings.sort((a, b) => {
-          const aOe = this.graph.edges.get(a.edgeA === stationEdgeId ? a.edgeB : a.edgeA);
-          const bOe = this.graph.edges.get(b.edgeA === stationEdgeId ? b.edgeB : b.edgeA);
-          const aGrp = (aOe && aOe.platformId) ? 0 : 1;
-          const bGrp = (bOe && bOe.platformId) ? 0 : 1;
-          return aGrp - bGrp;
-        });
-        const resolvedOtherRoots = new Set();
-        const myGroupIds = plat ? this.platforms.getConnectedPlatformIds(plat.id) : new Set();
-        const crossedPlatGroups = [];
-        const seenPlatRoots = new Set();
-        for (const otherP of this.platforms.platforms.values()) {
-          if (myGroupIds.has(otherP.id)) continue;
-          const ov = this.platforms.findPlatformOverlaps(otherP);
-          if (ov.edges.some(ed => ed.id === stationEdgeId)) {
-            const gIds = this.platforms.getConnectedPlatformIds(otherP.id);
-            const root = Array.from(gIds).sort()[0];
-            if (!seenPlatRoots.has(root)) {
-              seenPlatRoots.add(root);
-              crossedPlatGroups.push(otherP);
-            }
-          }
-        }
-        const promptStationCross = (idx) => {
-          if (idx >= newCrossings.length) {
-            const promptPlatCross = (pIdx) => {
-              if (pIdx >= crossedPlatGroups.length) {
-                this.graph.rebuildCrossingIndex();
-                this.routes.rebuildAll();
-                this.dispatcher.syncTrainsWithRoutes(false);
-                this.refreshDiagnostics();
-                this.showToast(`已生成 ${res.edge.platformLength}m 站线`);
-                return;
-              }
-              const op = crossedPlatGroups[pIdx];
-              const oRoot = Array.from(this.platforms.getConnectedPlatformIds(op.id)).sort()[0];
-              if (oRoot && (resolvedOtherRoots.has(oRoot) || platAlreadyRoots.has(oRoot))) { promptPlatCross(pIdx + 1); return; }
-              const myZ = plat ? (plat.zLayer || 0) : 0;
-              const opZ = op.zLayer || 0;
-              if (Math.abs(myZ - opZ) >= 1e-4) { promptPlatCross(pIdx + 1); return; }
-              this.showInlinePromptAt(op.cx, op.cy, `站线穿过${this.formatGroupName(op.id)}`, crossedPlatGroups.length > 1 ? `${pIdx + 1}/${crossedPlatGroups.length}` : '', [
-                { label: '上跨', cls: 'btn-primary', onClick: () => { if (plat) this.platforms.syncGroupElevation(plat.id, Math.max(1, opZ + 1)); this.hideInlinePrompt(); promptPlatCross(pIdx + 1); } },
-                { label: '下穿', onClick: () => { if (plat) this.platforms.syncGroupElevation(plat.id, Math.min(-1, opZ - 1)); this.hideInlinePrompt(); promptPlatCross(pIdx + 1); } }
-              ]);
-            };
-            promptPlatCross(0);
-            return;
-          }
-          const cr = newCrossings[idx];
+        this.platforms.syncAllGroupLayerRelations();
+        const ordCrossings = newCrossings.filter(cr => {
           const otherEdgeId = cr.edgeA === stationEdgeId ? cr.edgeB : cr.edgeA;
           const otherEdge = this.graph.edges.get(otherEdgeId);
-          const otherPlat = (otherEdge && otherEdge.platformId) ? this.platforms.getPlatform(otherEdge.platformId) : null;
-          const myZ = plat ? (plat.zLayer || 0) : 0;
-          const otherZ = otherPlat ? (otherPlat.zLayer || 0) : 0;
+          return otherEdge && !this.platforms.getEdgeOwnerPlatform(otherEdge);
+        });
+        const promptStationCross = (idx) => {
+          if (idx >= ordCrossings.length) {
+            this.graph.rebuildCrossingIndex();
+            this.routes.rebuildAll();
+            this.dispatcher.syncTrainsWithRoutes(false);
+            this.refreshDiagnostics();
+            this.showToast(`已生成 ${res.edge.platformLength}m 站线`);
+            return;
+          }
+          const cr = ordCrossings[idx];
+          const otherEdgeId = cr.edgeA === stationEdgeId ? cr.edgeB : cr.edgeA;
           if (plat && (plat.overEdgeIds || []).includes(otherEdgeId)) {
             cr.type = 'overpass'; cr.overEdgeId = stationEdgeId; cr.underEdgeId = otherEdgeId;
             promptStationCross(idx + 1);
@@ -9188,72 +9835,26 @@
             promptStationCross(idx + 1);
             return;
           }
-          if (plat && otherPlat && (plat.overPlatIds || []).includes(otherPlat.id)) {
+          if (platAlreadyEdges.has(otherEdgeId)) {
             cr.type = 'overpass'; cr.overEdgeId = stationEdgeId; cr.underEdgeId = otherEdgeId;
             promptStationCross(idx + 1);
             return;
           }
-          if (plat && otherPlat && (plat.underPlatIds || []).includes(otherPlat.id)) {
-            cr.type = 'underpass'; cr.overEdgeId = otherEdgeId; cr.underEdgeId = stationEdgeId;
-            promptStationCross(idx + 1);
-            return;
-          }
-          const otherRoot = otherPlat ? (Array.from(this.platforms.getConnectedPlatformIds(otherPlat.id)).sort()[0] || null) : null;
-          if (myZ !== otherZ || (otherRoot && platAlreadyRoots.has(otherRoot)) || (!otherPlat && platAlreadyEdges.has(otherEdgeId))) {
-            let isOver = myZ > otherZ;
-            if (myZ === otherZ && plat) {
-              // Inherit from any existing crossing between this platform group's bound tracks and otherEdgeId
-              const gEdges = this.platforms.getGroupBoundEdgeIds(plat.id);
-              for (const exCr of this.graph.crossings.values()) {
-                if (exCr.id === cr.id) continue;
-                const touchesG = gEdges.has(exCr.edgeA) || gEdges.has(exCr.edgeB);
-                const touchesO = exCr.edgeA === otherEdgeId || exCr.edgeB === otherEdgeId;
-                if (touchesG && touchesO && (exCr.type === 'overpass' || exCr.type === 'underpass')) {
-                  isOver = gEdges.has(exCr.overEdgeId);
-                  break;
-                }
-              }
-            }
-            if (isOver) {
-              cr.type = 'overpass'; cr.overEdgeId = stationEdgeId; cr.underEdgeId = otherEdgeId;
-            } else {
-              cr.type = 'underpass'; cr.overEdgeId = otherEdgeId; cr.underEdgeId = stationEdgeId;
-            }
-            promptStationCross(idx + 1);
-            return;
-          }
           const apply = (mode) => {
-            if (otherPlat) {
-              const oRoot = Array.from(this.platforms.getConnectedPlatformIds(otherPlat.id)).sort()[0];
-              if (oRoot) resolvedOtherRoots.add(oRoot);
-            }
-            if (mode === 'level') {
-              cr.type = 'level'; cr.overEdgeId = null; cr.underEdgeId = null;
-            } else if (mode === 'over') {
+            if (mode === 'over') {
               cr.type = 'overpass'; cr.overEdgeId = stationEdgeId; cr.underEdgeId = otherEdgeId;
-              if (plat) this.platforms.syncGroupElevation(plat.id, Math.max(1, otherZ + 1));
+              if (plat) this.platforms.setGroupEdgeRelation(plat.id, otherEdgeId, 'over');
             } else {
               cr.type = 'underpass'; cr.overEdgeId = otherEdgeId; cr.underEdgeId = stationEdgeId;
-              if (plat) this.platforms.syncGroupElevation(plat.id, Math.min(-1, otherZ - 1));
+              if (plat) this.platforms.setGroupEdgeRelation(plat.id, otherEdgeId, 'under');
             }
             this.graph.rebuildCrossingIndex();
             this.hideInlinePrompt();
             promptStationCross(idx + 1);
           };
-          const remSet = new Set();
-          let remUnbound = 0;
-          for (let j = idx; j < newCrossings.length; j++) {
-            const c2 = newCrossings[j];
-            const oe2 = this.graph.edges.get(c2.edgeA === stationEdgeId ? c2.edgeB : c2.edgeA);
-            const op2 = (oe2 && oe2.platformId) ? this.platforms.getPlatform(oe2.platformId) : null;
-            if (Math.abs((plat ? (plat.zLayer || 0) : 0) - (op2 ? (op2.zLayer || 0) : 0)) >= 1e-4) continue;
-            if (op2) remSet.add(Array.from(this.platforms.getConnectedPlatformIds(op2.id)).sort()[0]);
-            else remUnbound++;
-          }
-          const remTotal = remSet.size + remUnbound;
+          const remTotal = ordCrossings.length - idx;
           const stepText = remTotal > 1 ? `剩 ${remTotal} 处` : '';
-          this.showInlinePromptAt(cr.x, cr.y, '站线交叉', stepText, [
-            ...(otherZ === 0 && !otherPlat ? [{ label: '平面相交', onClick: () => apply('level') }] : []),
+          this.showInlinePromptAt(cr.x, cr.y, `站线与 ${this.describeEdgeHuman(otherEdgeId)}`, stepText, [
             { label: '上跨', cls: 'btn-primary', onClick: () => apply('over') },
             { label: '下穿', onClick: () => apply('under') },
             {
@@ -9314,19 +9915,13 @@
         if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
           e.preventDefault();
-          if (this.mode === 'route' && this.routeDraft) {
-            if (e.shiftKey) this.redoDraft();
-            else this.undoDraft();
-          } else {
-            if (e.shiftKey) this.redo();
-            else this.undo();
-          }
+          if (e.shiftKey) this.redo();
+          else this.undo();
           return;
         }
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
           e.preventDefault();
-          if (this.mode === 'route' && this.routeDraft) this.redoDraft();
-          else this.redo();
+          this.redo();
           return;
         }
         if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !e.altKey && this.mode === 'track' && this.trackDrawStyle === 'l-bend') {
@@ -9340,6 +9935,7 @@
           this.showToast(this.trackContinuousMode ? '已开启连续绘制 (C)' : '已切换为单段绘制 (C)');
           return;
         }
+        if (this.activeInlinePrompt) return;
         if (e.key === 'Delete' || e.key === 'Backspace') {
           if (this.mode === 'route' && this.routeDraft && this.routeDraft.selectedSegIdx !== null && this.routeDraft.selectedSegIdx !== undefined) {
             e.preventDefault();
@@ -9425,6 +10021,10 @@
           return;
         }
         if (e.button !== 0) return;
+        if (this.activeInlinePrompt) {
+          this.showAlert('请先完成当前穿插/道岔选择', 'op');
+          return;
+        }
 
         if (this.pendingTrackSnap) {
           const { platformId, side } = this.pendingTrackSnap;
@@ -9446,8 +10046,7 @@
               const snappedCrossings = Array.from(this.graph.crossings.values()).filter(
                 cr => cr.edgeA === snappedEdge.id || cr.edgeB === snappedEdge.id
               );
-              // 1) First align pGroup zLayer against any unbound single-track crossings on snappedEdge
-              let wantAboveZero = false, wantBelowZero = false;
+              // Inherit ordinary-track crossings already established on snappedEdge, and sync group layers
               for (const cr of snappedCrossings) {
                 const otherEid = cr.edgeA === snappedEdge.id ? cr.edgeB : cr.edgeA;
                 const otherEd = this.graph.edges.get(otherEid);
@@ -9455,29 +10054,11 @@
                 if (!otherPl) {
                   preEdges.add(otherEid);
                   if (cr.type === 'overpass' || cr.type === 'underpass') {
-                    if (cr.overEdgeId === snappedEdge.id) wantAboveZero = true;
-                    else if (cr.underEdgeId === snappedEdge.id) wantBelowZero = true;
+                    this.platforms.setGroupEdgeRelation(pGroup.id, otherEid, cr.overEdgeId === snappedEdge.id ? 'over' : 'under');
                   }
                 }
               }
-              if (wantAboveZero && (pGroup.zLayer || 0) <= 0) {
-                this.platforms.syncGroupElevation(pGroup.id, 1);
-              } else if (wantBelowZero && !wantAboveZero && (pGroup.zLayer || 0) >= 0) {
-                this.platforms.syncGroupElevation(pGroup.id, -1);
-              }
-              // 2) Then align any crossed station groups relative to pGroup's zLayer
-              for (const cr of snappedCrossings) {
-                const otherEid = cr.edgeA === snappedEdge.id ? cr.edgeB : cr.edgeA;
-                const otherEd = this.graph.edges.get(otherEid);
-                const otherPl = otherEd ? this.platforms.getEdgeOwnerPlatform(otherEd) : null;
-                if (otherPl) {
-                  const oRoot = Array.from(this.platforms.getConnectedPlatformIds(otherPl.id)).sort()[0];
-                  if (oRoot) preRoots.add(oRoot);
-                  if (cr.type === 'overpass' || cr.type === 'underpass') {
-                    this.platforms.setGroupPlatRelation(pGroup.id, otherPl.id, cr.overEdgeId === snappedEdge.id ? 'over' : 'under');
-                  }
-                }
-              }
+              this.platforms.syncAllGroupLayerRelations();
               // Any platform body that snappedEdge already passes through was already judged when snappedEdge was placed
               const myGroupIdsForSnap = this.platforms.getConnectedPlatformIds(pGroup.id);
               for (const pl of this.platforms.platforms.values()) {
@@ -9585,33 +10166,6 @@
           const hitNode = this.graph.findNodeAt(w.x, w.y, 14 / this.cam.zoom);
           if (hitNode && (!hitNode.isStationEnd || this.graph.classifyNode(hitNode.id) === 'switch')) {
             this.selectedEntity = { type: 'node', id: hitNode.id };
-            if (!hitNode.isStationEnd) {
-              const incOrig = this.graph.getIncidentEdges(hitNode.id).map(ed => {
-                const otherId = ed.from === hitNode.id ? ed.to : ed.from;
-                const on = this.graph.getNode(otherId);
-                const len = on ? dist(hitNode.x, hitNode.y, on.x, on.y) : 0;
-                const dDrag = (on && len > 1e-4) ? { x: (on.x - hitNode.x) / len, y: (on.y - hitNode.y) / len } : null;
-                return {
-                  movedId: hitNode.id,
-                  otherId,
-                  bendStyle: 'l-bend',
-                  flipL: !!ed.flipL,
-                  origDirFromDrag: dDrag,
-                  origDirFromOther: dDrag ? { x: -dDrag.x, y: -dDrag.y } : null
-                };
-              });
-              this.draggingEntity = {
-                type: 'node',
-                id: hitNode.id,
-                lastX: hitNode.x,
-                lastY: hitNode.y,
-                baseSnap: this.captureSnapshot(),
-                origIncident: incOrig,
-                pushed: false
-              };
-            } else {
-              this.draggingEntity = null;
-            }
             this.renderSubbar();
             return;
           }
@@ -9619,63 +10173,11 @@
           const hitPlat = this.platforms.findPlatformAt(w.x, w.y, prefPlatId);
           if (hitPlat) {
             this.selectedEntity = { type: 'platform', id: hitPlat.id };
-            // Collect all station-track nodes belonging to this platform group and their external incident edges
-            const groupNodeIds = new Set();
-            const visP = new Set([hitPlat.id]);
-            const qP = [hitPlat];
-            while (qP.length > 0) {
-              const curP = qP.shift();
-              [-1, 1].forEach(sd => {
-                const info = curP.sides[String(sd)];
-                if (info.type === 'platform' && info.refId && !visP.has(info.refId)) {
-                  const sib = this.platforms.getPlatform(info.refId);
-                  if (sib) { visP.add(sib.id); qP.push(sib); }
-                } else if (info.type === 'track' && info.refId) {
-                  const ed = this.graph.edges.get(info.refId);
-                  if (ed) { groupNodeIds.add(ed.from); groupNodeIds.add(ed.to); }
-                }
-              });
-            }
-            const platIncOrig = [];
-            for (const nid of groupNodeIds) {
-              const mn = this.graph.getNode(nid);
-              if (!mn) continue;
-              for (const ed of this.graph.getIncidentEdges(nid)) {
-                if (ed.isStationTrack) continue;
-                const otherId = ed.from === nid ? ed.to : ed.from;
-                if (groupNodeIds.has(otherId)) continue;
-                const on = this.graph.getNode(otherId);
-                const len = on ? dist(mn.x, mn.y, on.x, on.y) : 0;
-                const dDrag = (on && len > 1e-4) ? { x: (on.x - mn.x) / len, y: (on.y - mn.y) / len } : null;
-                platIncOrig.push({
-                  movedId: nid,
-                  otherId,
-                  bendStyle: 'l-bend',
-                  flipL: !!ed.flipL,
-                  origDirFromDrag: dDrag,
-                  origDirFromOther: dDrag ? { x: -dDrag.x, y: -dDrag.y } : null
-                });
-              }
-            }
-            const startGX = snapToGrid(w.x), startGY = snapToGrid(w.y);
-            this.draggingEntity = {
-              type: 'platform',
-              id: hitPlat.id,
-              startX: startGX,
-              startY: startGY,
-              lastX: startGX,
-              lastY: startGY,
-              baseSnap: this.captureSnapshot(),
-              groupNodeIds: Array.from(groupNodeIds),
-              origIncident: platIncOrig,
-              pushed: false
-            };
             this.renderSubbar();
             return;
           }
           if (hitNode) {
             this.selectedEntity = { type: 'node', id: hitNode.id };
-            this.draggingEntity = null;
             this.renderSubbar();
             return;
           }
@@ -9691,12 +10193,20 @@
         }
 
         if (this.mode === 'platform') {
+          const px = snapToGrid(w.x), py = snapToGrid(w.y);
+          const pRad = (this.platformConfig.angleDeg * Math.PI) / 180;
+          const pZ = Number(this.platformConfig.zLayer) || 0;
+          const sameLayerHit = this.platforms.findSameLayerOverlappingPlatform(px, py, this.platformConfig.length, pRad, pZ);
+          if (sameLayerHit) {
+            this.showToast(`同层不可与「${sameLayerHit.name}」重叠，请更换位置或修改「层」数`);
+            return;
+          }
           const beforeSnap = this.captureSnapshot();
           this.pushHistory('放置站台');
-          const p = this.platforms.addPlatform(snapToGrid(w.x), snapToGrid(w.y), this.platformConfig.length, this.platformConfig.angleDeg, this.platformConfig.name);
+          const p = this.platforms.addPlatform(snapToGrid(w.x), snapToGrid(w.y), this.platformConfig.length, this.platformConfig.angleDeg, this.platformConfig.name, this.platformConfig.zLayer);
           this.platformConfig.name = '';
           this.renderSubbar();
-          this.showToast(`已放置「${p.name}」(${p.length}m)`);
+          this.showToast(p.name ? `已放置「${p.name}」` : '已放置站台');
           this.promptPlatformOverlap(p, beforeSnap, '取消');
         } else if (this.mode === 'track') {
           const gx = snapToGrid(w.x);
@@ -9797,104 +10307,6 @@
         const w = this.screenToWorld(sx, sy);
         this.mouseWorld = w;
 
-        if (this.draggingEntity) {
-          const gx = snapToGrid(w.x);
-          const gy = snapToGrid(w.y);
-          const dx = gx - this.draggingEntity.lastX;
-          const dy = gy - this.draggingEntity.lastY;
-          if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
-            if (this.draggingEntity.type === 'node') {
-              // Rule 4: forbid dropping/dragging a node directly onto another existing node's coordinates
-              const snapNodes = this.draggingEntity.baseSnap.graph.nodes;
-              const collidesOther = snapNodes.some(n => n.id !== this.draggingEntity.id && !n.isImplicit && dist(n.x, n.y, gx, gy) < 4);
-              if (collidesOther) return;
-              // Forbid dragging a switch node (>=3 incident edges) onto/under an overpass bridge
-              if ((this.draggingEntity.origIncident || []).length >= 3 && this.graph.findBridgeNear(gx, gy, 20)) return;
-              if (!this.draggingEntity.pushed) {
-                this.undoStack.push({ label: '移动节点', data: this.draggingEntity.baseSnap });
-                if (this.undoStack.length > 50) this.undoStack.shift();
-                this.redoStack = [];
-                this.updateHistoryButtons();
-                this.draggingEntity.pushed = true;
-              }
-              const snap = this.draggingEntity.baseSnap;
-              this.graph.clear();
-              this.graph.nextNodeId = snap.graph.nextNodeId;
-              this.graph.nextEdgeId = snap.graph.nextEdgeId;
-              this.graph.nextCrossingId = snap.graph.nextCrossingId || 1;
-              for (const n of snap.graph.nodes) {
-                this.graph.nodes.set(n.id, { ...n, isSwitch: n.isSwitch !== undefined ? !!n.isSwitch : true, lockedBy: null });
-              }
-              for (const ed of snap.graph.edges) {
-                this.graph.edges.set(ed.id, { ...ed, lockedBy: null });
-              }
-              for (const c of (snap.graph.crossings || [])) {
-                this.graph.crossings.set(c.id, { ...c });
-              }
-              for (const rSnap of snap.routes.items) {
-                const rt = this.routes.routes.get(rSnap.id);
-                if (rt) {
-                  rt.nodeIds = [...rSnap.nodeIds];
-                  rt.turnbackIndices = new Set(rSnap.turnbackIndices);
-                }
-              }
-
-              const dragNode = this.graph.getNode(this.draggingEntity.id);
-              if (dragNode) {
-                this.graph.updateNodePosition(dragNode.id, gx, gy);
-                this.reconnectMovedNodesOctilinear([dragNode.id], this.draggingEntity.origIncident);
-              }
-              this.graph.syncAllCrossings('overpass');
-              this.routes.rebuildAll();
-            } else if (this.draggingEntity.type === 'platform') {
-              if (!this.draggingEntity.pushed) {
-                this.undoStack.push({ label: '移动站台', data: this.draggingEntity.baseSnap });
-                if (this.undoStack.length > 50) this.undoStack.shift();
-                this.redoStack = [];
-                this.updateHistoryButtons();
-                this.draggingEntity.pushed = true;
-              }
-              const snap = this.draggingEntity.baseSnap;
-              const totalDx = gx - this.draggingEntity.startX;
-              const totalDy = gy - this.draggingEntity.startY;
-              this.graph.clear();
-              this.graph.nextNodeId = snap.graph.nextNodeId;
-              this.graph.nextEdgeId = snap.graph.nextEdgeId;
-              this.graph.nextCrossingId = snap.graph.nextCrossingId || 1;
-              for (const n of snap.graph.nodes) {
-                this.graph.nodes.set(n.id, { ...n, isSwitch: n.isSwitch !== undefined ? !!n.isSwitch : true, lockedBy: null });
-              }
-              for (const ed of snap.graph.edges) {
-                this.graph.edges.set(ed.id, { ...ed, lockedBy: null });
-              }
-              for (const c of (snap.graph.crossings || [])) {
-                this.graph.crossings.set(c.id, { ...c });
-              }
-              this.platforms.clear();
-              this.platforms.nextId = snap.platforms.nextId;
-              for (const pl of snap.platforms.items) {
-                this.platforms.platforms.set(pl.id, {
-                  ...pl,
-                  sides: { '-1': { ...pl.sides['-1'] }, '1': { ...pl.sides['1'] } }
-                });
-              }
-              for (const rSnap of snap.routes.items) {
-                const rt = this.routes.routes.get(rSnap.id);
-                if (rt) {
-                  rt.nodeIds = [...rSnap.nodeIds];
-                  rt.turnbackIndices = new Set(rSnap.turnbackIndices);
-                }
-              }
-              this.platforms.movePlatformGroup(this.draggingEntity.id, totalDx, totalDy);
-              this.reconnectMovedNodesOctilinear(this.draggingEntity.groupNodeIds || [], this.draggingEntity.origIncident || []);
-              this.graph.syncAllCrossings('overpass');
-              this.routes.rebuildAll();
-            }
-            this.draggingEntity.lastX = gx;
-            this.draggingEntity.lastY = gy;
-          }
-          return;
-        }
         if (this.pendingTrackSnap) {
           const plat = this.platforms.getPlatform(this.pendingTrackSnap.platformId);
           const hit = this.graph.findEdgeAt(w.x, w.y, 18 / this.cam.zoom);
@@ -9917,312 +10329,6 @@
       });
 
       window.addEventListener('mouseup', () => {
-        if (this.draggingEntity) {
-          const moved = this.draggingEntity.pushed;
-          const wasNode = this.draggingEntity.type === 'node';
-          const wasPlatId = this.draggingEntity.type === 'platform' ? this.draggingEntity.id : null;
-          const wasNodeOrPlat = wasNode || Boolean(wasPlatId);
-          const dragBaseSnap = this.draggingEntity.baseSnap || null;
-          const dropNodeObj = wasNode ? this.graph.getNode(this.draggingEntity.id) : null;
-          const dropPos = dropNodeObj ? { x: dropNodeObj.x, y: dropNodeObj.y } : null;
-          this.draggingEntity = null;
-          if (moved) {
-            // Collect crossing pairs that already existed BEFORE this drag (by spatial proximity) so we only prompt truly NEW crossings
-            const baseCrossPts = (dragBaseSnap && dragBaseSnap.graph && dragBaseSnap.graph.crossings)
-              ? dragBaseSnap.graph.crossings.map(c => ({ x: c.x, y: c.y, edgeA: c.edgeA, edgeB: c.edgeB }))
-              : [];
-            if (wasNodeOrPlat) this.cleanupAndRenumberGraph();
-            const addedFromSync = this.graph.syncAllCrossings('overpass') || [];
-            // Deduplicate new crossings (e.g. two bendNodeId entries at the exact same bridge) & exclude any crossing already near a pre-drag crossing
-            const newBridgeQueue = [];
-            const seenNewKeys = new Set();
-            for (const cr of this.graph.crossings.values()) {
-              const wasInBase = baseCrossPts.some(bc =>
-                (bc.edgeA === cr.edgeA && bc.edgeB === cr.edgeB) ||
-                (bc.edgeA === cr.edgeB && bc.edgeB === cr.edgeA) ||
-                dist(bc.x, bc.y, cr.x, cr.y) < 18
-              );
-              if (wasInBase && !addedFromSync.includes(cr)) continue;
-              if (wasInBase) continue;
-              const dedupK = cr.bendNodeId ? ('B|' + cr.bendNodeId) : ('C|' + Math.round(cr.x) + ',' + Math.round(cr.y));
-              if (seenNewKeys.has(dedupK)) continue;
-              seenNewKeys.add(dedupK);
-              newBridgeQueue.push(cr);
-            }
-            this.routes.rebuildAll();
-            this.dispatcher.syncTrainsWithRoutes(false);
-            this.renderSubbar();
-            this.renderLineTree();
-            this.refreshDiagnostics();
-
-            const runSwitchDropPrompt = () => {
-            if (wasNode && dropPos) {
-              const droppedNode = this.graph.findNodeAt(dropPos.x, dropPos.y, 3);
-              if (droppedNode && !droppedNode.isStationEnd) {
-                let targetEdge = null;
-                for (const ed of this.graph.edges.values()) {
-                  if (ed.isStationTrack) continue;
-                  if (ed.from === droppedNode.id || ed.to === droppedNode.id) continue;
-                  const u = this.graph.getNode(ed.from), v = this.graph.getNode(ed.to);
-                  if (!u || !v) continue;
-                  const proj = pointToSegmentDist(droppedNode.x, droppedNode.y, u.x, u.y, v.x, v.y);
-                  if (proj.dist < 6 && proj.t > 0.01 && proj.t < 0.99) {
-                    targetEdge = ed;
-                    break;
-                  }
-                }
-                if (targetEdge) {
-                  if (this.graph.findBridgeNear(droppedNode.x, droppedNode.y, 20)) {
-                    this.showToast('禁止在立交桥上下方开设道岔');
-                  } else {
-                    const u = this.graph.getNode(targetEdge.from), v = this.graph.getNode(targetEdge.to);
-                    const angles = [];
-                    const pushAng = (tx, ty) => {
-                      const ang = ((Math.atan2(ty - droppedNode.y, tx - droppedNode.x) * 180) / Math.PI + 360) % 360;
-                      if (!angles.some(a => Math.min(Math.abs(a - ang), 360 - Math.abs(a - ang)) < 2.5)) angles.push(ang);
-                    };
-                    if (u) pushAng(u.x, u.y);
-                    if (v) pushAng(v.x, v.y);
-                    for (const incE of this.graph.getIncidentEdges(droppedNode.id)) {
-                      const oId = incE.from === droppedNode.id ? incE.to : incE.from;
-                      const on = this.graph.getNode(oId);
-                      if (on) pushAng(on.x, on.y);
-                    }
-                    if (this.graph.isSwitchAngles(angles)) {
-                      const dropId = droppedNode.id;
-                      const edgeId = targetEdge.id;
-                      this.showInlinePromptAt(droppedNode.x, droppedNode.y, `节点 ${dropId} 落于轨道`, '是否开设道岔？', [
-                        {
-                          label: '开设道岔',
-                          cls: 'btn-primary',
-                          onClick: () => {
-                            const edNow = this.graph.edges.get(edgeId);
-                            const dnNow = this.graph.getNode(dropId);
-                            if (edNow && dnNow) {
-                              this.pushHistory('拖点落线开设道岔');
-                              const oldFrom = edNow.from, oldTo = edNow.to;
-                              const aN = this.graph.getNode(oldFrom), bN = this.graph.getNode(oldTo);
-                              this.graph.edges.delete(edgeId);
-                              const e1 = this.graph.addEdge(oldFrom, dropId);
-                              const e2 = this.graph.addEdge(dropId, oldTo);
-                              for (const cr of this.graph.crossings.values()) {
-                                if (cr.edgeA === edgeId || cr.edgeB === edgeId) {
-                                  const oId = cr.edgeA === edgeId ? cr.edgeB : cr.edgeA;
-                                  const oe = this.graph.edges.get(oId);
-                                  if (!oe || !aN || !bN) continue;
-                                  const oa = this.graph.getNode(oe.from), ob = this.graph.getNode(oe.to);
-                                  if (!oa || !ob) continue;
-                                  const hit1 = segmentInteriorIntersection(aN.x, aN.y, dnNow.x, dnNow.y, oa.x, oa.y, ob.x, ob.y);
-                                  const tid = hit1 ? e1.id : e2.id;
-                                  if (cr.edgeA === edgeId) cr.edgeA = tid;
-                                  if (cr.edgeB === edgeId) cr.edgeB = tid;
-                                  if (cr.overEdgeId === edgeId) cr.overEdgeId = tid;
-                                  if (cr.underEdgeId === edgeId) cr.underEdgeId = tid;
-                                }
-                              }
-                              this.graph.rebuildCrossingIndex();
-                              dnNow.isSwitch = true;
-                              this.routes.handleEdgeSplit(oldFrom, oldTo, dropId);
-                              this.graph.syncAllCrossings('overpass');
-                              this.routes.rebuildAll();
-                              this.dispatcher.syncTrainsWithRoutes(false);
-                              this.renderSubbar();
-                              this.renderLineTree();
-                              this.refreshDiagnostics();
-                              this.showToast(`已在 ${dropId} 开设道岔`);
-                            }
-                            this.hideInlinePrompt();
-                          }
-                        },
-                        {
-                          label: '保持断头路',
-                          onClick: () => {
-                            this.hideInlinePrompt();
-                            this.showToast(`节点 ${dropId} 保持断头路（未接入轨道）`);
-                          }
-                        }
-                      ]);
-                    } else {
-                      this.showToast(`当前角度无法与轨道 ${targetEdge.id} 形成有效道岔（需 135° 单开/Y型道岔）`);
-                    }
-                  }
-                }
-              }
-            }
-            }; // end runSwitchDropPrompt
-
-            newBridgeQueue.sort((a, b) => {
-              const aEdA = this.graph.edges.get(a.edgeA), aEdB = this.graph.edges.get(a.edgeB);
-              const bEdA = this.graph.edges.get(b.edgeA), bEdB = this.graph.edges.get(b.edgeB);
-              const aGrp = ((aEdA && aEdA.platformId) || (aEdB && aEdB.platformId)) ? 0 : 1;
-              const bGrp = ((bEdA && bEdA.platformId) || (bEdB && bEdB.platformId)) ? 0 : 1;
-              return aGrp - bGrp;
-            });
-            // Prompt user sequentially for each genuinely NEW crossing created by the drag (deduplicating station groups!)
-            const resolvedDragGroupChoices = new Map();
-            const getEdgeGroupRoot = (eid) => {
-              const ed = this.graph.edges.get(eid);
-              if (!ed || !ed.platformId) return null;
-              return Array.from(this.platforms.getConnectedPlatformIds(ed.platformId)).sort()[0] || null;
-            };
-            const movedEdgeSet = new Set();
-            if (dragBaseSnap && dragBaseSnap.graph && dragBaseSnap.graph.nodes) {
-              const oldNodePos = new Map(dragBaseSnap.graph.nodes.map(n => [n.id, n]));
-              for (const ed of this.graph.edges.values()) {
-                const na = this.graph.getNode(ed.from), nb = this.graph.getNode(ed.to);
-                const oa = oldNodePos.get(ed.from), ob = oldNodePos.get(ed.to);
-                if (!oa || !ob || !na || !nb || Math.hypot(na.x - oa.x, na.y - oa.y) > 1 || Math.hypot(nb.x - ob.x, nb.y - ob.y) > 1) {
-                  movedEdgeSet.add(ed.id);
-                }
-              }
-            }
-            const promptNewCrossings = (idx) => {
-              if (idx >= newBridgeQueue.length) {
-                if (wasPlatId) {
-                  const movedPlat = this.platforms.getPlatform(wasPlatId);
-                  this.promptPlatformOverlap(movedPlat, dragBaseSnap, '取消');
-                } else {
-                  const resolvedRootsFromCrossings = new Set();
-                  for (const pk of resolvedDragGroupChoices.keys()) {
-                    const [k1, k2] = pk.split('|');
-                    if (k1) resolvedRootsFromCrossings.add(k1);
-                    if (k2) resolvedRootsFromCrossings.add(k2);
-                  }
-                  const dragCrossedPlats = [];
-                  const seenDragRoots = new Set();
-                  for (const pl of this.platforms.platforms.values()) {
-                    const gIds = this.platforms.getConnectedPlatformIds(pl.id);
-                    const root = Array.from(gIds).sort()[0];
-                    if (resolvedRootsFromCrossings.has(root) || seenDragRoots.has(root)) continue;
-                    const ov = this.platforms.findPlatformOverlaps(pl);
-                    if (ov.edges.some(ed => movedEdgeSet.has(ed.id))) {
-                      seenDragRoots.add(root);
-                      dragCrossedPlats.push(pl);
-                    }
-                  }
-                  const promptDragPlatOverlaps = (pIdx) => {
-                    if (pIdx >= dragCrossedPlats.length) { runSwitchDropPrompt(); return; }
-                    const pl = dragCrossedPlats[pIdx];
-                    const rem = dragCrossedPlats.length - pIdx;
-                    this.showInlinePromptAt(pl.cx, pl.cy, `轨道穿过${this.formatGroupName(pl.id)}`, rem > 1 ? `剩 ${rem} 处` : '', [
-                      {
-                        label: '轨道上跨',
-                        cls: 'btn-primary',
-                        onClick: () => {
-                          for (const eid of movedEdgeSet) {
-                            if (this.platforms.findPlatformOverlaps(pl).edges.some(ed => ed.id === eid)) {
-                              this.platforms.setGroupEdgeRelation(pl.id, eid, 'under');
-                            }
-                          }
-                          this.hideInlinePrompt();
-                          promptDragPlatOverlaps(pIdx + 1);
-                        }
-                      },
-                      {
-                        label: '轨道下穿',
-                        onClick: () => {
-                          for (const eid of movedEdgeSet) {
-                            if (this.platforms.findPlatformOverlaps(pl).edges.some(ed => ed.id === eid)) {
-                              this.platforms.setGroupEdgeRelation(pl.id, eid, 'over');
-                            }
-                          }
-                          this.hideInlinePrompt();
-                          promptDragPlatOverlaps(pIdx + 1);
-                        }
-                      }
-                    ]);
-                  };
-                  promptDragPlatOverlaps(0);
-                }
-                return;
-              }
-              const cr = newBridgeQueue[idx];
-              if (!this.graph.crossings.has(cr.id)) {
-                promptNewCrossings(idx + 1);
-                return;
-              }
-              const applyChoice = (mode, silent = false) => {
-                // Apply to cr AND any sibling crossing sharing the exact same bendNodeId
-                const targets = cr.bendNodeId
-                  ? Array.from(this.graph.crossings.values()).filter(x => x.bendNodeId === cr.bendNodeId)
-                  : [cr];
-                for (const t of targets) {
-                  if (mode === 'level') {
-                    t.type = 'level'; t.overEdgeId = null; t.underEdgeId = null;
-                  } else if (mode === 'overA') {
-                    t.type = 'overpass'; t.overEdgeId = t.edgeA; t.underEdgeId = t.edgeB;
-                  } else if (mode === 'overB') {
-                    t.type = 'underpass'; t.overEdgeId = t.edgeB; t.underEdgeId = t.edgeA;
-                  }
-                  this.syncPlatformsForCrossing(t);
-                }
-                this.graph.rebuildCrossingIndex();
-                if (!silent) this.hideInlinePrompt();
-                promptNewCrossings(idx + 1);
-              };
-              const rA = getEdgeGroupRoot(cr.edgeA);
-              const rB = getEdgeGroupRoot(cr.edgeB);
-              const pairKey = (rA || cr.edgeA) + '|' + (rB || cr.edgeB);
-              if ((rA || rB) && resolvedDragGroupChoices.has(pairKey)) {
-                applyChoice(resolvedDragGroupChoices.get(pairKey), true);
-                return;
-              }
-              const origApplyChoice = applyChoice;
-              const wrappedApply = (mode) => {
-                if ((rA || rB) && mode !== 'level') resolvedDragGroupChoices.set(pairKey, mode);
-                origApplyChoice(mode, false);
-              };
-              const { labelA, labelB } = this.getCrossingEdgeLabels(cr.edgeA, cr.edgeB, movedEdgeSet);
-              const stepText = newBridgeQueue.length > 1 ? `${idx + 1}/${newBridgeQueue.length}` : '';
-              this.showInlinePromptAt(cr.x, cr.y, (rA || rB) ? `交叉${this.formatGroupName(this.graph.edges.get(rA ? cr.edgeA : cr.edgeB).platformId)}` : '轨道交叉', stepText, [
-                ...(!(rA || rB) ? [{ label: '平面相交', onClick: () => wrappedApply('level') }] : []),
-                { label: `${labelA} 上跨`, hoverEdgeId: cr.edgeA, cls: 'btn-primary', onClick: () => wrappedApply('overA') },
-                { label: `${labelB} 上跨`, hoverEdgeId: cr.edgeB, onClick: () => wrappedApply('overB') },
-                {
-                  label: '取消',
-                  cls: 'btn-danger',
-                  onClick: () => {
-                    this.hideInlinePrompt();
-                    if (dragBaseSnap) {
-                      if (this.undoStack.length > 0) this.undoStack.pop();
-                      this.restoreSnapshot(dragBaseSnap, false);
-                      this.updateHistoryButtons();
-                      this.refreshDiagnostics();
-                      this.showToast('已取消拖动');
-                    }
-                  }
-                }
-              ]);
-            };
-
-            // If dragging a platform group, resolve ALL platform overlaps FIRST (syncing station-track crossings automatically!),
-            // then only prompt any remaining track-vs-track crossings not already separated by zLayer!
-            const runRemainingCrossings = () => {
-              const filteredQueue = newBridgeQueue.filter(cr => {
-                const live = this.graph.crossings.get(cr.id);
-                if (!live) return false;
-                const eA = this.graph.edges.get(live.edgeA);
-                const eB = this.graph.edges.get(live.edgeB);
-                const pA = eA && eA.platformId ? this.platforms.getPlatform(eA.platformId) : null;
-                const pB = eB && eB.platformId ? this.platforms.getPlatform(eB.platformId) : null;
-                const zA = pA ? (pA.zLayer || 0) : 0;
-                const zB = pB ? (pB.zLayer || 0) : 0;
-                return zA === zB;
-              });
-              newBridgeQueue.length = 0;
-              newBridgeQueue.push(...filteredQueue);
-              if (newBridgeQueue.length > 0) promptNewCrossings(0);
-            };
-            if (wasPlatId) {
-              const movedPlat = this.platforms.getPlatform(wasPlatId);
-              this.promptPlatformOverlap(movedPlat, dragBaseSnap, '取消拖动', runRemainingCrossings);
-            } else if (newBridgeQueue.length > 0) {
-              promptNewCrossings(0);
-            } else {
-              runSwitchDropPrompt();
-            }
-          }
-        }
         if (this.isPanning) {
           this.isPanning = false;
           this.canvas.style.cursor = this.spaceDown ? 'grab' : (this.mode === 'simulate' ? 'default' : 'crosshair');
